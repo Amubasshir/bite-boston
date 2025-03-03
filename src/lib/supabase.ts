@@ -18,3 +18,20 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
     detectSessionInUrl: true,
   },
 });
+
+export const sendDealConfirmationEmail = async (emailData: {
+  userEmail: string;
+  userName: string;
+  restaurantName: string;
+  dealTitle: string;
+  confirmationId: string;
+  expiryDate: Date;
+  dealDescription: string;
+}) => {
+  const { data, error } = await supabase.functions.invoke('send-deal-email', {
+    body: emailData,
+  });
+
+  if (error) throw error;
+  return data;
+};

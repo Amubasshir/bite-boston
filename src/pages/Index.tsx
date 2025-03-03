@@ -124,55 +124,30 @@ const Index = () => {
 
       if (dbError) throw dbError;
 
-      // Send email with proper error handling
-      // Updated email sending with proper Resend configuration
-      // console.log(import.meta.env.VITE_RESEND_API_KEY, "import.meta.env.VITE_RESEND_API_KEY")
-      const resend = new Resend(import.meta.env.VITE_RESEND_API_KEY);
-      // const emailData = {
-      //   from: 'Playful Bites Boston <onboarding@resend.dev>',
-      //   to: [user.email],
-      //   replyTo: 'support@playfulbitesboston.com',
-      //   subject: `Your Deal Confirmation - ${restaurantData.dealData.dealTitle}`,
-      //   react: restaurantData.dealData.description, // Ensure correct format for email content
-      //   tags: [{ name: 'deal_claim', value: restaurantData.dealData.confirmationId }],
-      // };
-
-      // const response = await axios.post('https://api.resend.com/emails', emailData, {
-      //   headers: {
-      //     Authorization: `Bearer ${import.meta.env.VITE_RESEND_API_KEY}`,
-      //     'Content-Type': 'application/json',
-      //   },
-      // });
-      // console.log(response, "response")
-      const { data, error: emailError } = await resend.emails.send({
-        from: 'Playful Bites Boston <onboarding@resend.dev>', // Use verified domain
-        to: [user.email],
-        replyTo: 'support@playfulbitesboston.com',
-        subject: `Your Deal Confirmation - ${restaurantData.dealData.dealTitle}`,
-        react: DealClaimEmail({
-          userName: userName,
-          restaurantName: restaurantData.name,
-          dealTitle: restaurantData.dealData.dealTitle,
-          confirmationId: restaurantData.dealData.confirmationId,
-          expiryDate: restaurantData.dealData.expiry_date,
-          dealDescription: restaurantData.dealData.description,
-        }),
-        tags: [
-          {
-            name: 'deal_claim',
-            value: restaurantData.dealData.confirmationId,
-          },
-        ],
-      });
-
-      if (emailError) {
-        console.error('Email sending failed:', emailError);
-        toast.warning('Deal claimed but email delivery failed. Please check your account.');
-      } else {
-        toast.success(`Deal claimed! Confirmation sent to ${user.email}`);
-        console.log('Email sent successfully, ID:', data?.id);
-      }
-
+         // Replace the Resend email sending with API call
+         try {
+          const { data: emailData, error: emailError } = await supabase.functions.invoke('send-deal-email', {
+            body: {
+              userEmail: user.email,
+              userName: user.user_metadata?.full_name || 'Valued Customer',
+              restaurantName: restaurantData.name,
+              dealTitle: restaurantData.dealData.dealTitle,
+              confirmationId: restaurantData.dealData.confirmationId,
+              expiryDate: restaurantData.dealData.expiry_date,
+              dealDescription: restaurantData.dealData.description
+            },
+          });
+    
+          if (emailError) {
+            throw emailError;
+          }
+    
+          toast.success(`Deal claimed! Confirmation sent to ${user.email}`);
+        } catch (emailError) {
+          console.error('Email sending failed:', emailError);
+          toast.warning('Deal claimed but email delivery failed. Please check your account.');
+        }
+    
     } catch (error) {
       console.error('Error claiming deal:', error);
       toast.error('Failed to claim deal. Please try again.');

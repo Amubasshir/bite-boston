@@ -19,7 +19,7 @@ export async function sendConfirmationEmail({
     const { data: secretData, error: secretError } = await supabase
       .from('secrets')
       .select('value')
-      .eq('name', 'RESEND_API_KEY')
+      .eq('name', 'VITE_SUPABASE_RESEND_API_KEY_LATTEST')
       .maybeSingle();
 
     if (secretError) {
