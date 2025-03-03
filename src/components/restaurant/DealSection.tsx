@@ -34,6 +34,16 @@ interface DealSectionProps {
   };
 }
 
+interface ClaimData {
+  restaurant_name: string;
+  restaurant_id: string;
+  deal_title: string;
+  deal_description: string;
+  confirmationId: string;
+  expiry_date: Date;
+  claimed_at: Date;
+}
+
 export function DealSection({ deals, duration, restaurant }: DealSectionProps) {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [currentDealIndex, setCurrentDealIndex] = useState(0);
@@ -55,7 +65,7 @@ export function DealSection({ deals, duration, restaurant }: DealSectionProps) {
     },
   };
 
-  const handleDealClaim = async (restaurantData: any) => {
+  const handleDealClaim = async (restaurantData: ClaimData) => {
     try {
       if (!user) {
         toast.error('Please login to claim deals');
@@ -173,6 +183,10 @@ export function DealSection({ deals, duration, restaurant }: DealSectionProps) {
 
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-bold text-primary">Special Deal</h2>
+          <Badge className="bg-primary text-white font-bold px-3 py-1 rounded-full shadow-md">
+            Savings: {currentDeal.potentialSavings.average} -{' '}
+            {currentDeal.potentialSavings.upTo}
+          </Badge>
         </div>
 
         <div className="relative">
@@ -183,20 +197,6 @@ export function DealSection({ deals, duration, restaurant }: DealSectionProps) {
           >
             <h3 className="font-semibold mb-4">{currentDeal.dealTitle}</h3>
             <p className="text-gray-700 mb-6">{currentDeal.dealDescription}</p>
-
-            <div className="bg-white/50 rounded-lg p-4 mb-6">
-              <h4 className="font-semibold mb-2">Potential Savings</h4>
-              <div className="space-y-1">
-                <div className="flex justify-between">
-                  <span>Average</span>
-                  <span>{currentDeal.potentialSavings.average}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Up to</span>
-                  <span>{currentDeal.potentialSavings.upTo}</span>
-                </div>
-              </div>
-            </div>
 
             <Button
               className="w-full"
