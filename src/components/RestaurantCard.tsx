@@ -32,7 +32,7 @@ interface RestaurantCardProps {
   cuisine: string;
   dealText: string;
   dealDescription: string;
-  duration: string;
+
   neighborhood: string;
   deals: Array<{
     dealTitle: string;
