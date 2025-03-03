@@ -6,13 +6,17 @@ interface SendConfirmationEmailProps {
   name: string;
   confirmationId: string;
   dealTitle: string;
+  restaurant_name: string;
+  expiry_date: Date;
 }
 
 export async function sendConfirmationEmail({ 
   to, 
-  name, 
-  confirmationId, 
-  dealTitle 
+  name,
+  confirmationId,
+  dealTitle,
+  restaurant_name,
+  expiry_date
 }: SendConfirmationEmailProps) {
   try {
     // Fetch the API key using maybeSingle() to handle the case where it might not exist
@@ -40,16 +44,26 @@ export async function sendConfirmationEmail({
       body: JSON.stringify({
         from: 'TasteTrail <deals@tastetrail.com>',
         to: [to],
-        subject: 'Your TasteTrail Deal Confirmation',
+        subject: '🎉 Congrats! You Just Claimed a Deal! 🎉',
         html: `
-          <h1>Deal Confirmation</h1>
-          <p>Hi ${name},</p>
-          <p>Thank you for claiming the deal: <strong>${dealTitle}</strong></p>
-          <p>Your confirmation ID is: <strong>${confirmationId}</strong></p>
-          <p>Please keep this ID for your records and show it at the restaurant.</p>
-          <br/>
-          <p>Enjoy your meal!</p>
-          <p>- The TasteTrail Team</p>
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; line-height: 1.6;">
+            <p>Hey ${name},</p>
+            <p>Wohoo! You're all set to redeem your exclusive deal! 🎊 Here are the details:</p>
+            
+            <p>📍 Restaurant: ${restaurant_name}</p>
+            <p>💳 Your Deal: ${dealTitle}</p>
+            <p>📅 Valid Until: ${new Date(expiry_date).toLocaleDateString()}</p>
+
+            <p>How to Redeem:</p>
+            <p>✅ Check-in & Inform the restaurant staff that you're claiming a TasteTrail deal.</p>
+            <p>✅ Enjoy Your Meal – dig in and savor every bite! 🍽️</p>
+            <p>✅ Show Your Confirmation Email to the server when requesting the check.</p>
+            <p>✅ Pay Directly with the restaurant—deal will be applied, no hassle!</p>
+
+            <p>📌 Need Help? If you have any questions, reply to this email</p>
+            <p>Bon appétit & may your tummies be full! 😋</p>
+            <p>- The TasteTrail Team</p>
+          </div>
         `,
       }),
     });
