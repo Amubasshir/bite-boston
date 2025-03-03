@@ -1,5 +1,4 @@
 import { Button } from '@/components/ui/button';
-import { format } from 'date-fns';
 import { createContext, ReactNode, useContext, useState } from 'react';
 
 // Define the modal data type
@@ -53,21 +52,21 @@ export function SuccessModalProvider({ children }: { children: ReactNode }) {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[9999]">
           <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
             <div className="mb-6">
-              <h2 className="text-xl font-bold mb-4">
-                Deal Claimed Successfully!
+              <h2 className="text-xl text-center font-bold mb-4">
+                🎉 Deal Confirmed! 🎉
               </h2>
-              <div className="space-y-2">
-                <p>Your confirmation ID is:</p>
-                <p className="text-lg font-bold text-primary">
-                  {modalData.confirmationId}
+              <div className="space-y-3">
+                <p>Nice! You just redeemed a deal! 🎊</p>
+                <p>
+                  You'll receive an email confirmation shortly with your deal
+                  details and instructions on how to redeem it at the
+                  restaurant.
                 </p>
-                <p className="text-sm text-muted-foreground">
-                  Your deal has been reserved for{' '}
-                  {modalData.selectedDate
-                    ? format(modalData.selectedDate, 'PPP')
-                    : 'the selected date'}
-                  .
+                <p className="text-sm rounded-md">
+                  📌 Important: You may still need to make a reservation with
+                  the restaurant to secure your preferred dining time.
                 </p>
+                <p>Bon appétit & enjoy your meal!</p>
               </div>
             </div>
             <div className="flex justify-end">
