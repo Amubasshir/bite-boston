@@ -24,9 +24,13 @@ export const signupSchema = z
     phone: z
       .string()
       .min(1, { message: 'Phone number is required' })
-      .regex(/^(?:\+44|0)(?:\d{10}|\d{9})$/, {
-        message: 'Please enter a valid UK phone number (e.g., +441234567890 or 01234567890)',
-      }),
+      .regex(
+        /^(\+1|1)?[-. ]?\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/,
+        {
+          message:
+            'Please enter a valid US phone number (e.g., (123) 456-7890 or 1234567890)',
+        }
+      ),
     password: z
       .string()
       .min(1, { message: 'Password is required' })
