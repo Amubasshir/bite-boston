@@ -25,7 +25,7 @@ export interface Restaurant {
   cuisine: string;
   dealText: string;
   dealDescription: string;
-  duration: string;
+
   neighborhood: string;
   deals: Deal[];
   fullDescription: string;
@@ -48,7 +48,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     dealText: 'Buy one get one half off on shrimp',
     dealDescription:
       'Order any shrimp item—boiled (head-on or EZ-Peel), fried shrimp baskets, or Sha-Bang Bang shrimp—and get the second (equal or lower-priced) for half off. Mix and match!',
-    duration: 'Usually 30-35 min wait',
+
     neighborhood: 'Harvard Square',
     deals: [
       {
@@ -108,7 +108,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     dealText: 'Free beer with burger and fries',
     dealDescription:
       'Choose your preferred beer (between a Gansett, High Life, and PBR) when you order a hamburger or cheeseburger and fries. Make sure to ask for the Starvin student deal',
-    duration: 'Usually 15-20 min wait',
+
     neighborhood: 'Harvard Square',
     deals: [
       {
@@ -152,8 +152,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
   {
     id: generateRestaurantId('Saloniki'),
     name: 'Saloniki',
-    image:
-      'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    image: 'https://images.unsplash.com/photo-1583953594539-5d77e9ba023f',
     location: 'Boston',
     rating: 4.4,
     priceRange: '$$',
@@ -161,7 +160,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     dealText: 'Free Greek Fries for students',
     dealDescription:
       'Free order of Greek Fries with any lunch or dinner purchase (sandwich, plate, or salad). Valid for students only!',
-    duration: 'Usually 15-20 min wait',
+
     neighborhood: 'Back Bay',
     deals: [
       {
@@ -204,8 +203,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
   {
     id: generateRestaurantId('Le Macaron French Pastries Cambridge'),
     name: 'Le Macaron French Pastries Cambridge',
-    image:
-      'https://images.unsplash.com/photo-1499028344343-cd173ffc68a9?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    image: 'https://images.unsplash.com/photo-1558326567-98166332163b',
     location: 'Cambridge',
     rating: 3.6,
     priceRange: '$',
@@ -213,7 +211,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     dealText: 'Free macaron with box of 6',
     dealDescription:
       'Get a free macaron of your choice when you order a box of 6',
-    duration: 'Usually 5-10 min wait',
+
     neighborhood: 'Harvard Square',
     deals: [
       {
@@ -273,7 +271,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     dealText: 'Buy one get one burger free',
     dealDescription:
       'Buy any burger, and enjoy a second one for free (applies to the burger of equal or lesser value)',
-    duration: 'Usually 20-30 min wait',
+
     neighborhood: 'Harvard Square',
     deals: [
       {
@@ -332,7 +330,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     dealText: 'Buy one get one pizza slice free',
     dealDescription:
       'Buy any pizza slice, and enjoy a second one for free (applies to the slice of equal or lesser value)',
-    duration: 'Usually 10-15 min wait',
+
     neighborhood: 'Allston',
     deals: [
       {
@@ -390,7 +388,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     dealText: 'Free drink with waffle order',
     dealDescription:
       'Get a free hot or cold beverage with the order of any pre-designed waffle. Not applicable to any matcha-based drinks or smoothies. If you choose to build your own waffle, a minimum of 2 toppings is required to redeem the deal',
-    duration: 'Usually 10-15 min wait',
+
     neighborhood: 'Harvard Square',
     deals: [
       {
@@ -440,7 +438,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     dealText: 'Buy one get one main dish free',
     dealDescription:
       'Buy any main dish and get another main dish for free. Applies to items under the "From the Sea" section. Main dish of equal or lesser value will be free',
-    duration: 'Usually 30-45 min wait',
+
     neighborhood: 'Harvard Square',
     deals: [
       {
@@ -500,7 +498,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     dealText: 'Buy one get one main dish free',
     dealDescription:
       'Buy any main dish and get another main dish for free. Applies to items in the main dish, sandwich, and salads section. Main dish of equal or lesser value will be free',
-    duration: 'Usually 20-30 min wait',
+
     neighborhood: 'Harvard Square',
     deals: [
       {
@@ -560,7 +558,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     dealText: 'Free appetizer with 2 sandwiches',
     dealDescription:
       'Get a free appetizer of your choice with the order of 2 roll up sandwiches or 2 plates',
-    duration: 'Usually 15-20 min wait',
+
     neighborhood: 'Harvard Square',
     deals: [
       {
@@ -618,7 +616,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     cuisine: 'Ramen',
     dealText: 'Free size upgrade',
     dealDescription: 'Upgrade to a large ramen bowl for free!',
-    duration: 'Usually 20-30 min wait',
+
     neighborhood: 'Harvard Square',
     deals: [
       {

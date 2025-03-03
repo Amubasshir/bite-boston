@@ -9,7 +9,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { useAuth } from '@/contexts/AuthContext';
-import { ChevronLeft, ChevronRight, Clock } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -70,7 +70,7 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
   dealDescription,
   duration,
   deals,
-  onClaimDeal
+  onClaimDeal,
 }: RestaurantCardProps) => {
   const dealsCount = deals?.length || 0;
   const [currentDealIndex, setCurrentDealIndex] = useState(0);
@@ -211,11 +211,6 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 text-sm text-gray-500">
-                <Clock className="h-4 w-4" />
-                <span>{duration}</span>
-              </div>
-
               {/* Claim Deal Button - Now with onClick handler to open dialog */}
               <Button
                 className="w-full"
@@ -256,4 +251,3 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
 // function onClaimDeal(selectedDate: Date) {
 //   throw new Error('Function not implemented.');
 // }
-

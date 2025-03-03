@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/dialog';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/lib/supabase';
-import { ChevronLeft, ChevronRight, Clock } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
@@ -34,7 +34,7 @@ interface DealSectionProps {
   };
 }
 
-export function DealSection({ deals, duration,restaurant }: DealSectionProps) {
+export function DealSection({ deals, duration, restaurant }: DealSectionProps) {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [currentDealIndex, setCurrentDealIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -44,78 +44,78 @@ export function DealSection({ deals, duration,restaurant }: DealSectionProps) {
 
   const currentDeal = deals[currentDealIndex];
   const totalDeals = deals.length;
-const data ={
-      name: restaurant.name,
-      id: restaurant.id,
-      dealData: {
-        dealTitle: restaurant.dealText,
-        description: restaurant.fullDescription,
-        confirmationId: `${restaurant.name.substring(0, 5).toUpperCase()}-${Date.now()}-${Math.random().toString(36).substring(2, 10).toUpperCase()}`,
-        expiry_date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
-      }
-}
- 
+  const data = {
+    name: restaurant.name,
+    id: restaurant.id,
+    dealData: {
+      dealTitle: restaurant.dealText,
+      description: restaurant.fullDescription,
+      confirmationId: `${restaurant.name.substring(0, 5).toUpperCase()}-${Date.now()}-${Math.random().toString(36).substring(2, 10).toUpperCase()}`,
+      expiry_date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+    },
+  };
 
-const handleDealClaim = async (restaurantData:any) => {
-  try {
-    if (!user) {
-      toast.error('Please login to claim deals');
-      navigate('/login');
-      return;
-    }
-    
-    console.log(restaurantData,"restaurantData")
-    // setDialogOpen(false)
-    // return
-    const { error: dbError } = await supabase.from('claimed_deals').insert({
-      user_id: user.id,
-      email: user.email,
-      restaurant_name: restaurantData.restaurant_name,
-      restaurant_id: restaurantData.restaurant_id,
-      deal_title: restaurantData.deal_title,
-      deal_description: restaurantData.deal_description,
-      confirmation_id: restaurantData.confirmationId,
-      expiry_date: restaurantData.expiry_date,
-      claimed_at: restaurantData.claimed_at,
-    });
-
-    if (dbError) {
-      setDialogOpen(false)
-      throw dbError
-    };
-
-    // Replace the Resend email sending with API call
+  const handleDealClaim = async (restaurantData: any) => {
     try {
-      const { data: emailData, error: emailError } = await supabase.functions.invoke('send-deal-email', {
-        body: {
-          userEmail: user.email,
-          userName: user.user_metadata?.full_name || 'Valued Customer',
-          restaurantName: restaurantData.restaurant_name,
-          dealTitle: restaurantData.deal_title,
-          confirmationId: restaurantData.confirmationId,
-          expiryDate: restaurantData.expiry_date,
-          dealDescription: restaurantData.deal_description
-        },
+      if (!user) {
+        toast.error('Please login to claim deals');
+        navigate('/login');
+        return;
+      }
+
+      console.log(restaurantData, 'restaurantData');
+      // setDialogOpen(false)
+      // return
+      const { error: dbError } = await supabase.from('claimed_deals').insert({
+        user_id: user.id,
+        email: user.email,
+        restaurant_name: restaurantData.restaurant_name,
+        restaurant_id: restaurantData.restaurant_id,
+        deal_title: restaurantData.deal_title,
+        deal_description: restaurantData.deal_description,
+        confirmation_id: restaurantData.confirmationId,
+        expiry_date: restaurantData.expiry_date,
+        claimed_at: restaurantData.claimed_at,
       });
 
-      if (emailError) {
-        throw emailError;
+      if (dbError) {
+        setDialogOpen(false);
+        throw dbError;
       }
 
-      toast.success(`Deal claimed! Confirmation sent to ${user.email}`);
-    } catch (emailError) {
-      console.error('Email sending failed:', emailError);
-      toast.warning('Deal claimed but email delivery failed. Please check your account.');
+      // Replace the Resend email sending with API call
+      try {
+        const { data: emailData, error: emailError } =
+          await supabase.functions.invoke('send-deal-email', {
+            body: {
+              userEmail: user.email,
+              userName: user.user_metadata?.full_name || 'Valued Customer',
+              restaurantName: restaurantData.restaurant_name,
+              dealTitle: restaurantData.deal_title,
+              confirmationId: restaurantData.confirmationId,
+              expiryDate: restaurantData.expiry_date,
+              dealDescription: restaurantData.deal_description,
+            },
+          });
+
+        if (emailError) {
+          throw emailError;
+        }
+
+        toast.success(`Deal claimed! Confirmation sent to ${user.email}`);
+      } catch (emailError) {
+        console.error('Email sending failed:', emailError);
+        toast.warning(
+          'Deal claimed but email delivery failed. Please check your account.'
+        );
+      }
+    } catch (error) {
+      console.error('Error claiming deal:', error);
+      toast.error('Failed to claim deal. Please try again.');
+    } finally {
+      setDialogOpen(false);
     }
-
-  } catch (error) {
-    console.error('Error claiming deal:', error);
-    toast.error('Failed to claim deal. Please try again.');
-  }finally {
-    setDialogOpen(false);
-  }
-};
-
+  };
 
   const handleClaimButtonClick = () => {
     if (!user) {
@@ -198,11 +198,6 @@ const handleDealClaim = async (restaurantData:any) => {
               </div>
             </div>
 
-            <div className="flex items-center gap-2 text-gray-600 mb-6">
-              <Clock className="h-4 w-4" />
-              <span>{duration}</span>
-            </div>
-
             <Button
               className="w-full"
               size="lg"
@@ -233,13 +228,13 @@ const handleDealClaim = async (restaurantData:any) => {
               <DialogTitle>Select a date for your deal</DialogTitle>
             </DialogHeader>
             <ClaimDealForm
-             onSuccess={handleDealClaim}
-             dealTitle={data.dealData.dealTitle}
-             restaurantName={data.name}
-             restaurantId={data.id}
-             dealDescription={data.dealData.description}
-             user_id={user.id}
-             userEmail={user.email}
+              onSuccess={handleDealClaim}
+              dealTitle={data.dealData.dealTitle}
+              restaurantName={data.name}
+              restaurantId={data.id}
+              dealDescription={data.dealData.description}
+              user_id={user.id}
+              userEmail={user.email}
             />
           </DialogContent>
         </Dialog>
