@@ -19,20 +19,25 @@ const handler = async (req: Request): Promise<Response> => {
     const emailResponse = await resend.emails.send({
       from: "TasteTrail Boston <deals@tastetrail.me>",
       to: [userEmail],
-      subject: `Your TasteTrail Deal Confirmation - ${dealTitle}`,
+      subject: "🎉 Congrats! You Just Claimed a Deal! 🎉",
       html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h1 style="color: #2D3748">Deal Confirmation</h1>
-          <p>Hi ${userName},</p>
-          <p>Your deal at ${restaurantName} has been confirmed!</p>
-          <div style="background: #F7FAFC; padding: 24px; border-radius: 8px;">
-            <h2 style="color: #2D3748">${dealTitle}</h2>
-            <p>${dealDescription}</p>
-            <p><strong>Confirmation ID:</strong> ${confirmationId}</p>
-            <p><strong>Expires:</strong> ${new Date(expiryDate).toLocaleDateString()}</p>
-          </div>
-          <p>Present this confirmation when visiting ${restaurantName}.</p>
-          <p>Enjoy your meal!</p>
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; line-height: 1.6;">
+          <p>Hey ${userName},</p>
+          <p>Wohoo! You're all set to redeem your exclusive deal! 🎊 Here are the details:</p>
+          
+          <p>📍 Restaurant: ${restaurantName}</p>
+          <p>💳 Your Deal: ${dealTitle}</p>
+          <p>📅 Valid Until: ${new Date(expiryDate).toLocaleDateString()}</p>
+
+          <p>How to Redeem:</p>
+          <p>✅ Check-in & Inform the restaurant staff that you're claiming a TasteTrail deal.</p>
+          <p>✅ Enjoy Your Meal – dig in and savor every bite! 🍽️</p>
+          <p>✅ Show Your Confirmation Email to the server when requesting the check.</p>
+          <p>✅ Pay Directly with the restaurant—deal will be applied, no hassle!</p>
+
+          <p>📌 Need Help? If you have any questions, reply to this email</p>
+          <p>Bon appétit & may your tummies be full! 😋</p>
+          <p>- The TasteTrail Team</p>
         </div>
       `,
     });
