@@ -177,13 +177,22 @@ const Index = () => {
                 </Button>
               </div>
             ) : (
-              <Button
-                variant="outline"
-                className="px-6 py-2 rounded-lg text-base font-medium border-2 border-primary hover:bg-primary hover:text-white transition-colors"
-                onClick={() => navigate('/login')}
-              >
-                Login
-              </Button>
+              <div className="flex gap-2">
+                <Button
+                  variant="outline"
+                  className="px-6 py-2 rounded-lg text-base font-medium border-2 border-primary hover:bg-primary hover:text-white transition-colors"
+                  onClick={() => navigate('/login')}
+                >
+                  Login
+                </Button>
+                <Button
+                  variant="default"
+                  className="px-6 py-2 rounded-lg text-base font-medium bg-primary text-white hover:bg-primary/90 transition-colors"
+                  onClick={() => navigate('/signup')}
+                >
+                  Sign Up
+                </Button>
+              </div>
             )}
           </div>
         </div>
