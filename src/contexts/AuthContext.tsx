@@ -66,6 +66,32 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setIsLoading(true);
 
     try {
+      // First check if email already exists
+      const { data: emailCheckData, error: emailCheckError } = await supabase
+        .from('profiles')
+        .select('email')
+        .eq('email', email)
+        .single();
+
+      if (emailCheckData) {
+        toast.error('This email is already registered. Please login instead.');
+        setIsLoading(false);
+        return;
+      }
+
+      // Check if phone already exists
+      const { data: phoneCheckData, error: phoneCheckError } = await supabase
+        .from('profiles')
+        .select('phone')
+        .eq('phone', phone)
+        .single();
+
+      if (phoneCheckData) {
+        toast.error('This phone number is already registered with another account.');
+        setIsLoading(false);
+        return;
+      }
+
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
@@ -78,8 +104,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       });
 
       if (error) {
-        toast.error(error.message);
-        return;
+        // Check for specific error messages
+        if (error.message.includes('email')) {
+          toast.error('This email is already in use. Please try logging in instead.');
+        
+        } else if (error.message.includes('phone')) {
+          toast.error('This phone number is already registered with another account.');
+        } else {
+          toast.error(error.message);
+        }
+        return false;
       }
 
       // Check if email is already registered
@@ -89,10 +123,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         data.user.identities.length === 0
       ) {
         toast.error('This email is already registered. Please login instead.');
-        navigate('/login');
-        return;
+       
+        return false;
       }
 
+      // Rest of the function remains the same
       if (data.user) {
         toast.success('Account created successfully!');
 
@@ -106,16 +141,19 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           toast.error(
             'Account created but could not log in automatically. Please log in manually.'
           );
-          navigate('/login');
-          return;
+         
+       
         }
-
-        toast.success('Logged in successfully!');
-        navigate('/');
+        toast.success('Signup successfully!');
+        return true;
+       
+      
       }
     } catch (error) {
+   
       console.error('Signup error:', error);
       toast.error('An unexpected error occurred during signup.');
+      return false
     } finally {
       setIsLoading(false);
     }
@@ -125,13 +163,30 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setIsLoading(true);
 
     try {
+      // First check if the user exists
+      const { data: userExists, error: checkError } = await supabase
+        .from('profiles')
+        .select('id')
+        .eq('email', email)
+        .maybeSingle();
+
+      if (!userExists) {
+        toast.error('No account found with this email. Please sign up first.');
+        setIsLoading(false);
+        return;
+      }
+
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
       if (error) {
-        toast.error(error.message);
+        if (error.message.includes('Invalid login credentials')) {
+          toast.error('Incorrect password. Please try again.');
+        } else {
+          toast.error(error.message);
+        }
         return;
       }
 
