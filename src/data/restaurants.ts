@@ -495,7 +495,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
   {
     id: generateRestaurantId('Falafel Corner'),
     name: 'Falafel Corner',
-    image: 'https://images.unsplash.com/photo-1593001872095-7d5b3868dd20',
+    image: 'https://i.ibb.co.com/1fSWN4fp/Falafel-Corner-Free-Soup.jpg',
     location: 'Cambridge',
     rating: 3.9,
     priceRange: '$$',
@@ -660,7 +660,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
   {
     id: generateRestaurantId('Saloniki'),
     name: 'Saloniki',
-    image: 'https://images.unsplash.com/photo-1583953594539-5d77e9ba023f',
+    image: 'https://i.ibb.co.com/yBRn9P7S/Saloniki-BOGO.webp',
     location: 'Boston',
     rating: 4.4,
     priceRange: '$$',
@@ -920,7 +920,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     id: generateRestaurantId('Wusong Road'),
     name: 'Wusong Road',
     image:
-      'https://unsplash.com/photos/a-table-topped-with-lots-of-plates-of-food-hatqfX3b9Vo',
+      'https://images.unsplash.com/photo-1493770348161-369560ae357d?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     location: 'Cambridge',
     rating: 4.2,
     priceRange: '$$',
