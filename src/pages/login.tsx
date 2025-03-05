@@ -3,19 +3,28 @@ import { Input } from '@/components/ui/input';
 import { useAuth } from '@/contexts/AuthContext';
 import { LoginFormValues, loginSchema } from '@/lib/validations/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
+import { Loader2 } from 'lucide-react';
 
 export default function LoginPage() {
   const { signIn, user, isLoading } = useAuth();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
-  // We'll keep this for reference but won't use it for redirection
+  // Get return URL from query params if it exists
   const searchParams = new URLSearchParams(location.search);
   const returnUrl = searchParams.get('returnUrl') || '/';
+
+  // Redirect if user is already logged in
+  useEffect(() => {
+    if (user?.id) {
+      navigate('/');
+    }
+  }, [user?.id, navigate]);
 
   const {
     register,
@@ -29,26 +38,22 @@ export default function LoginPage() {
     },
   });
 
-  // Redirect if already logged in
-  useEffect(() => {
-    if (user) {
-      navigate('/');
-    }
-  }, [user, navigate]);
-
   const onSubmit = async (data: LoginFormValues) => {
+    setIsSubmitting(true);
     try {
-      await signIn(data.email, data.password);
-      toast.success('Login successful!');
-      // Always redirect to homepage after successful login
-      navigate('/');
+      const isRedirect: any = await signIn(data.email, data.password);
+      if (isRedirect) {
+        if (returnUrl) {
+          navigate(returnUrl)
+        } else {
+          navigate('/')
+        }
+      }
     } catch (error: unknown) {
       console.error('Login error:', error);
-      const errorMessage =
-        error instanceof Error
-          ? error.message
-          : 'Failed to login. Please try again.';
       toast.error('Login failed. Please check your credentials.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -91,9 +96,16 @@ export default function LoginPage() {
           <Button
             type="submit"
             className="w-full bg-primary hover:bg-primary/90 text-white py-2 rounded-lg transition-colors"
-            disabled={isLoading}
+            disabled={isLoading || isSubmitting}
           >
-            {isLoading ? 'Logging in...' : 'Login'}
+            {isLoading || isSubmitting ? (
+              <div className="flex items-center justify-center gap-2">
+                <Loader2 className="h-4 w-4 animate-spin" />
+                <span>Logging in...</span>
+              </div>
+            ) : (
+              'Login'
+            )}
           </Button>
         </form>
         <p className="text-center mt-4 text-gray-600">

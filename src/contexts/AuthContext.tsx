@@ -66,31 +66,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setIsLoading(true);
 
     try {
-      // First check if email already exists
-      const { data: emailCheckData, error: emailCheckError } = await supabase
-        .from('profiles')
-        .select('email')
-        .eq('email', email)
-        .single();
-
-      if (emailCheckData) {
-        toast.error('This email is already registered. Please login instead.');
-        setIsLoading(false);
-        return;
-      }
-
-      // Check if phone already exists
-      const { data: phoneCheckData, error: phoneCheckError } = await supabase
-        .from('profiles')
-        .select('phone')
-        .eq('phone', phone)
-        .single();
-
-      if (phoneCheckData) {
-        toast.error('This phone number is already registered with another account.');
-        setIsLoading(false);
-        return;
-      }
 
       const { data, error } = await supabase.auth.signUp({
         email,
@@ -163,19 +138,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setIsLoading(true);
 
     try {
-      // First check if the user exists
-      const { data: userExists, error: checkError } = await supabase
-        .from('profiles')
-        .select('id')
-        .eq('email', email)
-        .maybeSingle();
-
-      if (!userExists) {
-        toast.error('No account found with this email. Please sign up first.');
-        setIsLoading(false);
-        return;
-      }
-
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -187,18 +149,21 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         } else {
           toast.error(error.message);
         }
-        return;
+        return false;
       }
 
       if (data.user) {
         toast.success('Logged in successfully!');
-        navigate('/');
+        return true
+       
       }
     } catch (error) {
       console.error('Login error:', error);
       toast.error('An unexpected error occurred during login.');
+      return false
     } finally {
       setIsLoading(false);
+
     }
   };
 
