@@ -710,66 +710,6 @@ export const RESTAURANTS_DATA: Restaurant[] = [
   },
 
   {
-    id: generateRestaurantId("Mr Bartley's Burger Cottage"),
-    name: "Mr Bartley's Burger Cottage",
-    image: 'https://images.unsplash.com/photo-1550547660-d9450f859349',
-    location: 'Cambridge',
-    rating: 4.5,
-    priceRange: '$',
-    cuisine: 'Burger',
-    dealText: 'Buy one get one burger free',
-    dealDescription:
-      'Buy any burger, and enjoy a second one for free (applies to the burger of equal or lesser value)',
-
-    neighborhood: 'Harvard Square',
-    deals: [
-      {
-        dealTitle: 'Buy one get one burger',
-        dealDescription:
-          'Buy any burger, and enjoy a second one for free (applies to the burger of equal or lesser value)',
-        potentialSavings: {
-          average: '$20',
-          upTo: '$20',
-        },
-      },
-      {
-        dealTitle: 'Free chocolate cake',
-        dealDescription:
-          'Get a free slice of chocolate cake when you order a burger or another main dish',
-        potentialSavings: {
-          average: '$7',
-          upTo: '$7',
-        },
-      },
-    ],
-    fullDescription:
-      'Quirky burger joint with a menu of creatively named burgers & frappes, plus sandwiches & salads.',
-    address: '1246 Massachusetts Ave, Cambridge, MA 02138',
-    openingHours: {
-      'Monday-Sunday': '11:00 AM - 9:00 PM',
-    },
-    phoneNumber: '(617) 354-6559',
-    website: 'N/A',
-    menuHighlights: [
-      {
-        name: 'The Big Papi',
-        description: 'Burger with guacamole, jalapeños, and salsa',
-        price: '$18',
-      },
-      {
-        name: 'The Tom Brady',
-        description: 'Burger with cheddar, guacamole, lettuce, and tomato',
-        price: '$19',
-      },
-      {
-        name: 'Chocolate Frappe',
-        description: 'Thick chocolate milkshake',
-        price: '$8',
-      },
-    ],
-  },
-
-  {
     id: generateRestaurantId('Hokkaido Ramen Santouka Harvard Square'),
     name: 'Hokkaido Ramen Santouka Harvard Square',
     image: 'https://images.unsplash.com/photo-1557872943-16a5ac26437e',
