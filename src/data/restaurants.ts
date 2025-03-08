@@ -856,105 +856,105 @@ export const RESTAURANTS_DATA: Restaurant[] = [
       },
     ],
   },
-  {
-    id: generateRestaurantId('Wusong Road'),
-    name: 'Wusong Road',
-    image:
-      'https://images.unsplash.com/photo-1493770348161-369560ae357d?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    location: 'Cambridge',
-    rating: 4.2,
-    priceRange: '$$',
-    cuisine: 'Chinese',
-    dealText: 'Existing Deal',
-    dealDescription: 'Check the restaurant for available promotions.',
+  // {
+  //   id: generateRestaurantId('Wusong Road'),
+  //   name: 'Wusong Road',
+  //   image:
+  //     'https://images.unsplash.com/photo-1493770348161-369560ae357d?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  //   location: 'Cambridge',
+  //   rating: 4.2,
+  //   priceRange: '$$',
+  //   cuisine: 'Chinese',
+  //   dealText: 'Existing Deal',
+  //   dealDescription: 'Check the restaurant for available promotions.',
 
-    neighborhood: 'Harvard Square',
-    deals: [
-      {
-        dealTitle: 'Existing Deal',
-        dealDescription: 'Check the restaurant for available promotions.',
-        potentialSavings: {
-          average: 'Varies',
-          upTo: 'Varies',
-        },
-      },
-    ],
-    fullDescription:
-      'Chinese cuisine with a focus on traditional dishes and flavors.',
-    address: '112 Mt Auburn St, Cambridge, MA 02138',
-    openingHours: {
-      Thursday: 'Opens 11:30 AM',
-    },
-    phoneNumber: '(617) 945-0288',
-    website: 'N/A',
-    menuHighlights: [
-      {
-        name: 'Peking Duck',
-        description:
-          'Traditional roasted duck served with pancakes and hoisin sauce',
-        price: '$30',
-      },
-      {
-        name: 'Sichuan Mapo Tofu',
-        description: 'Spicy tofu dish with minced pork and Sichuan peppercorns',
-        price: '$15',
-      },
-      {
-        name: 'Dan Dan Noodles',
-        description: 'Spicy sesame and peanut noodles with ground pork',
-        price: '$14',
-      },
-    ],
-  },
-  {
-    id: generateRestaurantId('Madras Dosa Co'),
-    name: 'Madras Dosa Co',
-    image:
-      'https://images.unsplash.com/photo-1630409351241-e90e7f5e434d?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZG9zYXxlbnwwfHwwfHx8MA%3D%3D',
-    location: 'Boston',
-    rating: 4.3,
-    priceRange: '$',
-    cuisine: 'Indian',
-    dealText: 'Existing Deal',
-    dealDescription: 'Check the restaurant for available promotions.',
+  //   neighborhood: 'Harvard Square',
+  //   deals: [
+  //     {
+  //       dealTitle: 'Existing Deal',
+  //       dealDescription: 'Check the restaurant for available promotions.',
+  //       potentialSavings: {
+  //         average: 'Varies',
+  //         upTo: 'Varies',
+  //       },
+  //     },
+  //   ],
+  //   fullDescription:
+  //     'Chinese cuisine with a focus on traditional dishes and flavors.',
+  //   address: '112 Mt Auburn St, Cambridge, MA 02138',
+  //   openingHours: {
+  //     Thursday: 'Opens 11:30 AM',
+  //   },
+  //   phoneNumber: '(617) 945-0288',
+  //   website: 'N/A',
+  //   menuHighlights: [
+  //     {
+  //       name: 'Peking Duck',
+  //       description:
+  //         'Traditional roasted duck served with pancakes and hoisin sauce',
+  //       price: '$30',
+  //     },
+  //     {
+  //       name: 'Sichuan Mapo Tofu',
+  //       description: 'Spicy tofu dish with minced pork and Sichuan peppercorns',
+  //       price: '$15',
+  //     },
+  //     {
+  //       name: 'Dan Dan Noodles',
+  //       description: 'Spicy sesame and peanut noodles with ground pork',
+  //       price: '$14',
+  //     },
+  //   ],
+  // },
+  // {
+  //   id: generateRestaurantId('Madras Dosa Co'),
+  //   name: 'Madras Dosa Co',
+  //   image:
+  //     'https://images.unsplash.com/photo-1630409351241-e90e7f5e434d?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZG9zYXxlbnwwfHwwfHx8MA%3D%3D',
+  //   location: 'Boston',
+  //   rating: 4.3,
+  //   priceRange: '$',
+  //   cuisine: 'Indian',
+  //   dealText: 'Existing Deal',
+  //   dealDescription: 'Check the restaurant for available promotions.',
 
-    neighborhood: 'Downtown Boston',
-    deals: [
-      {
-        dealTitle: 'Existing Deal',
-        dealDescription: 'Check the restaurant for available promotions.',
-        potentialSavings: {
-          average: 'Varies',
-          upTo: 'Varies',
-        },
-      },
-    ],
-    fullDescription:
-      'Authentic South Indian cuisine specializing in dosas and other traditional dishes.',
-    address: '414 Washington St, Boston, MA 02108',
-    openingHours: {
-      Thursday: 'Opens 11:00 AM',
-    },
-    phoneNumber: '(617) 338-4988',
-    website: 'N/A',
-    menuHighlights: [
-      {
-        name: 'Masala Dosa',
-        description: 'Crispy rice crepe filled with spiced potato masala',
-        price: '$10',
-      },
-      {
-        name: 'Paneer Dosa',
-        description: 'Stuffed dosa with spiced paneer and chutneys',
-        price: '$12',
-      },
-      {
-        name: 'Sambar & Idli',
-        description: 'Steamed rice cakes served with lentil soup and chutneys',
-        price: '$9',
-      },
-    ],
-  },
+  //   neighborhood: 'Downtown Boston',
+  //   deals: [
+  //     {
+  //       dealTitle: 'Existing Deal',
+  //       dealDescription: 'Check the restaurant for available promotions.',
+  //       potentialSavings: {
+  //         average: 'Varies',
+  //         upTo: 'Varies',
+  //       },
+  //     },
+  //   ],
+  //   fullDescription:
+  //     'Authentic South Indian cuisine specializing in dosas and other traditional dishes.',
+  //   address: '414 Washington St, Boston, MA 02108',
+  //   openingHours: {
+  //     Thursday: 'Opens 11:00 AM',
+  //   },
+  //   phoneNumber: '(617) 338-4988',
+  //   website: 'N/A',
+  //   menuHighlights: [
+  //     {
+  //       name: 'Masala Dosa',
+  //       description: 'Crispy rice crepe filled with spiced potato masala',
+  //       price: '$10',
+  //     },
+  //     {
+  //       name: 'Paneer Dosa',
+  //       description: 'Stuffed dosa with spiced paneer and chutneys',
+  //       price: '$12',
+  //     },
+  //     {
+  //       name: 'Sambar & Idli',
+  //       description: 'Steamed rice cakes served with lentil soup and chutneys',
+  //       price: '$9',
+  //     },
+  //   ],
+  // },
   {
     id: generateRestaurantId('Russell House Tavern'),
     name: 'Russell House Tavern',
