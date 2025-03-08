@@ -8,11 +8,8 @@ import { FEATURED_RESTAURANTS } from '@/data/restaurants';
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // Add these imports at the top
-import DealClaimEmail from '@/components/emails/DealClaimEmail';
 import { supabase } from '@/lib/supabase';
-import { Resend } from 'resend';
 import { toast } from 'sonner';
-
 
 const NEIGHBORHOODS = [
   'Back Bay',
@@ -31,7 +28,7 @@ interface DealClaimData {
   dealTitle: string;
   description: string;
   confirmationId: string;
-  expiry_date: Date;  // Changed from date to expiry_date to match usage
+  expiry_date: Date; // Changed from date to expiry_date to match usage
 }
 
 interface RestaurantDealData {
@@ -68,15 +65,31 @@ const Index = () => {
     let filtered = [...FEATURED_RESTAURANTS];
 
     // Filter by search query
-    if (searchQuery) {
-      const query = searchQuery.toLowerCase();
-      filtered = filtered.filter(
-        (restaurant) =>
-          restaurant.name.toLowerCase().includes(query) ||
-          restaurant.cuisine.toLowerCase().includes(query) ||
-          restaurant.location.toLowerCase().includes(query) ||
-          restaurant.dealText.toLowerCase().includes(query)
-      );
+    if (searchQuery.trim()) {
+      const query = searchQuery.trim().toLowerCase();
+      filtered = filtered.filter((restaurant) => {
+        // Create a searchable text that includes all relevant fields
+        const searchableText = [
+          restaurant.name,
+          restaurant.cuisine,
+          restaurant.location,
+          restaurant.dealText,
+          restaurant.neighborhood,
+          restaurant.dealDescription,
+          restaurant.deals?.map((deal) => deal.dealTitle).join(' '),
+          restaurant.deals?.map((deal) => deal.dealDescription).join(' '),
+          restaurant.menuHighlights?.map((item) => item.name).join(' '),
+          restaurant.menuHighlights?.map((item) => item.description).join(' '),
+        ]
+          .join(' ')
+          .toLowerCase();
+
+        // Split search query into words for better matching
+        const searchTerms = query.split(' ').filter((term) => term.length > 0);
+
+        // Return true if ALL search terms are found in the searchable text
+        return searchTerms.every((term) => searchableText.includes(term));
+      });
     }
 
     // Filter by category
@@ -84,14 +97,19 @@ const Index = () => {
       filtered = filtered.filter((restaurant) => {
         switch (selectedCategory) {
           case 'Deals':
-            return restaurant.dealText;
+            // Check if restaurant has any active deals
+            return restaurant.deals && restaurant.deals.length > 0;
           case 'Popular':
-            return restaurant.rating >= 4.5;
+            return restaurant.rating >= 4.3; // Adjusted threshold
           case 'New':
-            // You might want to add a 'isNew' property to restaurants
+            // Assuming restaurants added in the last 30 days are "new"
+            // You might want to add a dateAdded field to your restaurant data
             return true;
           case 'Fine Dining':
-            return restaurant.priceRange === '$$$';
+            return (
+              restaurant.priceRange === '$$$' ||
+              restaurant.priceRange === '$$$$'
+            );
           default:
             return true;
         }
@@ -124,9 +142,10 @@ const Index = () => {
 
       if (dbError) throw dbError;
 
-         // Replace the Resend email sending with API call
-         try {
-          const { data: emailData, error: emailError } = await supabase.functions.invoke('send-deal-email', {
+      // Replace the Resend email sending with API call
+      try {
+        const { data: emailData, error: emailError } =
+          await supabase.functions.invoke('send-deal-email', {
             body: {
               userEmail: user.email,
               userName: user.user_metadata?.full_name || 'Valued Customer',
@@ -134,20 +153,21 @@ const Index = () => {
               dealTitle: restaurantData.dealData.dealTitle,
               confirmationId: restaurantData.dealData.confirmationId,
               expiryDate: restaurantData.dealData.expiry_date,
-              dealDescription: restaurantData.dealData.description
+              dealDescription: restaurantData.dealData.description,
             },
           });
-    
-          if (emailError) {
-            throw emailError;
-          }
-    
-          toast.success(`Deal claimed! Confirmation sent to ${user.email}`);
-        } catch (emailError) {
-          console.error('Email sending failed:', emailError);
-          toast.warning('Deal claimed but email delivery failed. Please check your account.');
+
+        if (emailError) {
+          throw emailError;
         }
-    
+
+        toast.success(`Deal claimed! Confirmation sent to ${user.email}`);
+      } catch (emailError) {
+        console.error('Email sending failed:', emailError);
+        toast.warning(
+          'Deal claimed but email delivery failed. Please check your account.'
+        );
+      }
     } catch (error) {
       console.error('Error claiming deal:', error);
       toast.error('Failed to claim deal. Please try again.');
@@ -205,10 +225,11 @@ const Index = () => {
             <Badge
               key={category}
               variant={category === selectedCategory ? 'default' : 'secondary'}
-              className={`px-4 py-2 cursor-pointer transition-colors ${category === selectedCategory
-                ? 'bg-primary/90 text-black font-medium shadow-sm hover:bg-primary'
-                : 'hover:bg-primary'
-                }`}
+              className={`px-4 py-2 cursor-pointer transition-colors ${
+                category === selectedCategory
+                  ? 'bg-primary/90 text-black font-medium shadow-sm hover:bg-primary'
+                  : 'hover:bg-primary'
+              }`}
               onClick={() => setSelectedCategory(category)}
             >
               {category}
@@ -239,16 +260,20 @@ const Index = () => {
               <RestaurantCard
                 key={restaurant.name}
                 {...restaurant}
-                onClaimDeal={() => handleDealClaim({
-                  name: restaurant.name,
-                  id: restaurant.id,
-                  dealData: {
-                    dealTitle: restaurant.dealText,
-                    description: restaurant.fullDescription,
-                    confirmationId: `${restaurant.name.substring(0, 5).toUpperCase()}-${Date.now()}-${Math.random().toString(36).substring(2, 10).toUpperCase()}`,
-                    expiry_date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
-                  }
-                })}
+                onClaimDeal={() =>
+                  handleDealClaim({
+                    name: restaurant.name,
+                    id: restaurant.id,
+                    dealData: {
+                      dealTitle: restaurant.dealText,
+                      description: restaurant.fullDescription,
+                      confirmationId: `${restaurant.name.substring(0, 5).toUpperCase()}-${Date.now()}-${Math.random().toString(36).substring(2, 10).toUpperCase()}`,
+                      expiry_date: new Date(
+                        Date.now() + 7 * 24 * 60 * 60 * 1000
+                      ),
+                    },
+                  })
+                }
               />
             ))
           ) : (

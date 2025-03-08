@@ -444,54 +444,54 @@ export const RESTAURANTS_DATA: Restaurant[] = [
       },
     ],
   },
-  {
-    id: generateRestaurantId('Hokkaido Ramen Santouka Harvard Square'),
-    name: 'Hokkaido Ramen Santouka Harvard Square',
-    image: 'https://images.unsplash.com/photo-1598233847491-f16487adee2f',
-    location: 'Cambridge',
-    rating: 4.5,
-    priceRange: '$',
-    cuisine: 'Ramen',
-    dealText: 'Free size upgrade',
-    dealDescription: 'Upgrade to a large ramen bowl for free!',
+  // {
+  //   id: generateRestaurantId('Hokkaido Ramen Santouka Harvard Square'),
+  //   name: 'Hokkaido Ramen Santouka Harvard Square',
+  //   image: 'https://images.unsplash.com/photo-1598233847491-f16487adee2f',
+  //   location: 'Cambridge',
+  //   rating: 4.5,
+  //   priceRange: '$',
+  //   cuisine: 'Ramen',
+  //   dealText: 'Free size upgrade',
+  //   dealDescription: 'Upgrade to a large ramen bowl for free!',
 
-    neighborhood: 'Harvard Square',
-    deals: [
-      {
-        dealTitle: 'Free size upgrade',
-        dealDescription: 'Upgrade to a large ramen bowl for free!',
-        potentialSavings: {
-          average: '$3',
-          upTo: '$3',
-        },
-      },
-    ],
-    fullDescription:
-      'Japanese chain offering ramen in various broths with a modern twist.',
-    address: '1 Bow St, Cambridge, MA 02138',
-    openingHours: {
-      'Monday-Sunday': '11:00 AM - 10:00 PM',
-    },
-    phoneNumber: '(617) 945-1460',
-    website: 'N/A',
-    menuHighlights: [
-      {
-        name: 'Tonkotsu Ramen',
-        description: 'Pork bone broth with chashu, bamboo shoots, and egg',
-        price: '$15',
-      },
-      {
-        name: 'Shio Ramen',
-        description: 'Salt-based broth with pork and vegetables',
-        price: '$14',
-      },
-      {
-        name: 'Gyoza',
-        description: 'Pan-fried pork dumplings',
-        price: '$7',
-      },
-    ],
-  },
+  //   neighborhood: 'Harvard Square',
+  //   deals: [
+  //     {
+  //       dealTitle: 'Free size upgrade',
+  //       dealDescription: 'Upgrade to a large ramen bowl for free!',
+  //       potentialSavings: {
+  //         average: '$3',
+  //         upTo: '$3',
+  //       },
+  //     },
+  //   ],
+  //   fullDescription:
+  //     'Japanese chain offering ramen in various broths with a modern twist.',
+  //   address: '1 Bow St, Cambridge, MA 02138',
+  //   openingHours: {
+  //     'Monday-Sunday': '11:00 AM - 10:00 PM',
+  //   },
+  //   phoneNumber: '(617) 945-1460',
+  //   website: 'N/A',
+  //   menuHighlights: [
+  //     {
+  //       name: 'Tonkotsu Ramen',
+  //       description: 'Pork bone broth with chashu, bamboo shoots, and egg',
+  //       price: '$15',
+  //     },
+  //     {
+  //       name: 'Shio Ramen',
+  //       description: 'Salt-based broth with pork and vegetables',
+  //       price: '$14',
+  //     },
+  //     {
+  //       name: 'Gyoza',
+  //       description: 'Pan-fried pork dumplings',
+  //       price: '$7',
+  //     },
+  //   ],
+  // },
   {
     id: generateRestaurantId('Falafel Corner'),
     name: 'Falafel Corner',
