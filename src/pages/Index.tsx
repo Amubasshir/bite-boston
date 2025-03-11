@@ -175,40 +175,48 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-accent-purple/10">
       <div className="container mx-auto px-4 py-8">
-        <div className="flex justify-between items-center mb-16">
-          <div>
-            <h1>test</h1>
-          </div>
-          <div className="flex gap-4">
-            {user ? (
-              <div className="flex items-center gap-4">
-                <span className="text-sm text-gray-600">Hello, {userName}</span>
-                <Button
-                  variant="outline"
-                  className="px-6 py-2 rounded-lg text-base font-medium border-2 border-primary hover:bg-primary hover:text-white transition-colors"
-                  onClick={signOut}
-                >
-                  Logout
-                </Button>
+        <div className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm py-4 shadow-sm">
+          <div className="container mx-auto px-4">
+            <div className="flex justify-between items-center">
+              <div>
+                <img
+                  src="/logo.jpg"
+                  alt="Playful Bites Boston Logo"
+                  className="h-16 w-auto"
+                />
               </div>
-            ) : (
-              <div className="flex gap-2">
-                <Button
-                  variant="outline"
-                  className="px-6 py-2 rounded-lg text-base font-medium border-2 border-primary hover:bg-primary hover:text-white transition-colors"
-                  onClick={() => navigate('/login')}
-                >
-                  Login
-                </Button>
-                <Button
-                  variant="default"
-                  className="px-6 py-2 rounded-lg text-base font-medium bg-primary text-white hover:bg-primary/90 transition-colors"
-                  onClick={() => navigate('/signup')}
-                >
-                  Sign Up
-                </Button>
+              <div className="flex gap-4">
+                {user ? (
+                  <div className="flex items-center gap-4">
+                    <span className="text-sm text-gray-600">Hello, {userName}</span>
+                    <Button
+                      variant="outline"
+                      className="px-6 py-2 rounded-lg text-base font-medium border-2 border-primary hover:bg-primary hover:text-white transition-colors"
+                      onClick={signOut}
+                    >
+                      Logout
+                    </Button>
+                  </div>
+                ) : (
+                  <div className="flex gap-2">
+                    <Button
+                      variant="outline"
+                      className="px-6 py-2 rounded-lg text-base font-medium border-2 border-primary hover:bg-primary hover:text-white transition-colors"
+                      onClick={() => navigate('/login')}
+                    >
+                      Login
+                    </Button>
+                    <Button
+                      variant="default"
+                      className="px-6 py-2 rounded-lg text-base font-medium bg-primary text-white hover:bg-primary/90 transition-colors"
+                      onClick={() => navigate('/signup')}
+                    >
+                      Sign Up
+                    </Button>
+                  </div>
+                )}
               </div>
-            )}
+            </div>
           </div>
         </div>
         <div className="mt-8">
