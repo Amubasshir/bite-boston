@@ -1,7 +1,5 @@
 import { NewsletterForm } from '@/components/NewsletterForm';
 import { RestaurantCard } from '@/components/RestaurantCard';
-import { SearchBar } from '@/components/SearchBar';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
 import { FEATURED_RESTAURANTS } from '@/data/restaurants';
@@ -11,17 +9,17 @@ import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/lib/supabase';
 import { toast } from 'sonner';
 
-const NEIGHBORHOODS = [
-  'Back Bay',
-  'North End',
-  'Seaport',
-  'Cambridge',
-  'Fenway',
-  'Harvard Square',
-  'Allston',
-];
+// const NEIGHBORHOODS = [
+//   'Back Bay',
+//   'North End',
+//   'Seaport',
+//   'Cambridge',
+//   'Fenway',
+//   'Harvard Square',
+//   'Allston',
+// ];
 
-const CATEGORIES = ['All', 'Deals', 'Popular', 'New', 'Fine Dining'];
+// const CATEGORIES = ['All', 'Deals', 'Popular', 'New', 'Fine Dining'];
 
 // Update the interface to match the data structure
 interface DealClaimData {
@@ -217,10 +215,7 @@ const Index = () => {
           </div>
         </div>
 
-        <SearchBar value={searchQuery} onChange={setSearchQuery} />
-
-        {/* Categories */}
-        <div className="flex gap-3 overflow-x-auto py-6 scrollbar-hide">
+        {/* <div className="flex gap-3 overflow-x-auto py-6 scrollbar-hide">
           {CATEGORIES.map((category) => (
             <Badge
               key={category}
@@ -235,10 +230,9 @@ const Index = () => {
               {category}
             </Badge>
           ))}
-        </div>
-
+        </div> */}
         {/* Neighborhoods */}
-        <div className="flex gap-3 overflow-x-auto py-4 scrollbar-hide">
+        {/* <div className="flex gap-3 overflow-x-auto py-4 scrollbar-hide">
           {NEIGHBORHOODS.map((neighborhood) => (
             <Badge
               key={neighborhood}
@@ -248,11 +242,9 @@ const Index = () => {
               {neighborhood}
             </Badge>
           ))}
-        </div>
-
+        </div> */}
         {/* Newsletter Section */}
         <NewsletterForm />
-
         {/* Restaurant Deals Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredRestaurants.length > 0 ? (
