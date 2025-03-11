@@ -1,6 +1,13 @@
 import { NewsletterForm } from '@/components/NewsletterForm';
 import { RestaurantCard } from '@/components/RestaurantCard';
 import { Button } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { useAuth } from '@/contexts/AuthContext';
 import { FEATURED_RESTAURANTS } from '@/data/restaurants';
 import { useEffect, useMemo, useState } from 'react';
@@ -41,6 +48,7 @@ const Index = () => {
   const navigate = useNavigate();
   const { user, signOut } = useAuth();
   const [userName, setUserName] = useState<string>('');
+  const [showWelcomeModal, setShowWelcomeModal] = useState(true);
 
   useEffect(() => {
     if (user) {
@@ -172,9 +180,61 @@ const Index = () => {
     }
   };
 
+  useEffect(() => {
+    // Check if user has seen the welcome modal before
+    const hasSeenWelcome = localStorage.getItem('hasSeenWelcome');
+    if (hasSeenWelcome) {
+      setShowWelcomeModal(false);
+    }
+  }, []);
+
+  const handleCloseWelcomeModal = () => {
+    localStorage.setItem('hasSeenWelcome', 'true');
+    setShowWelcomeModal(false);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-accent-purple/10">
-      <div className="container mx-auto px-4 py-8">
+      <Dialog open={showWelcomeModal} onOpenChange={handleCloseWelcomeModal}>
+        <DialogContent className="sm:max-w-[425px] bg-white">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold text-center">
+              🍽️ Discover Cambridge Restaurants for Up To Half the Price!
+            </DialogTitle>
+            <DialogDescription className="space-y-4">
+              <p className="text-center mt-4">
+                Enjoy 2-for-1 meals, free appetizers, desserts, and more at some of the best restaurants in town.
+              </p>
+              <ul className="space-y-2">
+                <li className="flex items-start">
+                  <span className="mr-2">✅</span>
+                  <span>10+ unique restaurants and counting – with new spots added weekly!</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="mr-2">✅</span>
+                  <span>Over $200 worth of restaurant deals for just $8.99/month</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="mr-2">✅</span>
+                  <span>Exclusive offers you won't find anywhere else!</span>
+                </li>
+              </ul>
+              <p className="text-center font-medium">
+                What are you waiting for? Start exploring now!
+              </p>
+              <div className="flex justify-center mt-4">
+                <Button 
+                  className="w-full bg-primary hover:bg-primary/90"
+                  onClick={handleCloseWelcomeModal}
+                >
+                  Explore Deals
+                </Button>
+              </div>
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
+      <div className={`container mx-auto px-4 py-8 transition-all duration-300 ${showWelcomeModal ? 'blur-sm' : ''}`}>
         <div className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm py-4 shadow-sm">
           <div className="container mx-auto px-4">
             <div className="flex justify-between items-center">
