@@ -806,56 +806,56 @@ export const RESTAURANTS_DATA: Restaurant[] = [
       },
     ],
   },
-  {
-    id: generateRestaurantId('Taiyaki NYC x The Dough Club - Cambridge'),
-    name: 'Taiyaki NYC x The Dough Club - Cambridge',
-    image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836',
-    location: 'Cambridge',
-    rating: 4.5,
-    priceRange: '$',
-    cuisine: 'Ice Cream Shop',
-    dealText: 'Existing Deal',
-    dealDescription: 'Check the restaurant for available promotions.',
+  // {
+  //   id: generateRestaurantId('Taiyaki NYC x The Dough Club - Cambridge'),
+  //   name: 'Taiyaki NYC x The Dough Club - Cambridge',
+  //   image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836',
+  //   location: 'Cambridge',
+  //   rating: 4.5,
+  //   priceRange: '$',
+  //   cuisine: 'Ice Cream Shop',
+  //   dealText: 'Existing Deal',
+  //   dealDescription: 'Check the restaurant for available promotions.',
 
-    neighborhood: 'Harvard Square',
-    deals: [
-      {
-        dealTitle: 'Existing Deal',
-        dealDescription: 'Check the restaurant for available promotions.',
-        potentialSavings: {
-          average: 'Varies',
-          upTo: 'Varies',
-        },
-      },
-    ],
-    fullDescription:
-      'Japanese ice cream shop offering fish-shaped waffles filled with soft-serve ice cream & other treats.',
-    address: '6 Church St, Cambridge, MA 02138',
-    openingHours: {
-      'Monday-Sunday': 'Open now, closes at 9 PM',
-    },
-    phoneNumber: '(617) 945-0983',
-    website: 'N/A',
-    menuHighlights: [
-      {
-        name: 'Taiyaki',
-        description:
-          'Fish-shaped waffle filled with custard, red bean, or Nutella',
-        price: 'Varies',
-      },
-      {
-        name: 'Matcha & Strawberry Ice Cream',
-        description:
-          'Soft-serve ice cream with a mix of matcha and strawberry flavors',
-        price: 'Varies',
-      },
-      {
-        name: 'Strawberry Cheesecake',
-        description: 'Japanese-style cheesecake topped with fresh strawberries',
-        price: 'Varies',
-      },
-    ],
-  },
+  //   neighborhood: 'Harvard Square',
+  //   deals: [
+  //     {
+  //       dealTitle: 'Existing Deal',
+  //       dealDescription: 'Check the restaurant for available promotions.',
+  //       potentialSavings: {
+  //         average: 'Varies',
+  //         upTo: 'Varies',
+  //       },
+  //     },
+  //   ],
+  //   fullDescription:
+  //     'Japanese ice cream shop offering fish-shaped waffles filled with soft-serve ice cream & other treats.',
+  //   address: '6 Church St, Cambridge, MA 02138',
+  //   openingHours: {
+  //     'Monday-Sunday': 'Open now, closes at 9 PM',
+  //   },
+  //   phoneNumber: '(617) 945-0983',
+  //   website: 'N/A',
+  //   menuHighlights: [
+  //     {
+  //       name: 'Taiyaki',
+  //       description:
+  //         'Fish-shaped waffle filled with custard, red bean, or Nutella',
+  //       price: 'Varies',
+  //     },
+  //     {
+  //       name: 'Matcha & Strawberry Ice Cream',
+  //       description:
+  //         'Soft-serve ice cream with a mix of matcha and strawberry flavors',
+  //       price: 'Varies',
+  //     },
+  //     {
+  //       name: 'Strawberry Cheesecake',
+  //       description: 'Japanese-style cheesecake topped with fresh strawberries',
+  //       price: 'Varies',
+  //     },
+  //   ],
+  // },
   // {
   //   id: generateRestaurantId('Wusong Road'),
   //   name: 'Wusong Road',
@@ -955,108 +955,108 @@ export const RESTAURANTS_DATA: Restaurant[] = [
   //     },
   //   ],
   // },
-  {
-    id: generateRestaurantId('Russell House Tavern'),
-    name: 'Russell House Tavern',
-    image:
-      'https://images.unsplash.com/photo-1624935984039-395c058e3944?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8ZG9zYXxlbnwwfHwwfHx8MA%3D%3D',
-    location: 'Cambridge',
-    rating: 4.4,
-    priceRange: '$$',
-    cuisine: 'American',
-    dealText: 'Existing Deal',
-    dealDescription: 'Check the restaurant for available promotions.',
+  // {
+  //   id: generateRestaurantId('Russell House Tavern'),
+  //   name: 'Russell House Tavern',
+  //   image:
+  //     'https://images.unsplash.com/photo-1624935984039-395c058e3944?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8ZG9zYXxlbnwwfHwwfHx8MA%3D%3D',
+  //   location: 'Cambridge',
+  //   rating: 4.4,
+  //   priceRange: '$$',
+  //   cuisine: 'American',
+  //   dealText: 'Existing Deal',
+  //   dealDescription: 'Check the restaurant for available promotions.',
 
-    neighborhood: 'Harvard Square',
-    deals: [
-      {
-        dealTitle: 'Existing Deal',
-        dealDescription: 'Check the restaurant for available promotions.',
-        potentialSavings: {
-          average: 'Varies',
-          upTo: 'Varies',
-        },
-      },
-    ],
-    fullDescription:
-      'Elevated American fare in a rustic-chic setting with craft cocktails and a lively atmosphere.',
-    address: '14 JFK St, Cambridge, MA 02138',
-    openingHours: {
-      Thursday: 'Opens 11:30 AM',
-    },
-    phoneNumber: '(617) 500-3055',
-    website: 'N/A',
-    menuHighlights: [
-      {
-        name: 'Russell House Burger',
-        description:
-          'Grass-fed beef with cheddar, lettuce, tomato, and house sauce',
-        price: '$16',
-      },
-      {
-        name: 'Seared Scallops',
-        description:
-          'Pan-seared scallops with seasonal vegetables and citrus butter',
-        price: '$28',
-      },
-      {
-        name: 'Truffle Fries',
-        description:
-          'Crispy fries tossed with truffle oil, parmesan, and herbs',
-        price: '$10',
-      },
-    ],
-  },
-  {
-    id: generateRestaurantId('Waypoint'),
-    name: 'Waypoint',
-    image:
-      'https://images.unsplash.com/photo-1610192244261-3f33de3f55e4?q=80&w=2576&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    location: 'Cambridge',
-    rating: 4.4,
-    priceRange: '$$$',
-    cuisine: 'Seafood',
-    dealText: 'Existing Deal',
-    dealDescription: 'Check the restaurant for available promotions.',
+  //   neighborhood: 'Harvard Square',
+  //   deals: [
+  //     {
+  //       dealTitle: 'Existing Deal',
+  //       dealDescription: 'Check the restaurant for available promotions.',
+  //       potentialSavings: {
+  //         average: 'Varies',
+  //         upTo: 'Varies',
+  //       },
+  //     },
+  //   ],
+  //   fullDescription:
+  //     'Elevated American fare in a rustic-chic setting with craft cocktails and a lively atmosphere.',
+  //   address: '14 JFK St, Cambridge, MA 02138',
+  //   openingHours: {
+  //     Thursday: 'Opens 11:30 AM',
+  //   },
+  //   phoneNumber: '(617) 500-3055',
+  //   website: 'N/A',
+  //   menuHighlights: [
+  //     {
+  //       name: 'Russell House Burger',
+  //       description:
+  //         'Grass-fed beef with cheddar, lettuce, tomato, and house sauce',
+  //       price: '$16',
+  //     },
+  //     {
+  //       name: 'Seared Scallops',
+  //       description:
+  //         'Pan-seared scallops with seasonal vegetables and citrus butter',
+  //       price: '$28',
+  //     },
+  //     {
+  //       name: 'Truffle Fries',
+  //       description:
+  //         'Crispy fries tossed with truffle oil, parmesan, and herbs',
+  //       price: '$10',
+  //     },
+  //   ],
+  // },
+  // {
+  //   id: generateRestaurantId('Waypoint'),
+  //   name: 'Waypoint',
+  //   image:
+  //     'https://images.unsplash.com/photo-1610192244261-3f33de3f55e4?q=80&w=2576&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  //   location: 'Cambridge',
+  //   rating: 4.4,
+  //   priceRange: '$$$',
+  //   cuisine: 'Seafood',
+  //   dealText: 'Existing Deal',
+  //   dealDescription: 'Check the restaurant for available promotions.',
 
-    neighborhood: 'Harvard Square',
-    deals: [
-      {
-        dealTitle: 'Existing Deal',
-        dealDescription: 'Check the restaurant for available promotions.',
-        potentialSavings: {
-          average: 'Varies',
-          upTo: 'Varies',
-        },
-      },
-    ],
-    fullDescription:
-      'Creative seafood and raw-bar selections, plus pizzas and pastas in a hip space.',
-    address: '1030 Massachusetts Ave, Cambridge, MA 02138',
-    openingHours: {
-      Thursday: 'Opens 5:00 PM',
-    },
-    phoneNumber: '(617) 864-2300',
-    website: 'N/A',
-    menuHighlights: [
-      {
-        name: 'Oyster Selection',
-        description: 'Fresh oysters served with house mignonette and lemon',
-        price: 'Market Price',
-      },
-      {
-        name: 'Lobster Pasta',
-        description: 'Handmade pasta with lobster, saffron butter, and herbs',
-        price: '$32',
-      },
-      {
-        name: 'Wood-Fired Pizza',
-        description:
-          'Neapolitan-style pizza with fresh mozzarella and seasonal toppings',
-        price: '$18',
-      },
-    ],
-  },
+  //   neighborhood: 'Harvard Square',
+  //   deals: [
+  //     {
+  //       dealTitle: 'Existing Deal',
+  //       dealDescription: 'Check the restaurant for available promotions.',
+  //       potentialSavings: {
+  //         average: 'Varies',
+  //         upTo: 'Varies',
+  //       },
+  //     },
+  //   ],
+  //   fullDescription:
+  //     'Creative seafood and raw-bar selections, plus pizzas and pastas in a hip space.',
+  //   address: '1030 Massachusetts Ave, Cambridge, MA 02138',
+  //   openingHours: {
+  //     Thursday: 'Opens 5:00 PM',
+  //   },
+  //   phoneNumber: '(617) 864-2300',
+  //   website: 'N/A',
+  //   menuHighlights: [
+  //     {
+  //       name: 'Oyster Selection',
+  //       description: 'Fresh oysters served with house mignonette and lemon',
+  //       price: 'Market Price',
+  //     },
+  //     {
+  //       name: 'Lobster Pasta',
+  //       description: 'Handmade pasta with lobster, saffron butter, and herbs',
+  //       price: '$32',
+  //     },
+  //     {
+  //       name: 'Wood-Fired Pizza',
+  //       description:
+  //         'Neapolitan-style pizza with fresh mozzarella and seasonal toppings',
+  //       price: '$18',
+  //     },
+  //   ],
+  // },
 ];
 
 // Export all restaurants for the homepage
