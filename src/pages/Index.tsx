@@ -175,12 +175,9 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-accent-purple/10">
       <div className="container mx-auto px-4 py-8">
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex justify-between items-center mb-16">
           <div>
-            <h1 className="text-4xl md:text-5xl font-bold mb-2">
-              Discover Boston's Best
-            </h1>
-            <p className="text-gray-600">Follow the trail to amazing flavors</p>
+            <h1>test</h1>
           </div>
           <div className="flex gap-4">
             {user ? (
@@ -214,7 +211,12 @@ const Index = () => {
             )}
           </div>
         </div>
-
+        <div className="mt-8">
+          <h1 className="text-4xl md:text-5xl font-bold mb-2">
+            Discover Boston's Best
+          </h1>
+          <p className="text-gray-600">Follow the trail to amazing flavors</p>
+        </div>
         {/* <div className="flex gap-3 overflow-x-auto py-6 scrollbar-hide">
           {CATEGORIES.map((category) => (
             <Badge
