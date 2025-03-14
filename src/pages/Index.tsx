@@ -290,22 +290,29 @@ const Index = () => {
           </div>
         </div>
         <div className="mt-8">
-          <h1 className="text-4xl md:text-5xl font-bold mb-2">
+          <h1 className="text-4xl md:text-5xl font-bold mb-8">
             Discover Boston's Best
           </h1>
           <div className="space-y-4 max-w-3xl">
             <p className="text-xl font-semibold">
               Discover exclusive dining deals in Cambridge with TasteTrail!{' '}
               <span className="font-normal">
-                Whether you're craving a gourmet burger, a hearty pizza, sizzling steaks, or something new, TasteTrail connects you with the best offers so you can{' '}
-                <span className="font-semibold">savor more, spend less, and explore</span>.
+                Whether you're craving a gourmet burger, a hearty pizza,
+                sizzling steaks, or something new, TasteTrail connects you with
+                the best offers so you can{' '}
+                <span className="font-semibold">
+                  savor more, spend less, and explore
+                </span>
+                .
               </span>
             </p>
             <p className="font-medium">Just:</p>
             <ul className="space-y-2 text-lg">
               <li className="flex items-center gap-2">
                 <span className="text-xl">🔍</span>
-                <span>Find an unbeatable offer (BOGO, free apps, and more)</span>
+                <span>
+                  Find an unbeatable offer (BOGO, free apps, and more)
+                </span>
               </li>
               <li className="flex items-center gap-2">
                 <span className="text-xl">📝</span>
