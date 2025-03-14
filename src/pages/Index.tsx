@@ -7,7 +7,7 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
+} from '@/components/ui/dialog';
 import { useAuth } from '@/contexts/AuthContext';
 import { FEATURED_RESTAURANTS } from '@/data/restaurants';
 import { useEffect, useMemo, useState } from 'react';
@@ -203,16 +203,22 @@ const Index = () => {
             </DialogTitle>
             <DialogDescription className="space-y-4">
               <p className="text-center mt-4">
-                Enjoy 2-for-1 meals, free appetizers, desserts, and more at some of the best restaurants in town.
+                Enjoy 2-for-1 meals, free appetizers, desserts, and more at some
+                of the best restaurants in town.
               </p>
               <ul className="space-y-2">
                 <li className="flex items-start">
                   <span className="mr-2">✅</span>
-                  <span>10+ unique restaurants and counting – with new spots added weekly!</span>
+                  <span>
+                    10+ unique restaurants and counting – with new spots added
+                    weekly!
+                  </span>
                 </li>
                 <li className="flex items-start">
                   <span className="mr-2">✅</span>
-                  <span>Over $200 worth of restaurant deals for just $8.99/month</span>
+                  <span>
+                    Over $200 worth of restaurant deals for just $8.99/month
+                  </span>
                 </li>
                 <li className="flex items-start">
                   <span className="mr-2">✅</span>
@@ -223,7 +229,7 @@ const Index = () => {
                 What are you waiting for? Start exploring now!
               </p>
               <div className="flex justify-center mt-4">
-                <Button 
+                <Button
                   className="w-full bg-primary hover:bg-primary/90"
                   onClick={handleCloseWelcomeModal}
                 >
@@ -234,7 +240,9 @@ const Index = () => {
           </DialogHeader>
         </DialogContent>
       </Dialog>
-      <div className={`container mx-auto px-4 py-8 transition-all duration-300 ${showWelcomeModal ? 'blur-sm' : ''}`}>
+      <div
+        className={`container mx-auto px-4 py-8 transition-all duration-300 ${showWelcomeModal ? 'blur-sm' : ''}`}
+      >
         <div className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm py-4 shadow-sm">
           <div className="container mx-auto px-4">
             <div className="flex justify-between items-center">
@@ -248,7 +256,9 @@ const Index = () => {
               <div className="flex gap-4">
                 {user ? (
                   <div className="flex items-center gap-4">
-                    <span className="text-sm text-gray-600">Hello, {userName}</span>
+                    <span className="text-sm text-gray-600">
+                      Hello, {userName}
+                    </span>
                     <Button
                       variant="outline"
                       className="px-6 py-2 rounded-lg text-base font-medium border-2 border-primary hover:bg-primary hover:text-white transition-colors"
@@ -283,7 +293,34 @@ const Index = () => {
           <h1 className="text-4xl md:text-5xl font-bold mb-2">
             Discover Boston's Best
           </h1>
-          <p className="text-gray-600">Follow the trail to amazing flavors</p>
+          <div className="space-y-4 max-w-3xl">
+            <p className="text-xl font-semibold">
+              Discover exclusive dining deals in Cambridge with TasteTrail!{' '}
+              <span className="font-normal">
+                Whether you're craving a gourmet burger, a hearty pizza, sizzling steaks, or something new, TasteTrail connects you with the best offers so you can{' '}
+                <span className="font-semibold">savor more, spend less, and explore</span>.
+              </span>
+            </p>
+            <p className="font-medium">Just:</p>
+            <ul className="space-y-2 text-lg">
+              <li className="flex items-center gap-2">
+                <span className="text-xl">🔍</span>
+                <span>Find an unbeatable offer (BOGO, free apps, and more)</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-xl">📝</span>
+                <span>Create an account in seconds</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-xl">🎟️</span>
+                <span>Redeem your offer</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-xl">🍽️</span>
+                <span>Savor a delicious meal at the restaurant</span>
+              </li>
+            </ul>
+          </div>
         </div>
         {/* <div className="flex gap-3 overflow-x-auto py-6 scrollbar-hide">
           {CATEGORIES.map((category) => (
