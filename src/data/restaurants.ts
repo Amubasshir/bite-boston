@@ -40,7 +40,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
   {
     id: generateRestaurantId('The Sea Hag Restaurant & Bar'),
     name: 'The Sea Hag Restaurant & Bar',
-    image: 'https://i.ibb.co.com/DDDjKvMM/Sea-Hag-BOGO.png',
+    image: 'https://i.ibb.co.com/ZpwtbQVw/seehag.jpg',
     location: 'Cambridge',
     rating: 4.3,
     priceRange: '$$$',
