@@ -217,7 +217,7 @@ const Index = () => {
                 <li className="flex items-start">
                   <span className="mr-2">✅</span>
                   <span>
-                    Over $200 worth of restaurant deals for just $8.99/month
+                    Over $200 worth of restaurant deals for just $4.99/month
                   </span>
                 </li>
                 <li className="flex items-start">
