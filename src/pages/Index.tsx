@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom';
 // Add these imports at the top
 import { supabase } from '@/lib/supabase';
 import { toast } from 'sonner';
+import { useSuccessModal } from '@/components/SuccessModal';
 
 // const NEIGHBORHOODS = [
 //   'Back Bay',
@@ -39,7 +40,9 @@ interface DealClaimData {
 interface RestaurantDealData {
   name: string;
   id: string;
+  offerPerCustomerLimit:number;
   dealData: DealClaimData;
+
 }
 
 const Index = () => {
@@ -49,6 +52,7 @@ const Index = () => {
   const { user, signOut } = useAuth();
   const [userName, setUserName] = useState<string>('');
   const [showWelcomeModal, setShowWelcomeModal] = useState(true);
+  const { showSuccessModal,hideSuccessModal } = useSuccessModal();
 
   useEffect(() => {
     if (user) {
@@ -132,6 +136,20 @@ const Index = () => {
         navigate('/login');
         return;
       }
+      // Check if user has reached the claim limit for this restaurant
+      const { data: claimedDealsCount, error: countError } = await supabase
+        .from('claimed_deals')
+        .select('*', { count: 'exact' })
+        .eq('user_id', user.id)
+        .eq('restaurant_id', restaurantData.id);
+
+      if (countError) throw countError;
+
+      if (claimedDealsCount && claimedDealsCount.length >= restaurantData.offerPerCustomerLimit&&restaurantData.offerPerCustomerLimit ) {
+        toast.error(`You have reached the maximum limit of ${restaurantData.offerPerCustomerLimit} claims for this restaurant's deals`);
+        hideSuccessModal()
+        return;
+      }
 
       // First save to database
       const { error: dbError } = await supabase.from('claimed_deals').insert({
@@ -166,6 +184,20 @@ const Index = () => {
         if (emailError) {
           throw emailError;
         }
+
+        // Show success modal with the deal data
+        showSuccessModal({
+          selectedDate: new Date(),
+          confirmationId: restaurantData.dealData.confirmationId,
+          user_id: user.id,
+          email: user.email,
+          restaurant_name: restaurantData.name,
+          restaurant_id: restaurantData.id,
+          deal_title: restaurantData.dealData.dealTitle,
+          deal_description: restaurantData.dealData.description,
+          expiry_date: restaurantData.dealData.expiry_date,
+          claimed_at: new Date(),
+        });
 
         toast.success(`Deal claimed! Confirmation sent to ${user.email}`);
       } catch (emailError) {
@@ -370,6 +402,7 @@ const Index = () => {
                   handleDealClaim({
                     name: restaurant.name,
                     id: restaurant.id,
+                    offerPerCustomerLimit:restaurant.offerPerCustomerLimit,
                     dealData: {
                       dealTitle: restaurant.dealText,
                       description: restaurant.fullDescription,

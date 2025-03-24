@@ -25,7 +25,7 @@ export interface Restaurant {
   cuisine: string;
   dealText: string;
   dealDescription: string;
-
+  offerPerCustomerLimit:number,
   neighborhood: string;
   deals: Deal[];
   fullDescription: string;
@@ -48,7 +48,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     dealText: 'Buy one get one main dish free',
     dealDescription:
       'Buy any main dish and get another main dish for free. Applies to items under the "From the Sea" section. Main dish of equal or lesser value will be free',
-
+      offerPerCustomerLimit:2,
     neighborhood: 'Harvard Square',
     deals: [
       {
@@ -105,6 +105,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     rating: 4.5,
     priceRange: '$',
     cuisine: 'Burger',
+    offerPerCustomerLimit:3,
     dealText: 'Buy one get one burger free',
     dealDescription:
       'Buy any burger, and enjoy a second one for free (applies to the burger of equal or lesser value)',
@@ -164,6 +165,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     rating: 4.2,
     priceRange: '$$',
     cuisine: 'American',
+    offerPerCustomerLimit:3,
     dealText: 'Buy one get one main dish free',
     dealDescription:
       'Buy any main dish and get another main dish for free. Applies to items in the main dish, sandwich, and salads section. Main dish of equal or lesser value will be free',
@@ -223,6 +225,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     location: 'Boston',
     rating: 4.2,
     priceRange: '$',
+    offerPerCustomerLimit:0,
     cuisine: 'Pizza',
     dealText: 'Buy one get one pizza slice free',
     dealDescription:
@@ -282,6 +285,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     rating: 3.6,
     priceRange: '$',
     cuisine: 'Dessert',
+    offerPerCustomerLimit:3,
     dealText: 'Free macaron with box of 6',
     dealDescription:
       'Get a free macaron of your choice when you order a box of 6',
@@ -342,6 +346,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     rating: 4.4,
     priceRange: '$',
     cuisine: 'Dessert',
+    offerPerCustomerLimit:3,
     dealText: 'Free drink with waffle order',
     dealDescription:
       'Get a free hot or cold beverage with the order of any pre-designed waffle. Not applicable to any matcha-based drinks or smoothies. If you choose to build your own waffle, a minimum of 2 toppings is required to redeem the deal',
@@ -392,6 +397,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     rating: 4.6,
     priceRange: '$$',
     cuisine: 'Seafood',
+    offerPerCustomerLimit:3,
     dealText: 'Buy one get one half off on shrimp',
     dealDescription:
       'Order any shrimp item—boiled (head-on or EZ-Peel), fried shrimp baskets, or Sha-Bang Bang shrimp—and get the second (equal or lower-priced) for half off. Mix and match!',
@@ -503,7 +509,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     dealText: 'Free appetizer with 2 sandwiches',
     dealDescription:
       'Get a free appetizer of your choice with the order of 2 roll up sandwiches or 2 plates',
-
+      offerPerCustomerLimit:3,
     neighborhood: 'Harvard Square',
     deals: [
       {
@@ -559,6 +565,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     location: 'Cambridge',
     rating: 4.4,
     priceRange: '$',
+    offerPerCustomerLimit:3,
     cuisine: 'Fast Food',
     dealText: 'Free beer with burger and fries',
     dealDescription:
@@ -611,6 +618,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     location: 'Boston',
     rating: 4.4,
     priceRange: '$',
+    offerPerCustomerLimit:3,
     cuisine: 'Asian Fusion',
     dealText: '15% off',
     dealDescription: 'Get 15% off your bill. You must show your student ID.',
@@ -665,6 +673,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     rating: 4.4,
     priceRange: '$$',
     cuisine: 'Greek',
+    offerPerCustomerLimit:3,
     dealText: 'Free Greek Fries for students',
     dealDescription:
       'Free order of Greek Fries with any lunch or dinner purchase (sandwich, plate, or salad). Valid for students only!',
@@ -717,6 +726,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     rating: 4.5,
     priceRange: '$',
     cuisine: 'Ramen',
+    offerPerCustomerLimit:3,
     dealText: 'Free size upgrade',
     dealDescription: 'Upgrade to a large ramen bowl for free!',
 
@@ -765,6 +775,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     rating: 4.3,
     priceRange: '$',
     cuisine: 'Hot Pot',
+    offerPerCustomerLimit:3,
     dealText: 'Existing Deal',
     dealDescription: 'Check the restaurant for available promotions.',
 

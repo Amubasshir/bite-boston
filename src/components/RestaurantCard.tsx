@@ -32,7 +32,7 @@ interface RestaurantCardProps {
   cuisine: string;
   dealText: string;
   dealDescription: string;
-
+  offerPerCustomerLimit:number,
   neighborhood: string;
   deals: Array<{
     dealTitle: string;
@@ -49,6 +49,7 @@ interface RestaurantCardProps {
     confirmationId: string;
     user_id: string;
     email: string;
+    offerPerCustomerLimit:number,
     restaurant_name: string;
     restaurant_id: string;
     deal_title: string;
@@ -70,6 +71,7 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
   dealDescription,
   duration,
   deals,
+  offerPerCustomerLimit,
   onClaimDeal,
 }: RestaurantCardProps) => {
   const dealsCount = deals?.length || 0;
@@ -236,6 +238,7 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
               dealTitle={displayDealTitle}
               restaurantName={name}
               restaurantId={id}
+              offerPerCustomerLimit={offerPerCustomerLimit}
               dealDescription={displayDealDescription}
               user_id={user.id}
               userEmail={user.email}
