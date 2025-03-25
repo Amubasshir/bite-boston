@@ -13,9 +13,9 @@ import { FEATURED_RESTAURANTS } from '@/data/restaurants';
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // Add these imports at the top
+import { useSuccessModal } from '@/components/SuccessModal';
 import { supabase } from '@/lib/supabase';
 import { toast } from 'sonner';
-import { useSuccessModal } from '@/components/SuccessModal';
 
 // const NEIGHBORHOODS = [
 //   'Back Bay',
@@ -34,7 +34,7 @@ interface DealClaimData {
   dealTitle: string;
   description: string;
   confirmationId: string;
-  offerPerCustomerLimit:number;
+  offerPerCustomerLimit: number;
   expiry_date: Date; // Changed from date to expiry_date to match usage
 }
 
@@ -42,7 +42,6 @@ interface RestaurantDealData {
   name: string;
   id: string;
   dealData: DealClaimData;
-
 }
 
 const Index = () => {
@@ -52,8 +51,8 @@ const Index = () => {
   const { user, signOut } = useAuth();
   const [userName, setUserName] = useState<string>('');
   const [showWelcomeModal, setShowWelcomeModal] = useState(true);
-  const { showSuccessModal,hideSuccessModal } = useSuccessModal();
-const [currentDealIndex,setCurrentDealIndex] = useState(0);
+  const { showSuccessModal, hideSuccessModal } = useSuccessModal();
+  const [currentDealIndex, setCurrentDealIndex] = useState(0);
 
   useEffect(() => {
     if (user) {
@@ -145,10 +144,17 @@ const [currentDealIndex,setCurrentDealIndex] = useState(0);
         .eq('restaurant_id', restaurantData.id);
 
       if (countError) throw countError;
-      console.log(restaurantData,"restaurantData")
-      if (claimedDealsCount && claimedDealsCount.length >= restaurantData?.dealData?.offerPerCustomerLimit&&restaurantData.dealData.offerPerCustomerLimit ) {
-        toast.error(`You have reached the maximum limit of ${restaurantData?.dealData?.offerPerCustomerLimit} claims for this restaurant's deals`);
-        hideSuccessModal()
+      console.log(restaurantData, 'restaurantData');
+      if (
+        claimedDealsCount &&
+        claimedDealsCount.length >=
+          restaurantData?.dealData?.offerPerCustomerLimit &&
+        restaurantData.dealData.offerPerCustomerLimit
+      ) {
+        toast.error(
+          `You have reached the maximum limit of ${restaurantData?.dealData?.offerPerCustomerLimit} claims for this restaurant's deals`
+        );
+        hideSuccessModal();
         return;
       }
 
@@ -324,22 +330,15 @@ const [currentDealIndex,setCurrentDealIndex] = useState(0);
         </div>
         <div className="mt-8">
           <h1 className="text-4xl md:text-5xl font-bold mb-8">
-            Discover Boston's Best
+            Unbeatable Food Deals in Cambridge
+            <div className="mt-4">BOGO, Free Apps, and More</div>
           </h1>
           <div className="space-y-4 max-w-3xl">
             <p className="text-xl font-semibold">
-              Discover exclusive dining deals in Cambridge with TasteTrail!{' '}
-              <span className="font-normal">
-                Whether you're craving a gourmet burger, a hearty pizza,
-                sizzling steaks, or something new, TasteTrail connects you with
-                the best offers so you can{' '}
-                <span className="font-semibold">
-                  savor more, spend less, and explore
-                </span>
-                .
-              </span>
+              Harvard Business School ECs went door-to-door too secure exclusive
+              deals for Harvard grad students.
             </p>
-            <p className="font-medium">Just:</p>
+
             <ul className="space-y-2 text-lg">
               <li className="flex items-center gap-2">
                 <span className="text-xl">🔍</span>
@@ -358,6 +357,25 @@ const [currentDealIndex,setCurrentDealIndex] = useState(0);
               <li className="flex items-center gap-2">
                 <span className="text-xl">🍽️</span>
                 <span>Savor a delicious meal at the restaurant</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-xl">🙏</span>
+                <span>
+                  for the love of god please try us out so we can upgrade this
+                  website
+                </span>
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-xl">❓</span>
+                <span>
+                  Need help? Call our unpaid intern Alex Mazzaferro at{' '}
+                  <a
+                    href="tel:815-404-1738"
+                    className="text-primary hover:underline font-medium"
+                  >
+                    (815) 404-1738
+                  </a>
+                </span>
               </li>
             </ul>
           </div>
@@ -395,10 +413,11 @@ const [currentDealIndex,setCurrentDealIndex] = useState(0);
         {/* Restaurant Deals Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredRestaurants.length > 0 ? (
-            filteredRestaurants.map((restaurant,i) => (
+            filteredRestaurants.map((restaurant, i) => (
               <RestaurantCard
-            
-                offerPerCustomerLimit={Number(restaurant?.deals[currentDealIndex]?.offerPerCustomerLimit)}
+                offerPerCustomerLimit={Number(
+                  restaurant?.deals[currentDealIndex]?.offerPerCustomerLimit
+                )}
                 key={i}
                 {...restaurant}
                 currentDealIndex={currentDealIndex}
@@ -409,8 +428,12 @@ const [currentDealIndex,setCurrentDealIndex] = useState(0);
                     id: restaurant.id,
                     dealData: {
                       dealTitle: restaurant.deals[currentDealIndex].dealTitle,
-                      offerPerCustomerLimit:Number(restaurant?.deals[currentDealIndex]?.offerPerCustomerLimit),
-                      description: restaurant.deals[currentDealIndex].dealDescription,
+                      offerPerCustomerLimit: Number(
+                        restaurant?.deals[currentDealIndex]
+                          ?.offerPerCustomerLimit
+                      ),
+                      description:
+                        restaurant.deals[currentDealIndex].dealDescription,
                       confirmationId: `${restaurant.name.substring(0, 5).toUpperCase()}-${Date.now()}-${Math.random().toString(36).substring(2, 10).toUpperCase()}`,
                       expiry_date: new Date(
                         Date.now() + 7 * 24 * 60 * 60 * 1000
