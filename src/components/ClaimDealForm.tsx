@@ -1,4 +1,3 @@
-import { useSuccessModal } from '@/components/SuccessModal';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import {
@@ -10,9 +9,9 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
-import { useState } from 'react';
 
 const formSchema = z.object({
   date: z.date({
@@ -27,7 +26,7 @@ interface ClaimDealFormProps {
     confirmationId: string;
     user_id: string;
     email: string;
-    offerPerCustomerLimit:number,
+    offerPerCustomerLimit?: number,
     restaurant_name: string;
     restaurant_id: string;
     deal_title: string;
@@ -40,7 +39,7 @@ interface ClaimDealFormProps {
   dealDescription: string;
   user_id: string;
   userEmail: string;
-  offerPerCustomerLimit:number
+  offerPerCustomerLimit?: number;
 }
 
 export const ClaimDealForm: React.FC<ClaimDealFormProps> = ({
@@ -54,11 +53,11 @@ export const ClaimDealForm: React.FC<ClaimDealFormProps> = ({
   offerPerCustomerLimit
 }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitting(true);
     const confirmationId = `${restaurantName.substring(0, 5).toUpperCase()}-${Math.random().toString(36).substring(2, 10).toUpperCase()}`;
-    
+
     const claimData = {
       selectedDate: values.date,
       confirmationId,
@@ -69,7 +68,7 @@ export const ClaimDealForm: React.FC<ClaimDealFormProps> = ({
       deal_title: dealTitle,
       deal_description: dealDescription,
       expiry_date: values.date,
-      offerPerCustomerLimit:offerPerCustomerLimit,
+      offerPerCustomerLimit: offerPerCustomerLimit,
       claimed_at: new Date()
     };
 
@@ -77,7 +76,7 @@ export const ClaimDealForm: React.FC<ClaimDealFormProps> = ({
       // Call onSuccess with all claim data
       await onSuccess({
         ...claimData,
-        offerPerCustomerLimit:offerPerCustomerLimit
+        offerPerCustomerLimit: offerPerCustomerLimit
       });
     } catch (error) {
       console.error('Error claiming deal:', error);

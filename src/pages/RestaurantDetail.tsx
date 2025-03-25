@@ -6,8 +6,8 @@ import { MenuHighlights } from '@/components/restaurant/MenuHighlights';
 import { RestaurantHero } from '@/components/restaurant/RestaurantHero';
 import { Button } from '@/components/ui/button';
 import { RESTAURANTS_DATA } from '@/data/restaurants';
-import { Link, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
 
 // Restaurant data is now imported from data/restaurants.ts
 
@@ -61,7 +61,7 @@ const RestaurantDetail = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
             <DealSection
-            restaurant={restaurant}
+              restaurant={restaurant}
               deals={restaurant.deals}
               duration={restaurant.duration}
             />

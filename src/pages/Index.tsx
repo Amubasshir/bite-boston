@@ -34,13 +34,13 @@ interface DealClaimData {
   dealTitle: string;
   description: string;
   confirmationId: string;
+  offerPerCustomerLimit:number;
   expiry_date: Date; // Changed from date to expiry_date to match usage
 }
 
 interface RestaurantDealData {
   name: string;
   id: string;
-  offerPerCustomerLimit:number;
   dealData: DealClaimData;
 
 }
@@ -53,6 +53,7 @@ const Index = () => {
   const [userName, setUserName] = useState<string>('');
   const [showWelcomeModal, setShowWelcomeModal] = useState(true);
   const { showSuccessModal,hideSuccessModal } = useSuccessModal();
+const [currentDealIndex,setCurrentDealIndex] = useState(0);
 
   useEffect(() => {
     if (user) {
@@ -144,9 +145,9 @@ const Index = () => {
         .eq('restaurant_id', restaurantData.id);
 
       if (countError) throw countError;
-
-      if (claimedDealsCount && claimedDealsCount.length >= restaurantData.offerPerCustomerLimit&&restaurantData.offerPerCustomerLimit ) {
-        toast.error(`You have reached the maximum limit of ${restaurantData.offerPerCustomerLimit} claims for this restaurant's deals`);
+      console.log(restaurantData,"restaurantData")
+      if (claimedDealsCount && claimedDealsCount.length >= restaurantData?.dealData?.offerPerCustomerLimit&&restaurantData.dealData.offerPerCustomerLimit ) {
+        toast.error(`You have reached the maximum limit of ${restaurantData?.dealData?.offerPerCustomerLimit} claims for this restaurant's deals`);
         hideSuccessModal()
         return;
       }
@@ -394,18 +395,22 @@ const Index = () => {
         {/* Restaurant Deals Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredRestaurants.length > 0 ? (
-            filteredRestaurants.map((restaurant) => (
+            filteredRestaurants.map((restaurant,i) => (
               <RestaurantCard
-                key={restaurant.name}
+            
+                offerPerCustomerLimit={Number(restaurant?.deals[currentDealIndex]?.offerPerCustomerLimit)}
+                key={i}
                 {...restaurant}
+                currentDealIndex={currentDealIndex}
+                setCurrentDealIndex={setCurrentDealIndex}
                 onClaimDeal={() =>
                   handleDealClaim({
                     name: restaurant.name,
                     id: restaurant.id,
-                    offerPerCustomerLimit:restaurant.offerPerCustomerLimit,
                     dealData: {
-                      dealTitle: restaurant.dealText,
-                      description: restaurant.fullDescription,
+                      dealTitle: restaurant.deals[currentDealIndex].dealTitle,
+                      offerPerCustomerLimit:Number(restaurant?.deals[currentDealIndex]?.offerPerCustomerLimit),
+                      description: restaurant.deals[currentDealIndex].dealDescription,
                       confirmationId: `${restaurant.name.substring(0, 5).toUpperCase()}-${Date.now()}-${Math.random().toString(36).substring(2, 10).toUpperCase()}`,
                       expiry_date: new Date(
                         Date.now() + 7 * 24 * 60 * 60 * 1000

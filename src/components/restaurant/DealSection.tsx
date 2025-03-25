@@ -17,6 +17,7 @@ import { useSuccessModal } from '../SuccessModal';
 
 interface Deal {
   dealTitle: string;
+  offerPerCustomerLimit?: number;
   dealDescription: string;
   potentialSavings: {
     average: string;
@@ -52,7 +53,7 @@ export function DealSection({ deals, duration, restaurant }: DealSectionProps) {
   const { user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const { showSuccessModal,hideSuccessModal } = useSuccessModal();
+  const { showSuccessModal, hideSuccessModal } = useSuccessModal();
   const currentDeal = deals[currentDealIndex];
   const totalDeals = deals.length;
   const data = {
@@ -70,6 +71,7 @@ export function DealSection({ deals, duration, restaurant }: DealSectionProps) {
     name: string;
     id: string;
     dealData: {
+      offerPerCustomerLimit?: number;
       dealTitle: string;
       description: string;
       confirmationId: string;
@@ -92,8 +94,9 @@ export function DealSection({ deals, duration, restaurant }: DealSectionProps) {
 
       if (countError) throw countError;
 
-      if (claimedDealsCount && claimedDealsCount.length >= restaurantData.offerPerCustomerLimit&&restaurantData.offerPerCustomerLimit ) {
-        toast.error(`You have reached the maximum limit of ${restaurantData.offerPerCustomerLimit} claims for this restaurant's deals`);
+      if (claimedDealsCount && claimedDealsCount.length >= restaurantData.dealData?.offerPerCustomerLimit && restaurantData.dealData.offerPerCustomerLimit) {
+        toast.error(`You have reached the maximum limit of ${restaurantData.dealData.offerPerCustomerLimit} claims for this restaurant's deals`);
+        setDialogOpen(false)
         hideSuccessModal()
         return;
       }
@@ -145,15 +148,17 @@ export function DealSection({ deals, duration, restaurant }: DealSectionProps) {
           expiry_date: restaurantData.dealData.expiry_date,
           claimed_at: new Date(),
         });
-
+        setDialogOpen(false)
         toast.success(`Deal claimed! Confirmation sent to ${user.email}`);
       } catch (emailError) {
+        setDialogOpen(false)
         console.error('Email sending failed:', emailError);
         toast.warning(
           'Deal claimed but email delivery failed. Please check your account.'
         );
       }
     } catch (error) {
+      setDialogOpen(false)
       console.error('Error claiming deal:', error);
       toast.error('Failed to claim deal. Please try again.');
     }
@@ -223,9 +228,8 @@ export function DealSection({ deals, duration, restaurant }: DealSectionProps) {
 
         <div className="relative">
           <div
-            className={`px-4 transition-opacity duration-200 ${
-              isTransitioning ? 'opacity-0' : 'opacity-100'
-            }`}
+            className={`px-4 transition-opacity duration-200 ${isTransitioning ? 'opacity-0' : 'opacity-100'
+              }`}
           >
             <h3 className="font-semibold mb-4">{currentDeal.dealTitle}</h3>
             <p className="text-gray-700 mb-6">{currentDeal.dealDescription}</p>
@@ -260,17 +264,17 @@ export function DealSection({ deals, duration, restaurant }: DealSectionProps) {
               <DialogTitle>Select a date for your deal</DialogTitle>
             </DialogHeader>
             <ClaimDealForm
-             offerPerCustomerLimit={restaurant?.offerPerCustomerLimit}
+              offerPerCustomerLimit={Number(currentDeal?.offerPerCustomerLimit)}
               onSuccess={(claimData) => handleDealClaim({
                 name: claimData.restaurant_name,
                 id: claimData.restaurant_id,
                 dealData: {
+                  offerPerCustomerLimit: Number(currentDeal?.offerPerCustomerLimit),
                   dealTitle: claimData.deal_title,
                   description: claimData.deal_description,
                   confirmationId: claimData.confirmationId,
                   expiry_date: claimData.expiry_date
                 },
-                offerPerCustomerLimit: claimData.offerPerCustomerLimit
               })}
               dealTitle={data.dealData.dealTitle}
               restaurantName={data.name}

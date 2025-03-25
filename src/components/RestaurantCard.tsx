@@ -11,7 +11,7 @@ import {
 import { useAuth } from '@/contexts/AuthContext';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 interface Deal {
   dealTitle: string;
@@ -32,10 +32,16 @@ interface RestaurantCardProps {
   cuisine: string;
   dealText: string;
   dealDescription: string;
-  offerPerCustomerLimit:number,
+  offerPerCustomerLimit: number,
   neighborhood: string;
+  currentDealIndex: number,
+  setCurrentDealIndex: any,
+  duration: string;
   deals: Array<{
     dealTitle: string;
+    currentDealIndex?: number,
+    setCurrentDealIndex?: any,
+    offerPerCustomerLimit: number;
     dealDescription: string;
     potentialSavings: {
       average: string;
@@ -49,7 +55,7 @@ interface RestaurantCardProps {
     confirmationId: string;
     user_id: string;
     email: string;
-    offerPerCustomerLimit:number,
+    offerPerCustomerLimit: number,
     restaurant_name: string;
     restaurant_id: string;
     deal_title: string;
@@ -69,13 +75,14 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
   priceRange,
   dealText,
   dealDescription,
+  currentDealIndex,
+  setCurrentDealIndex,
   duration,
   deals,
   offerPerCustomerLimit,
   onClaimDeal,
 }: RestaurantCardProps) => {
   const dealsCount = deals?.length || 0;
-  const [currentDealIndex, setCurrentDealIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const { user } = useAuth();
@@ -83,7 +90,7 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
 
   // Get the current deal to display if deals array exists
   const currentDeal =
-    deals && deals.length > 0 ? deals[currentDealIndex] : null;
+    deals && deals.length > 0 ? deals[Number(currentDealIndex) || 0] : null;
 
   // Use the current deal's title and description if available, otherwise use the props
   const displayDealTitle = currentDeal?.dealTitle || dealText;
@@ -96,7 +103,7 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
 
     setIsTransitioning(true);
     setTimeout(() => {
-      setCurrentDealIndex((prev) => (prev + 1) % deals.length);
+      setCurrentDealIndex((Number(currentDealIndex) + 1) % deals.length);
       setTimeout(() => {
         setIsTransitioning(false);
       }, 50);
@@ -116,8 +123,7 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
     }, 200);
   };
 
-  const handleClaimButtonClick = (e: React.MouseEvent) => {
-    e.preventDefault(); // Prevent navigation to restaurant details page
+  const handleClaimButtonClick = () => {
 
     if (user) {
       // User is logged in, show the claim dialog
@@ -139,9 +145,11 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
 
   return (
     <div className="relative h-full">
-      <Link to={`/restaurant/${id}`} className="block h-full w-full">
+      <div className="block h-full w-full">
         <Card className="overflow-hidden h-full transition-transform hover:scale-[1.02] hover:shadow-lg">
-          <div className="relative aspect-[4/3] overflow-hidden">
+          <div className="relative aspect-[4/3] overflow-hidden" onClick={() => {
+            navigate(`/restaurant/${id}`);
+          }}>
             <img
               src={image}
               alt={name}
@@ -149,7 +157,9 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
             />
           </div>
           <div className="p-6">
-            <div className="flex items-start justify-between mb-4">
+            <div className="flex items-start justify-between mb-4" onClick={() => {
+              navigate(`/restaurant/${id}`);
+            }}>
               <div>
                 <h3 className="font-semibold text-xl mb-1">{name}</h3>
                 <div className="flex items-center gap-2">
@@ -162,7 +172,7 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
             </div>
 
             <div className="space-y-4">
-              <div className="relative">
+              <div className="relative" >
                 {/* Left arrow - positioned to match the screenshot */}
                 {dealsCount > 1 && (
                   <div className="absolute -left-6 top-1/2 -translate-y-1/2 z-50">
@@ -199,9 +209,8 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
                   )}
 
                   <div
-                    className={`transition-opacity duration-200 ${
-                      isTransitioning ? 'opacity-0' : 'opacity-100'
-                    }`}
+                    className={`transition-opacity duration-200 ${isTransitioning ? 'opacity-0' : 'opacity-100'
+                      }`}
                   >
                     <h4 className="font-medium text-lg text-primary mb-1">
                       {displayDealTitle}
@@ -215,16 +224,17 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
 
               {/* Claim Deal Button - Now with onClick handler to open dialog */}
               <Button
+                type='button'
                 className="w-full"
                 size="lg"
-                onClick={handleClaimButtonClick}
+                onClick={() => handleClaimButtonClick()}
               >
                 Claim this Deal
               </Button>
             </div>
           </div>
         </Card>
-      </Link>
+      </div>
 
       {/* Claim Deal Dialog - Only shown for authenticated users */}
       {user && (
@@ -238,7 +248,7 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
               dealTitle={displayDealTitle}
               restaurantName={name}
               restaurantId={id}
-              offerPerCustomerLimit={offerPerCustomerLimit}
+              offerPerCustomerLimit={currentDeal?.offerPerCustomerLimit || 0}
               dealDescription={displayDealDescription}
               user_id={user.id}
               userEmail={user.email}
