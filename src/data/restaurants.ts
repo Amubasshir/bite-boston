@@ -2,7 +2,7 @@ import { generateRestaurantId } from '@/utils/restaurant';
 
 export interface Deal {
   dealTitle: string;
-  offerPerCustomerLimit: number,
+  offerPerCustomerLimit: number;
   dealDescription: string;
   potentialSavings: {
     average: string;
@@ -148,7 +148,6 @@ export const RESTAURANTS_DATA: Restaurant[] = [
         name: 'The Big Papi',
         description: 'Burger with guacamole, jalapeños, and salsa',
         price: '$18',
-
       },
       {
         name: 'The Tom Brady',
@@ -352,7 +351,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
   {
     id: generateRestaurantId("Zinneken's Belgian waffles"),
     name: "Zinneken's Belgian waffles",
-    image: 'https://i.ibb.co.com/Tq0qpM1H/Zinnekens-FREE.webp',
+    image: 'https://i.ibb.co.com/q3gmWdjK/im.jpg',
     location: 'Cambridge',
     rating: 4.4,
     priceRange: '$',
