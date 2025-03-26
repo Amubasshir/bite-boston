@@ -53,7 +53,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     deals: [
       {
         dealTitle: 'Buy one get one main dish',
-        offerPerCustomerLimit: 0,
+        offerPerCustomerLimit: 1,
         dealDescription:
           'Buy any main dish and get another main dish for free. Applies to items under the "From the Sea" section. Main dish of equal or lesser value will be free',
         potentialSavings: {
@@ -116,7 +116,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     deals: [
       {
         dealTitle: 'Buy one get one burger',
-        offerPerCustomerLimit: 2,
+        offerPerCustomerLimit: 1,
         dealDescription:
           'Buy any burger, and enjoy a second one for free (applies to the burger of equal or lesser value)',
         potentialSavings: {
@@ -126,7 +126,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
       },
       {
         dealTitle: 'Free chocolate cake',
-        offerPerCustomerLimit: 2,
+        offerPerCustomerLimit: 3,
         dealDescription:
           'Get a free slice of chocolate cake when you order a burger or another main dish',
         potentialSavings: {
@@ -247,7 +247,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
           average: '$4',
           upTo: '$4',
         },
-        offerPerCustomerLimit: 2,
+        offerPerCustomerLimit: 0,
       },
       {
         dealTitle: 'Free soda',
@@ -256,7 +256,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
           average: '$3',
           upTo: '$3',
         },
-        offerPerCustomerLimit: 2,
+        offerPerCustomerLimit: 0,
       },
     ],
     fullDescription:
@@ -308,7 +308,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
           average: '$3',
           upTo: '$3',
         },
-        offerPerCustomerLimit: 2,
+        offerPerCustomerLimit: 0,
       },
       {
         dealTitle: 'Free latte',
@@ -318,7 +318,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
           average: '$5',
           upTo: '$5',
         },
-        offerPerCustomerLimit: 2,
+        offerPerCustomerLimit: 0,
       },
     ],
     fullDescription:
@@ -371,7 +371,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
           average: '$5',
           upTo: '$5',
         },
-        offerPerCustomerLimit: 2,
+        offerPerCustomerLimit: 0,
       },
     ],
     fullDescription:
@@ -423,7 +423,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
           average: '$7',
           upTo: '$10',
         },
-        offerPerCustomerLimit: 2,
+        offerPerCustomerLimit: 0,
       },
       {
         dealTitle: 'Free fries and soda',
@@ -433,7 +433,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
           average: '$7',
           upTo: '$7',
         },
-        offerPerCustomerLimit: 2,
+        offerPerCustomerLimit: 0,
       },
     ],
     fullDescription:
@@ -533,7 +533,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
           average: '$6',
           upTo: '$8',
         },
-        offerPerCustomerLimit: 2,
+        offerPerCustomerLimit: 0,
       },
       {
         dealTitle: 'Free soup',
@@ -543,7 +543,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
           average: '$6',
           upTo: '$6',
         },
-        offerPerCustomerLimit: 2,
+        offerPerCustomerLimit: 0,
       },
     ],
     fullDescription:
@@ -596,7 +596,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
           average: '$5',
           upTo: '$7',
         },
-        offerPerCustomerLimit: 2,
+        offerPerCustomerLimit: 0,
       },
     ],
     fullDescription:
@@ -649,7 +649,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
           average: '$5',
           upTo: 'unlimited',
         },
-        offerPerCustomerLimit: 2,
+        offerPerCustomerLimit: 0,
       },
     ],
     fullDescription:
@@ -705,7 +705,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
           average: '$4',
           upTo: '$4',
         },
-        offerPerCustomerLimit: 2,
+        offerPerCustomerLimit: 0,
       },
     ],
     fullDescription:
@@ -757,7 +757,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
           average: '$3',
           upTo: '$3',
         },
-        offerPerCustomerLimit: 2,
+        offerPerCustomerLimit: 0,
       },
     ],
     fullDescription:
@@ -806,7 +806,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
           average: 'Varies',
           upTo: 'Varies',
         },
-        offerPerCustomerLimit: 2,
+        offerPerCustomerLimit: 0,
       },
     ],
     fullDescription:
