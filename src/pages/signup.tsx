@@ -76,7 +76,7 @@ export default function SignupPage() {
           <p className="text-gray-700">
             Get full access to{' '}
             <span className="font-bold">$250+ worth of deals</span> for just{' '}
-            <span className="text-primary font-bold">$6.99/month</span>{' '}
+            <span className="text-primary font-bold">$4.99/month</span>{' '}
             <span className="text-gray-500 line-through">
               ($11.99/month regular price)
             </span>
