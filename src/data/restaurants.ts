@@ -39,6 +39,61 @@ export interface Restaurant {
 
 export const RESTAURANTS_DATA: Restaurant[] = [
   {
+    id: generateRestaurantId("Source"),
+    name: "Grendel's Den Restaurant & Bar",
+    image: 'https://i.ibb.co/21xYNC0V/pasta.jpg',
+    location: 'Cambridge',
+    rating: 4.3,
+    priceRange: '$$',
+    cuisine: 'Italian',
+
+    dealText: 'Free Margherita Pizza with purchase of an Entree',
+    dealDescription:
+      'Buy any entree and get a free Margherita Pizza.',
+
+    neighborhood: 'Harvard Square',
+    deals: [
+      {
+        dealTitle: 'Free Margherita Pizza with purchase of an Entree',
+        dealDescription:
+          'Buy any entree and get a free Margherita Pizza.',
+        potentialSavings: {
+          average: '$18',
+          upTo: '$18',
+        },
+        offerPerCustomerLimit: 1,
+      },
+      {
+        dealTitle: 'Free Brussel Sprouts with purchase of a Build Your Own Pizza, Pasta, or Entree',
+        dealDescription:
+          'Get a free Brussel Sprouts appetizer when you order a Build Your Own Pizza, Pasta, or Entree',
+        potentialSavings: {
+          average: '$14',
+          upTo: '$14',
+        },
+        offerPerCustomerLimit: 2,
+      },
+    ],
+    fullDescription:
+      "Pizzas & light fare doled out in a redbrick venue that has an industrial-style dining room & a bar.",
+    address: '27 Church St, Cambridge, MA 02138',
+    openingHours: {
+      'Monday-Thursday': '12:00 PM - 9:00 PM',
+      'Friday': '12:00 PM - 10:00 PM',
+      'Saturday': '11:00 AM - 10:00 PM',
+      'Sunday': '11:00 AM - 9:00 PM',
+    },
+    phoneNumber: '(857)856-6800',
+    website: 'http://sourcerestaurants.com/',
+    menuHighlights: [
+      {
+        name: "Build Your Own Pizza",
+        description: 'Customize your own pizza with your choice of toppings',
+        price: '$20 - $22',
+      },
+    ],
+  },
+  {
     id: generateRestaurantId('The Sea Hag Restaurant & Bar'),
     name: 'The Sea Hag Restaurant & Bar',
     image: 'https://i.ibb.co.com/ZpwtbQVw/seehag.jpg',
