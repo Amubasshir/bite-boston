@@ -53,6 +53,7 @@ const Index = () => {
   const [showWelcomeModal, setShowWelcomeModal] = useState(true);
   const { showSuccessModal, hideSuccessModal } = useSuccessModal();
   const [currentDealIndex, setCurrentDealIndex] = useState(0);
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -225,6 +226,14 @@ const Index = () => {
     if (hasSeenWelcome) {
       setShowWelcomeModal(false);
     }
+
+    // Add scroll event listener for scroll-to-top button
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 500);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const handleCloseWelcomeModal = () => {
@@ -232,8 +241,22 @@ const Index = () => {
     setShowWelcomeModal(false);
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-accent-purple/10">
+    <div className="min-h-screen bg-gradient-to-b from-white to-accent-purple/10 relative">
+      {/* Floating scroll-to-top button */}
+      <button 
+        onClick={scrollToTop} 
+        className={`fixed bottom-6 right-6 bg-primary text-white p-3 rounded-full shadow-lg z-50 transition-all duration-300 ${showScrollTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}`}
+        aria-label="Scroll to top"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 19V5M12 5L5 12M12 5L19 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </button>
       <Dialog open={showWelcomeModal} onOpenChange={handleCloseWelcomeModal}>
         <DialogContent className="sm:max-w-[425px] bg-white">
           <DialogHeader>
@@ -282,42 +305,42 @@ const Index = () => {
       <div
         className={`container mx-auto px-4 py-8 transition-all duration-300 ${showWelcomeModal ? 'blur-sm' : ''}`}
       >
-        <div className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm py-4 shadow-sm">
+        <div className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm py-4 shadow-sm rounded-b-xl border-b border-gray-100">
           <div className="container mx-auto px-4">
             <div className="flex justify-between items-center">
-              <div>
+              <div className="transform hover:scale-105 transition-transform duration-300">
                 <img
                   src="/logo.jpg"
                   alt="Playful Bites Boston Logo"
-                  className="h-16 w-auto"
+                  className="h-16 w-auto object-contain rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
                 />
               </div>
               <div className="flex gap-4">
                 {user ? (
                   <div className="flex items-center gap-4">
-                    <span className="text-sm text-gray-600">
+                    <span className="text-sm font-medium bg-primary/5 text-primary px-3 py-1.5 rounded-full">
                       Hello, {userName}
                     </span>
                     <Button
                       variant="outline"
-                      className="px-6 py-2 rounded-lg text-base font-medium border-2 border-primary hover:bg-primary hover:text-white transition-colors"
+                      className="px-6 py-2 rounded-full text-base font-medium border border-primary hover:bg-primary hover:text-white transition-all duration-300 shadow-sm hover:shadow"
                       onClick={signOut}
                     >
                       Logout
                     </Button>
                   </div>
                 ) : (
-                  <div className="flex gap-2">
+                  <div className="flex gap-3">
                     <Button
                       variant="outline"
-                      className="px-6 py-2 rounded-lg text-base font-medium border-2 border-primary hover:bg-primary hover:text-white transition-colors"
+                      className="px-6 py-2 rounded-full text-base font-medium border border-primary hover:bg-primary hover:text-white transition-all duration-300 shadow-sm hover:shadow"
                       onClick={() => navigate('/login')}
                     >
                       Login
                     </Button>
                     <Button
                       variant="default"
-                      className="px-6 py-2 rounded-lg text-base font-medium bg-primary text-white hover:bg-primary/90 transition-colors"
+                      className="px-6 py-2 rounded-full text-base font-medium bg-primary text-white hover:bg-primary/90 transition-all duration-300 shadow-sm hover:shadow-md"
                       onClick={() => navigate('/signup')}
                     >
                       Sign Up
@@ -330,12 +353,12 @@ const Index = () => {
         </div>
         <div className="mt-8">
           <h1 className="text-4xl md:text-5xl font-bold mb-8">
-            Unbeatable Food Deals in Cambridge
-            <div className="mt-4">BOGO, Free Apps, and More</div>
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent-purple">Unbeatable Food Deals</span> in Cambridge
+            <div className="mt-4 text-3xl md:text-4xl">BOGO, Free Apps, and More</div>
           </h1>
           <div className="space-y-4 max-w-3xl">
             <p className="text-xl font-semibold">
-              Harvard Business School ECs went door-to-door too secure exclusive
+              Harvard Business School ECs went door-to-door to secure exclusive
               deals for Harvard grad students.
             </p>
 
@@ -411,9 +434,15 @@ const Index = () => {
         {/* Newsletter Section */}
         <NewsletterForm />
         {/* Restaurant Deals Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredRestaurants.length > 0 ? (
-            filteredRestaurants.map((restaurant, i) => (
+        <div className="relative py-8">
+          <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-accent-purple/10 to-transparent -z-10"></div>
+          <h2 className="text-2xl font-bold mb-8 flex items-center gap-2">
+            <span className="text-primary">🍽️</span> Available Restaurant Deals
+            <span className="ml-2 text-sm bg-primary/10 text-primary px-3 py-1 rounded-full">{filteredRestaurants.length} restaurants</span>
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+            {filteredRestaurants.length > 0 ? (
+              filteredRestaurants.map((restaurant, i) => (
               <RestaurantCard
                 offerPerCustomerLimit={Number(
                   restaurant?.deals[currentDealIndex]?.offerPerCustomerLimit
@@ -422,6 +451,7 @@ const Index = () => {
                 {...restaurant}
                 currentDealIndex={currentDealIndex}
                 setCurrentDealIndex={setCurrentDealIndex}
+                duration="1 week" /* Adding the required duration prop */
                 onClaimDeal={() =>
                   handleDealClaim({
                     name: restaurant.name,
@@ -443,11 +473,16 @@ const Index = () => {
                 }
               />
             ))
-          ) : (
-            <div className="col-span-full text-center py-8 text-gray-500">
-              No restaurants found matching your search criteria.
-            </div>
-          )}
+            ) : (
+              <div className="col-span-full flex flex-col items-center justify-center py-16 text-gray-500 bg-white/50 rounded-xl shadow-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 text-gray-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                </svg>
+                <div className="text-xl font-medium mb-2">No restaurants found</div>
+                <p>No restaurants found matching your search criteria.</p>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
