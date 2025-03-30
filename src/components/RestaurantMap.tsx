@@ -10,6 +10,7 @@ declare global {
   interface Window {
     google: any;
     initMap: () => void;
+    navigateToRestaurant?: (restaurantId: string) => void;
   }
 }
 
@@ -239,7 +240,14 @@ const RestaurantMap: React.FC<RestaurantMapProps> = ({ restaurants }) => {
             }
           });
           
-          // Create info window content
+          // Create info window content with a wrapper function to handle navigation
+          // We define a global function that the info window can call
+          if (!window.navigateToRestaurant) {
+            window.navigateToRestaurant = function(restaurantId: string) {
+              window.location.href = `/restaurant/${restaurantId}`;
+            };
+          }
+          
           const contentString = `
             <div class="p-3" style="max-width: 300px; font-family: Arial, sans-serif; border-radius: 8px; box-shadow: 0 2px 6px rgba(156, 136, 255, 0.2);">
               <div style="font-weight: bold; font-size: 16px; margin-bottom: 5px;">${restaurant.name}</div>
@@ -247,13 +255,13 @@ const RestaurantMap: React.FC<RestaurantMapProps> = ({ restaurants }) => {
               <div style="font-size: 14px; margin-bottom: 8px;"><strong>Deal:</strong> ${restaurant.dealText}</div>
               <div style="font-size: 13px;">${restaurant.address}</div>
               <div style="margin-top: 10px;">
-                <button 
-                  style="background-color: #9c88ff; color: white; border: none; padding: 8px 12px; 
-                  border-radius: 20px; cursor: pointer; font-size: 14px;"
-                  onclick="window.open('/restaurant/${restaurant.id}', '_self')"
+                <a 
+                  href="/restaurant/${restaurant.id}"
+                  style="display: inline-block; background-color: #9c88ff; color: white; text-decoration: none; padding: 8px 12px; 
+                  border-radius: 20px; cursor: pointer; font-size: 14px; text-align: center;"
                 >
                   View Details
-                </button>
+                </a>
               </div>
             </div>
           `;

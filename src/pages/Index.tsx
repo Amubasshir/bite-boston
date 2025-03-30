@@ -284,8 +284,8 @@ const Index = () => {
           {/* Body content - more compact */}
           <div className="px-5 pt-1 pb-5 space-y-4 max-h-[70vh] overflow-y-auto">
             <p className="text-center text-gray-800">
-              Enjoy 2-for-1 meals, free appetizers, desserts, and more at some
-              of the best restaurants in town.
+              We went door-to-door and negotiated exclusive 2-for-1 deals, free appetizers, desserts, and more at some
+              of the best restaurants in Cambridge. Take a friend out to lunch or dinner!
             </p>
             
             <div className="space-y-1.5 bg-gray-50 rounded-xl p-4">
