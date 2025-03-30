@@ -1,5 +1,7 @@
 // import { NewsletterForm } from '@/components/NewsletterForm';
 import { RestaurantCard } from '@/components/RestaurantCard';
+import RestaurantMap from '@/components/RestaurantMap';
+import ViewToggle from '@/components/ViewToggle';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -54,6 +56,7 @@ const Index = () => {
   const { showSuccessModal, hideSuccessModal } = useSuccessModal();
   const [currentDealIndex, setCurrentDealIndex] = useState(0);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [activeView, setActiveView] = useState<'list' | 'map'>('list');
 
   useEffect(() => {
     if (user) {
@@ -433,14 +436,20 @@ const Index = () => {
         </div> */}
         {/* Newsletter Section - Temporarily hidden */}
         {/* <NewsletterForm /> */}
-        {/* Restaurant Deals Grid */}
+        
+        {/* View Toggle Tabs */}
+        <ViewToggle activeView={activeView} onViewChange={setActiveView} />
+        
+        {/* Restaurant Deals Grid or Map */}
         <div className="relative py-8">
           <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-accent-purple/10 to-transparent -z-10"></div>
           <h2 className="text-2xl font-bold mb-8 flex items-center gap-2">
             <span className="text-primary">🍽️</span> Available Restaurant Deals
             <span className="ml-2 text-sm bg-primary/10 text-primary px-3 py-1 rounded-full">{filteredRestaurants.length} restaurants</span>
           </h2>
-          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
+          
+          {activeView === 'list' ? (
+            <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
             {filteredRestaurants.length > 0 ? (
               filteredRestaurants.map((restaurant, i) => (
               <RestaurantCard
@@ -483,6 +492,11 @@ const Index = () => {
               </div>
             )}
           </div>
+          ) : (
+            <div className="rounded-xl overflow-hidden shadow-lg border border-gray-100">
+              <RestaurantMap restaurants={filteredRestaurants} />
+            </div>
+          )}
         </div>
       </div>
     </div>
