@@ -316,7 +316,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     ],
     fullDescription:
       'Casual spot for pizza, pasta & subs, plus beer & wine in a simple space with TVs.',
-    address: '33 N Beacon St, Boston, MA 02134',
+    address: '1694 Massachusetts Ave, Cambridge, MA 02138',
     openingHours: {
       'Monday-Sunday': '11:00 AM - 10:00 PM',
     },
@@ -709,7 +709,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     ],
     fullDescription:
       'Asian-inspired sandwiches, rice bowls, and salads with a modern twist.',
-    address: '313 Congress St, Boston, MA 02210',
+    address: '1 Bow St, Cambridge, MA 02138',
     openingHours: {
       Thursday: 'Opens 11:00 AM',
     },
@@ -765,7 +765,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     ],
     fullDescription:
       'Greek restaurant with a modern twist serving gyros, salads, and other Greek specialties.',
-    address: '181 Massachusetts Ave, Boston, MA 02115',
+    address: '24 Dunster St, Cambridge, MA 02138',
     openingHours: {
       'Monday-Sunday': '11:00 AM - 9:00 PM',
     },

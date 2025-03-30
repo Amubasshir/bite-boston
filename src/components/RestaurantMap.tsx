@@ -203,14 +203,14 @@ const RestaurantMap: React.FC<RestaurantMapProps> = ({ restaurants }) => {
               "The Sea Hag Restaurant & Bar": {lat: 42.372191, lng: -71.123676},
               "Mr Bartley's Burger Cottage": {lat: 42.373112, lng: -71.118639},
               "Grendel's Den Restaurant & Bar": {lat: 42.372293, lng: -71.120862},
-              "Joe's Pizza": {lat: 42.358022, lng: -71.137104},
+              "Joe's Pizza": {lat: 42.369748, lng: -71.118437}, // Updated to Cambridge location
               "Le Macaron French Pastries Cambridge": {lat: 42.373680, lng: -71.118958},
               "Zinneken's Belgian waffles": {lat: 42.371998, lng: -71.117703},
               "The Boiling Crab": {lat: 42.372364, lng: -71.121242},
               "Falafel Corner": {lat: 42.372374, lng: -71.120111},
               "Tasty Burger": {lat: 42.372033, lng: -71.119705},
-              "Bon Me": {lat: 42.351470, lng: -71.050231},
-              "Saloniki": {lat: 42.351051, lng: -71.088593}
+              "Bon Me": {lat: 42.370216, lng: -71.113626}, // Updated to Cambridge location
+              "Saloniki": {lat: 42.372655, lng: -71.118264} // Updated to Cambridge location
             };
             
             // Return coordinates for the restaurant or default to Boston Common if not found
