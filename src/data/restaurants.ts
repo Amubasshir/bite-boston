@@ -288,16 +288,16 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     priceRange: '$',
 
     cuisine: 'Pizza',
-    dealText: 'Buy one get one pizza slice free',
+    dealText: 'Buy one get one Cheese Slice',
     dealDescription:
-      'Buy any pizza slice, and enjoy a second one for free (applies to the slice of equal or lesser value)',
+      'Buy any pizza slice, and enjoy a second one for free (cheese slice only)',
 
     neighborhood: 'Allston',
     deals: [
       {
-        dealTitle: 'Buy one get one pizza',
+        dealTitle: 'Buy one get one cheese slice',
         dealDescription:
-          'Buy any pizza slice, and enjoy a second one for free (applies to the slice of equal or lesser value)',
+          'Buy any pizza slice, and enjoy a second one for free (cheese slice only)',
         potentialSavings: {
           average: '$4',
           upTo: '$4',
