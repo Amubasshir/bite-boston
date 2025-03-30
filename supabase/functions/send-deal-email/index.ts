@@ -27,7 +27,7 @@ const handler = async (req: Request): Promise<Response> => {
           
           <p>📍 Restaurant: ${restaurantName}</p>
           <p>💳 Your Deal: ${dealTitle}</p>
-          <p>📅 Valid Until: ${new Date(expiryDate).toLocaleDateString()}</p>
+          <p>📅 Redeemable on this date only: ${new Date(expiryDate).toLocaleDateString()}</p>
 
           <p>How to Redeem:</p>
           <p>✅ Check-in & Inform the restaurant staff that you're claiming a TasteTrail deal.</p>
@@ -35,7 +35,9 @@ const handler = async (req: Request): Promise<Response> => {
           <p>✅ Show Your Confirmation Email to the server when requesting the check.</p>
           <p>✅ Pay Directly with the restaurant—deal will be applied, no hassle!</p>
 
-          <p>📌 Need Help? If you have any questions, reply to this email</p>
+          <p>Deals are valid for a limited time only and subject to availability. Offers cannot be combined with any other promotions, discounts, or coupons. One deal per customer per transaction. Additional terms and conditions may apply. TasteTrail or the restaurant reserves the right to modify or cancel offers at any time without prior notice.</p>
+
+          <p>📌 Need Help? If you have any questions, reply to this email or call 815.404.1738</p>
           <p>Bon appétit & may your tummies be full! 😋</p>
           <p>- The TasteTrail Team</p>
         </div>
