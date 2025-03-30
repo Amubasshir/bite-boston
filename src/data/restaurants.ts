@@ -219,7 +219,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
   {
     id: generateRestaurantId("Grendel's Den Restaurant & Bar"),
     name: "Grendel's Den Restaurant & Bar",
-    image: 'https://i.ibb.co.com/rGJ1gcc9/Grendels-BOGO.jpg',
+    image: 'https://i.ibb.co/WvsrDpYh/Screenshot-2025-03-30-at-2-43-12-PM.png',
     location: 'Cambridge',
     rating: 4.2,
     priceRange: '$$',
