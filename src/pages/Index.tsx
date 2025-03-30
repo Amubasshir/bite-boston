@@ -261,80 +261,65 @@ const Index = () => {
           <path d="M12 19V5M12 5L5 12M12 5L19 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
       </button>
-      <Dialog open={showWelcomeModal} onOpenChange={handleCloseWelcomeModal} modal={true}>
-        <DialogContent className="max-w-none w-screen h-screen p-0 m-0 overflow-hidden border-0 bg-transparent">
-          {/* Full screen overlay with blurred background and gradient */}
-          <div className="absolute inset-0 bg-black/30 backdrop-blur-sm z-10"></div>
+      <Dialog open={showWelcomeModal} onOpenChange={handleCloseWelcomeModal}>
+        <DialogContent className="sm:max-w-md max-w-[90vw] mx-auto rounded-2xl p-0 overflow-hidden bg-white border-0 shadow-lg">
+          {/* Close button - accessible on all devices */}
+          <button 
+            onClick={handleCloseWelcomeModal}
+            className="absolute top-3 right-3 z-50 h-8 w-8 flex items-center justify-center rounded-full bg-white/90 text-gray-500 hover:text-gray-800 shadow-sm border border-gray-100 transition-colors"
+            aria-label="Close"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
+
+          {/* Header with gradient background */}
+          <div className="bg-gradient-to-r from-primary/10 to-accent-purple/10 p-5 pb-4">
+            <div className="text-2xl sm:text-3xl font-bold text-center mb-2 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent-purple leading-snug">
+              🍽️ Discover Cambridge Restaurants for Up To Half the Price!
+            </div>
+          </div>
           
-          {/* Main content container with purple glow */}
-          <div className="relative z-20 w-full h-full flex items-center justify-center px-4">
-            <div className="max-w-2xl w-full bg-white/95 backdrop-blur-md rounded-3xl overflow-hidden shadow-[0_0_80px_rgba(156,136,255,0.3)] border border-white/20 transition-all duration-300 animate-fadeIn">
-              {/* Close button */}
+          {/* Body content - more compact */}
+          <div className="px-5 pt-1 pb-5 space-y-4 max-h-[70vh] overflow-y-auto">
+            <p className="text-center text-gray-800">
+              Enjoy 2-for-1 meals, free appetizers, desserts, and more at some
+              of the best restaurants in town.
+            </p>
+            
+            <div className="space-y-1.5 bg-gray-50 rounded-xl p-4">
+              <div className="flex items-center">
+                <span className="text-green-500 mr-2.5">✅</span>
+                <span className="text-sm text-gray-800">
+                  10+ unique restaurants and counting – with new spots added weekly!
+                </span>
+              </div>
+              
+              <div className="flex items-center">
+                <span className="text-green-500 mr-2.5">✅</span>
+                <span className="text-sm text-gray-800">
+                  Over $200 worth of restaurant deals for just $4.99/month
+                </span>
+              </div>
+              
+              <div className="flex items-center">
+                <span className="text-green-500 mr-2.5">✅</span>
+                <span className="text-sm text-gray-800">Exclusive offers you won't find anywhere else!</span>
+              </div>
+            </div>
+            
+            <p className="text-center font-medium text-sm pt-1">
+              What are you waiting for? Start exploring now!
+            </p>
+            
+            <div className="flex justify-center mt-2">
               <button 
                 onClick={handleCloseWelcomeModal}
-                className="absolute top-6 right-6 text-gray-400 hover:text-gray-600 transition-colors"
-                aria-label="Close"
+                className="px-8 py-2.5 font-medium text-white rounded-full bg-gradient-to-r from-primary to-accent-purple hover:shadow-md transition-all duration-300"
               >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+                Explore Deals
               </button>
-              
-              {/* Header with gradient */}
-              <div className="p-8 pb-0">
-                <div className="text-4xl font-bold text-center mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent-purple">
-                  🍽️ Discover Cambridge Restaurants for Up To Half the Price!
-                </div>
-              </div>
-              
-              {/* Body content */}
-              <div className="p-8 space-y-6">
-                <p className="text-xl text-center text-gray-800 leading-relaxed">
-                  Enjoy 2-for-1 meals, free appetizers, desserts, and more at some
-                  of the best restaurants in town.
-                </p>
-                
-                <div className="space-y-4 max-w-lg mx-auto bg-white/80 rounded-xl p-6 backdrop-blur-sm">
-                  <div className="flex items-start rounded-lg p-3 transition-colors hover:bg-purple-50/50">
-                    <div className="h-8 w-8 rounded-full bg-primary/10 flex-shrink-0 flex items-center justify-center mr-3">
-                      <span className="text-lg text-primary">✅</span>
-                    </div>
-                    <span className="text-gray-800">
-                      10+ unique restaurants and counting – with new spots added
-                      weekly!
-                    </span>
-                  </div>
-                  
-                  <div className="flex items-start rounded-lg p-3 transition-colors hover:bg-purple-50/50">
-                    <div className="h-8 w-8 rounded-full bg-primary/10 flex-shrink-0 flex items-center justify-center mr-3">
-                      <span className="text-lg text-primary">✅</span>
-                    </div>
-                    <span className="text-gray-800">
-                      Over $200 worth of restaurant deals for just $4.99/month
-                    </span>
-                  </div>
-                  
-                  <div className="flex items-start rounded-lg p-3 transition-colors hover:bg-purple-50/50">
-                    <div className="h-8 w-8 rounded-full bg-primary/10 flex-shrink-0 flex items-center justify-center mr-3">
-                      <span className="text-lg text-primary">✅</span>
-                    </div>
-                    <span className="text-gray-800">Exclusive offers you won't find anywhere else!</span>
-                  </div>
-                </div>
-                
-                <p className="text-center font-medium text-lg mt-6">
-                  What are you waiting for? Start exploring now!
-                </p>
-                
-                <div className="flex justify-center mt-6">
-                  <button 
-                    onClick={handleCloseWelcomeModal}
-                    className="px-10 py-4 text-lg font-medium text-white rounded-full bg-gradient-to-r from-primary to-accent-purple hover:shadow-lg hover:shadow-primary/20 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-                  >
-                    Explore Deals
-                  </button>
-                </div>
-              </div>
             </div>
           </div>
         </DialogContent>
