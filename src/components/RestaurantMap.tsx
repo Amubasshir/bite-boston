@@ -63,14 +63,24 @@ const RestaurantMap: React.FC<RestaurantMapProps> = ({ restaurants }) => {
     if (!window.google) {
       const script = document.createElement('script');
       
-      // Use environment variable for API key with a console log for debugging
-      const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || '';
-      console.log('Using Google Maps API Key:', apiKey ? 'Key is present' : 'No key found');
+      // Always use environment variable for API key
+      const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
       
-      // For development, you can uncomment and use this hardcoded key instead of the env variable
-      // const apiKey = 'AIzaSyDnc1baRXEGh2HYSFwVvBTs1LZgVMW4JaY';
+      // Log for debugging
+      console.log('Environment Variables Status:', {
+        'VITE_GOOGLE_MAPS_API_KEY': apiKey ? 'Found ✓' : 'Missing ✗',
+        'All env vars': Object.keys(import.meta.env).filter(key => key.startsWith('VITE_')).length
+      });
       
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap&libraries=places`;
+      // Safety check - if API key is missing, show error
+      if (!apiKey) {
+        setError('Google Maps API Key is missing in .env file');
+        setIsLoading(false);
+        return;
+      }
+      
+      // Always read from environment variable
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY}&callback=initMap&libraries=places`;
       script.async = true;
       script.defer = true;
       
