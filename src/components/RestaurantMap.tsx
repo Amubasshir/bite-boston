@@ -107,7 +107,8 @@ const RestaurantMap: React.FC<RestaurantMapProps> = ({ restaurants }) => {
     if (mapRef.current && !map) {
       try {
         // Default to Boston/Cambridge area
-        const bostonLatLng = { lat: 42.3601, lng: -71.0589 };
+        // Center on Cambridge/Harvard area rather than downtown Boston
+        const bostonLatLng = { lat: 42.373, lng: -71.120 };
         
         const mapInstance = new window.google.maps.Map(mapRef.current, {
           center: bostonLatLng,
@@ -191,33 +192,35 @@ const RestaurantMap: React.FC<RestaurantMapProps> = ({ restaurants }) => {
       markers.forEach(marker => marker.setMap(null));
       const newMarkers: any[] = [];
       
-      // Function to convert address to geocode using the Geocoding API
+      // Function to use real restaurant coordinates 
       const geocodeAddress = async (restaurant: Restaurant) => {
         try {
-          // In a real implementation, you would use the Google Geocoding API to convert addresses to coordinates
-          // For this example, we'll use a mock geocoding with random offsets from Boston
-          
-          // Note: In production, you'd store latitude/longitude with each restaurant in your database
-          // or use actual geocoding services
-          
-          // Mock geocoding - replace with real coordinates when available
-          const bostonLat = 42.3601;
-          const bostonLng = -71.0589;
-          
-          // Create small random offset based on neighborhood to distribute restaurants
-          const getOffset = (neighborhood: string) => {
-            const hash = neighborhood.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-            return {
-              lat: (hash % 20) * 0.001 - 0.01,
-              lng: ((hash * 13) % 20) * 0.001 - 0.01
+          // Use real coordinates based on restaurant name
+          const getRestaurantCoordinates = (name: string) => {
+            // Map of restaurant names to their actual coordinates
+            const restaurantCoordinates: Record<string, {lat: number, lng: number}> = {
+              "Source": {lat: 42.374241, lng: -71.121283},
+              "The Sea Hag Restaurant & Bar": {lat: 42.372191, lng: -71.123676},
+              "Mr Bartley's Burger Cottage": {lat: 42.373112, lng: -71.118639},
+              "Grendel's Den Restaurant & Bar": {lat: 42.372293, lng: -71.120862},
+              "Joe's Pizza": {lat: 42.358022, lng: -71.137104},
+              "Le Macaron French Pastries Cambridge": {lat: 42.373680, lng: -71.118958},
+              "Zinneken's Belgian waffles": {lat: 42.371998, lng: -71.117703},
+              "The Boiling Crab": {lat: 42.372364, lng: -71.121242},
+              "Falafel Corner": {lat: 42.372374, lng: -71.120111},
+              "Tasty Burger": {lat: 42.372033, lng: -71.119705},
+              "Bon Me": {lat: 42.351470, lng: -71.050231},
+              "Saloniki": {lat: 42.351051, lng: -71.088593}
             };
+            
+            // Return coordinates for the restaurant or default to Boston Common if not found
+            return restaurantCoordinates[name] || {lat: 42.3554, lng: -71.0669};
           };
           
-          const offset = getOffset(restaurant.neighborhood || restaurant.location);
-          const position = {
-            lat: bostonLat + offset.lat,
-            lng: bostonLng + offset.lng
-          };
+          const position = getRestaurantCoordinates(restaurant.name);
+          
+          // Log actual coordinates for debugging
+          console.log(`Creating marker for ${restaurant.name} at:`, position);
           
           // Create marker
           const marker = new window.google.maps.Marker({
