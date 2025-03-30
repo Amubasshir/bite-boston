@@ -841,6 +841,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
       },
     ],
   },
+  /*
   {
     id: generateRestaurantId('Da Long Yi'),
     name: 'Da Long Yi',
@@ -890,7 +891,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
         price: '$15',
       },
     ],
-  },
+  }, */
   // {
   //   id: generateRestaurantId('Taiyaki NYC x The Dough Club - Cambridge'),
   //   name: 'Taiyaki NYC x The Dough Club - Cambridge',
