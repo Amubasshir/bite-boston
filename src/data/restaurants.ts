@@ -40,7 +40,7 @@ export interface Restaurant {
 export const RESTAURANTS_DATA: Restaurant[] = [
   {
     id: generateRestaurantId("Source"),
-    name: "Grendel's Den Restaurant & Bar",
+    name: "Source",
     image: 'https://i.ibb.co/21xYNC0V/pasta.jpg',
     location: 'Cambridge',
     rating: 4.3,
