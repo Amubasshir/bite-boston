@@ -240,13 +240,9 @@ const RestaurantMap: React.FC<RestaurantMapProps> = ({ restaurants }) => {
             }
           });
           
-          // Create info window content with a wrapper function to handle navigation
-          // We define a global function that the info window can call
-          if (!window.navigateToRestaurant) {
-            window.navigateToRestaurant = function(restaurantId: string) {
-              window.location.href = `/restaurant/${restaurantId}`;
-            };
-          }
+          // Set up a listener to handle restaurant detail clicks
+          // Find the restaurant card to match behavior with card clicks
+          marker.restaurantId = restaurant.id; // Store restaurant ID on the marker
           
           const contentString = `
             <div class="p-3" style="max-width: 300px; font-family: Arial, sans-serif; border-radius: 8px; box-shadow: 0 2px 6px rgba(156, 136, 255, 0.2);">
@@ -256,7 +252,9 @@ const RestaurantMap: React.FC<RestaurantMapProps> = ({ restaurants }) => {
               <div style="font-size: 13px;">${restaurant.address}</div>
               <div style="margin-top: 10px;">
                 <a 
-                  href="/restaurant/${restaurant.id}"
+                  href="javascript:void(0)" 
+                  class="details-link"
+                  data-restaurant-id="${restaurant.id}"
                   style="display: inline-block; background-color: #9c88ff; color: white; text-decoration: none; padding: 8px 12px; 
                   border-radius: 20px; cursor: pointer; font-size: 14px; text-align: center;"
                 >
@@ -266,11 +264,29 @@ const RestaurantMap: React.FC<RestaurantMapProps> = ({ restaurants }) => {
             </div>
           `;
           
-          // Add click listener
+          // Add click listener for marker
           marker.addListener('click', () => {
             if (infoWindow) {
               infoWindow.setContent(contentString);
               infoWindow.open(map, marker);
+              
+              // Add a small delay to ensure DOM is ready before attaching event listener
+              setTimeout(() => {
+                // Find the details link in the currently open info window
+                const detailsLinks = document.querySelectorAll('.details-link');
+                detailsLinks.forEach(link => {
+                  link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const restaurantId = link.getAttribute('data-restaurant-id');
+                    if (restaurantId) {
+                      // Close the info window
+                      infoWindow.close();
+                      // Use the navigate function to go to the restaurant detail page
+                      navigate(`/restaurant/${restaurantId}`);
+                    }
+                  });
+                });
+              }, 100);
             }
           });
           
