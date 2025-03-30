@@ -63,24 +63,24 @@ const RestaurantMap: React.FC<RestaurantMapProps> = ({ restaurants }) => {
     if (!window.google) {
       const script = document.createElement('script');
       
-      // Always use environment variable for API key
-      const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+      // Try both environment variable and hardcoded key as fallback
+      let apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
       
-      // Log for debugging
+      // Log environment variables for debugging
       console.log('Environment Variables Status:', {
         'VITE_GOOGLE_MAPS_API_KEY': apiKey ? 'Found ✓' : 'Missing ✗',
-        'All env vars': Object.keys(import.meta.env).filter(key => key.startsWith('VITE_')).length
+        'All env vars': Object.keys(import.meta.env).filter(key => key.startsWith('VITE_')).length,
+        'All env values': import.meta.env
       });
       
-      // Safety check - if API key is missing, show error
+      // If environment variable is missing, use hardcoded key as fallback
       if (!apiKey) {
-        setError('Google Maps API Key is missing in .env file');
-        setIsLoading(false);
-        return;
+        console.log('Using hardcoded API key as fallback');
+        apiKey = 'AIzaSyDnc1baRXEGh2HYSFwVvBTs1LZgVMW4JaY';
       }
       
-      // Always read from environment variable
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY}&callback=initMap&libraries=places`;
+      // Use our apiKey variable that includes the fallback
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap&libraries=places`;
       script.async = true;
       script.defer = true;
       
