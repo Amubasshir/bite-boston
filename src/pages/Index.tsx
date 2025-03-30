@@ -1,4 +1,4 @@
-import { NewsletterForm } from '@/components/NewsletterForm';
+// import { NewsletterForm } from '@/components/NewsletterForm';
 import { RestaurantCard } from '@/components/RestaurantCard';
 import { Button } from '@/components/ui/button';
 import {
@@ -431,8 +431,8 @@ const Index = () => {
             </Badge>
           ))}
         </div> */}
-        {/* Newsletter Section */}
-        <NewsletterForm />
+        {/* Newsletter Section - Temporarily hidden */}
+        {/* <NewsletterForm /> */}
         {/* Restaurant Deals Grid */}
         <div className="relative py-8">
           <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-accent-purple/10 to-transparent -z-10"></div>

@@ -66,6 +66,7 @@ export const NewsletterForm = () => {
     }
   };
 
+  /*
   return (
     <div className="mt-16 mb-16 relative">
       <div className="absolute -inset-1 bg-gradient-to-r from-primary/5 to-accent-purple/5 rounded-xl blur-xl opacity-70 -z-10"></div>
@@ -114,3 +115,4 @@ export const NewsletterForm = () => {
     </div>
   );
 };
+*/
