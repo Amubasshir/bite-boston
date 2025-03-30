@@ -129,7 +129,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     ],
     fullDescription:
       "Serves great cocktails, serves vegan dishes, has a kids' menu.",
-    address: '49 Mt Auburn St, Cambridge, MA 02138',
+    address: '49 Mt Auburn St, Cambridge, MA 02138', // Updated address
     openingHours: {
       'Thursday-Sunday': '11:30 AM - 10:00 PM',
       'Monday-Wednesday': 'Closed',
@@ -192,7 +192,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     ],
     fullDescription:
       'Quirky burger joint with a menu of creatively named burgers & frappes, plus sandwiches & salads.',
-    address: '1246 Massachusetts Ave, Cambridge, MA 02138',
+    address: '1246 Massachusetts Ave, Cambridge, MA 02138', // Updated address
     openingHours: {
       'Monday-Sunday': '11:00 AM - 9:00 PM',
     },
@@ -316,7 +316,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     ],
     fullDescription:
       'Casual spot for pizza, pasta & subs, plus beer & wine in a simple space with TVs.',
-    address: '1694 Massachusetts Ave, Cambridge, MA 02138',
+    address: '3 Brattle St, Cambridge, MA 02138', // Updated address
     openingHours: {
       'Monday-Sunday': '11:00 AM - 10:00 PM',
     },
@@ -518,58 +518,59 @@ export const RESTAURANTS_DATA: Restaurant[] = [
       },
     ],
   },
-  // {
-  //   id: generateRestaurantId('Hokkaido Ramen Santouka Harvard Square'),
-  //   name: 'Hokkaido Ramen Santouka Harvard Square',
-  //   image: 'https://images.unsplash.com/photo-1598233847491-f16487adee2f',
-  //   location: 'Cambridge',
-  //   rating: 4.5,
-  //   priceRange: '$',
-  //   cuisine: 'Ramen',
-  //   dealText: 'Free size upgrade',
-  //   dealDescription: 'Upgrade to a large ramen bowl for free!',
+  {
+    id: generateRestaurantId('Hokkaido Ramen Santouka Harvard Square'),
+    name: 'Hokkaido Ramen Santouka Harvard Square',
+    image: 'https://images.unsplash.com/photo-1598233847491-f16487adee2f',
+    location: 'Cambridge',
+    rating: 4.5,
+    priceRange: '$',
+    cuisine: 'Ramen',
+    dealText: 'Free size upgrade',
+    dealDescription: 'Upgrade to a large ramen bowl for free!',
 
-  //   neighborhood: 'Harvard Square',
-  //   deals: [
-  //     {
-  //       dealTitle: 'Free size upgrade',
-  //       dealDescription: 'Upgrade to a large ramen bowl for free!',
-  //       potentialSavings: {
-  //         average: '$3',
-  //         upTo: '$3',
-  //       },
-  //     },
-  //   ],
-  //   fullDescription:
-  //     'Japanese chain offering ramen in various broths with a modern twist.',
-  //   address: '1 Bow St, Cambridge, MA 02138',
-  //   openingHours: {
-  //     'Monday-Sunday': '11:00 AM - 10:00 PM',
-  //   },
-  //   phoneNumber: '(617) 945-1460',
-  //   website: 'N/A',
-  //   menuHighlights: [
-  //     {
-  //       name: 'Tonkotsu Ramen',
-  //       description: 'Pork bone broth with chashu, bamboo shoots, and egg',
-  //       price: '$15',
-  //     },
-  //     {
-  //       name: 'Shio Ramen',
-  //       description: 'Salt-based broth with pork and vegetables',
-  //       price: '$14',
-  //     },
-  //     {
-  //       name: 'Gyoza',
-  //       description: 'Pan-fried pork dumplings',
-  //       price: '$7',
-  //     },
-  //   ],
-  // },
+    neighborhood: 'Harvard Square',
+    deals: [
+      {
+        dealTitle: 'Free size upgrade',
+        dealDescription: 'Upgrade to a large ramen bowl for free!',
+        potentialSavings: {
+          average: '$3',
+          upTo: '$3',
+        },
+        offerPerCustomerLimit: 0,
+      },
+    ],
+    fullDescription:
+      'Japanese chain offering ramen in various broths with a modern twist.',
+    address: '1 Bow St, Cambridge, MA 02138', // Updated address
+    openingHours: {
+      'Monday-Sunday': '11:00 AM - 10:00 PM',
+    },
+    phoneNumber: '(617) 945-1460',
+    website: 'N/A',
+    menuHighlights: [
+      {
+        name: 'Tonkotsu Ramen',
+        description: 'Pork bone broth with chashu, bamboo shoots, and egg',
+        price: '$15',
+      },
+      {
+        name: 'Shio Ramen',
+        description: 'Salt-based broth with pork and vegetables',
+        price: '$14',
+      },
+      {
+        name: 'Gyoza',
+        description: 'Pan-fried pork dumplings',
+        price: '$7',
+      },
+    ],
+  },
   {
     id: generateRestaurantId('Falafel Corner'),
     name: 'Falafel Corner',
-    image: 'https://i.ibb.co.com/1fSWN4fp/Falafel-Corner-Free-Soup.jpg',
+    image: 'https://i.ibb.co/vfg4BQS/falafel.jpg',
     location: 'Cambridge',
     rating: 3.9,
     priceRange: '$$',
@@ -603,7 +604,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     ],
     fullDescription:
       'Miniature counter-serve late-night option doling out falafel, shawarma & other Middle Eastern eats.',
-    address: '8 Eliot St, Cambridge, MA 02138',
+    address: '8 Eliot St, Cambridge, MA 02138', // Updated address
     openingHours: {
       'Monday-Sunday': '11:00 AM - 3:00 AM',
     },
@@ -685,7 +686,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
   {
     id: generateRestaurantId('Bon Me'),
     name: 'Bon Me',
-    image: 'https://images.unsplash.com/photo-1557872943-16a5ac26437e',
+    image: 'https://i.ibb.co/V0n0jf3y/bonme.jpg',
     location: 'Boston',
     rating: 4.4,
     priceRange: '$',
@@ -765,7 +766,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     ],
     fullDescription:
       'Greek restaurant with a modern twist serving gyros, salads, and other Greek specialties.',
-    address: '24 Dunster St, Cambridge, MA 02138',
+    address: '24 Dunster St, Cambridge, MA 02138', // Updated address
     openingHours: {
       'Monday-Sunday': '11:00 AM - 9:00 PM',
     },

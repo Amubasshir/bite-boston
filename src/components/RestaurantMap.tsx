@@ -199,18 +199,19 @@ const RestaurantMap: React.FC<RestaurantMapProps> = ({ restaurants }) => {
           const getRestaurantCoordinates = (name: string) => {
             // Map of restaurant names to their actual coordinates
             const restaurantCoordinates: Record<string, {lat: number, lng: number}> = {
-              "Source": {lat: 42.374241, lng: -71.121283},
-              "The Sea Hag Restaurant & Bar": {lat: 42.372191, lng: -71.123676},
-              "Mr Bartley's Burger Cottage": {lat: 42.373112, lng: -71.118639},
-              "Grendel's Den Restaurant & Bar": {lat: 42.372293, lng: -71.120862},
-              "Joe's Pizza": {lat: 42.369748, lng: -71.118437}, // Updated to Cambridge location
-              "Le Macaron French Pastries Cambridge": {lat: 42.373680, lng: -71.118958},
-              "Zinneken's Belgian waffles": {lat: 42.371998, lng: -71.117703},
-              "The Boiling Crab": {lat: 42.372364, lng: -71.121242},
-              "Falafel Corner": {lat: 42.372374, lng: -71.120111},
-              "Tasty Burger": {lat: 42.372033, lng: -71.119705},
-              "Bon Me": {lat: 42.370216, lng: -71.113626}, // Updated to Cambridge location
-              "Saloniki": {lat: 42.372655, lng: -71.118264} // Updated to Cambridge location
+              "Source": {lat: 42.374241, lng: -71.121283}, // 27 Church St
+              "The Sea Hag Restaurant & Bar": {lat: 42.372191, lng: -71.123676}, // 49 Mt Auburn St
+              "Mr Bartley's Burger Cottage": {lat: 42.373112, lng: -71.118639}, // 1246 Massachusetts Ave
+              "Grendel's Den Restaurant & Bar": {lat: 42.372293, lng: -71.120862}, // 89 Winthrop St
+              "Joe's Pizza": {lat: 42.373600, lng: -71.119830}, // 3 Brattle St
+              "Le Macaron French Pastries Cambridge": {lat: 42.373680, lng: -71.118958}, // 1374 Massachusetts Ave
+              "Zinneken's Belgian waffles": {lat: 42.371998, lng: -71.117703}, // 1154 Massachusetts Ave
+              "The Boiling Crab": {lat: 42.372364, lng: -71.121242}, // 96 Winthrop St
+              "Falafel Corner": {lat: 42.372374, lng: -71.120111}, // 8 Eliot St
+              "Tasty Burger": {lat: 42.372033, lng: -71.119705}, // 40 JFK Street
+              "Bon Me": {lat: 42.373730, lng: -71.118800}, // 1350 Massachusetts Ave
+              "Saloniki": {lat: 42.372200, lng: -71.120500}, // 24 Dunster St
+              "Hokkaido Ramen Santouka Harvard Square": {lat: 42.371670, lng: -71.118390} // 1 Bow St
             };
             
             // Return coordinates for the restaurant or default to Boston Common if not found
