@@ -282,7 +282,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
   {
     id: generateRestaurantId("Joe's Pizza"),
     name: "Joe's Pizza",
-    image: 'https://i.ibb.co.com/SDS2zBLc/Joes-BOGO.jpg',
+    image: 'https://i.ibb.co/npTT6m4/Screenshot-2025-03-30-at-2-59-10-PM.png',
     location: 'Boston',
     rating: 4.2,
     priceRange: '$',
