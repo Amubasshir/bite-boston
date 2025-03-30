@@ -47,16 +47,16 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     priceRange: '$$',
     cuisine: 'Italian',
 
-    dealText: 'Free Margherita Pizza with purchase of an Entree',
+    dealText: 'Free Margherita Pizza*',
     dealDescription:
-      'Buy any entree and get a free Margherita Pizza.',
+      '*Buy any entree and get a free Margherita Pizza.',
 
     neighborhood: 'Harvard Square',
     deals: [
       {
-        dealTitle: 'Free Margherita Pizza with purchase of an Entree',
+        dealTitle: 'Free Margherita Pizza*',
         dealDescription:
-          'Buy any entree and get a free Margherita Pizza.',
+          '*Buy any entree and get a free Margherita Pizza.',
         potentialSavings: {
           average: '$18',
           upTo: '$18',
@@ -64,9 +64,9 @@ export const RESTAURANTS_DATA: Restaurant[] = [
         offerPerCustomerLimit: 1,
       },
       {
-        dealTitle: 'Free Brussel Sprouts with purchase of a Build Your Own Pizza, Pasta, or Entree',
+        dealTitle: 'Free Brussel Sprouts*',
         dealDescription:
-          'Get a free Brussel Sprouts appetizer when you order a Build Your Own Pizza, Pasta, or Entree',
+          '*Get a free Brussel Sprouts appetizer when you order a Build Your Own Pizza, Pasta, or Entree',
         potentialSavings: {
           average: '$14',
           upTo: '$14',
