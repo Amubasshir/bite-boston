@@ -140,7 +140,7 @@ const Index = () => {
         navigate('/login');
         return;
       }
-      // Check if user has reached the claim limit for this restaurant
+      // Check if user has reached the claim limit for this restaurant 
       const { data: claimedDealsCount, error: countError } = await supabase
         .from('claimed_deals')
         .select('*', { count: 'exact' })
