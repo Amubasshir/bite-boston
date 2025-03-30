@@ -343,7 +343,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
   {
     id: generateRestaurantId('Le Macaron French Pastries Cambridge'),
     name: 'Le Macaron French Pastries Cambridge',
-    image: 'https://i.ibb.co.com/Psx5zxkD/Le-Macaron-BOGO.jpg',
+    image: 'https://i.ibb.co/j9bYydX2/macarons.jpg',
     location: 'Cambridge',
     rating: 3.6,
     priceRange: '$',
