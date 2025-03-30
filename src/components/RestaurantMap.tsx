@@ -62,19 +62,38 @@ const RestaurantMap: React.FC<RestaurantMapProps> = ({ restaurants }) => {
     // Check if Google Maps script is already loaded
     if (!window.google) {
       const script = document.createElement('script');
-      // Use environment variable for API key
+      
+      // Use environment variable for API key with a console log for debugging
       const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || '';
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap`;
+      console.log('Using Google Maps API Key:', apiKey ? 'Key is present' : 'No key found');
+      
+      // For development, you can uncomment and use this hardcoded key instead of the env variable
+      // const apiKey = 'AIzaSyDnc1baRXEGh2HYSFwVvBTs1LZgVMW4JaY';
+      
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap&libraries=places`;
       script.async = true;
       script.defer = true;
-      script.onerror = () => {
-        setError('Failed to load Google Maps API');
+      
+      // Set a timeout for loading
+      const timeoutId = setTimeout(() => {
+        setError('Google Maps took too long to load. Please check your API key and internet connection.');
         setIsLoading(false);
+      }, 10000);
+      
+      script.onerror = () => {
+        clearTimeout(timeoutId);
+        setError('Failed to load Google Maps API - Check your API key and restrictions');
+        setIsLoading(false);
+        console.error('Google Maps script failed to load. Check API key and restrictions.');
       };
+      
       document.head.appendChild(script);
       
       return () => {
-        document.head.removeChild(script);
+        clearTimeout(timeoutId);
+        if (document.head.contains(script)) {
+          document.head.removeChild(script);
+        }
       };
     } else {
       window.initMap();
@@ -203,12 +222,27 @@ const RestaurantMap: React.FC<RestaurantMapProps> = ({ restaurants }) => {
       
       {error && (
         <div className="absolute inset-0 bg-gray-100 flex items-center justify-center">
-          <div className="text-lg text-red-500 font-medium flex flex-col items-center">
+          <div className="text-lg text-red-500 font-medium flex flex-col items-center p-6 max-w-md text-center">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 mb-3" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
             </svg>
             {error}
             <p className="text-sm mt-2 text-gray-600">Please check your internet connection or API key configuration.</p>
+            <div className="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200 text-sm text-gray-800">
+              <h3 className="font-bold mb-2">Troubleshooting Steps:</h3>
+              <ol className="list-decimal list-inside space-y-1 text-left">
+                <li>Make sure .env file contains <code className="bg-gray-200 px-1 rounded">VITE_GOOGLE_MAPS_API_KEY</code></li>
+                <li>Enable JavaScript API in Google Cloud Console</li>
+                <li>Add HTTP referrer restrictions (include localhost)</li>
+                <li>Ensure billing is set up for your Google account</li>
+              </ol>
+            </div>
+            <button 
+              className="mt-4 px-4 py-2 bg-primary text-white rounded-full hover:bg-primary/90 transition-colors"
+              onClick={() => setIsLoading(true)}
+            >
+              Try Again
+            </button>
           </div>
         </div>
       )}

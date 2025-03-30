@@ -2,6 +2,7 @@
 import { RestaurantCard } from '@/components/RestaurantCard';
 import RestaurantMap from '@/components/RestaurantMap';
 import ViewToggle from '@/components/ViewToggle';
+import EnvDebug from '@/components/EnvDebug';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -499,6 +500,8 @@ const Index = () => {
           )}
         </div>
       </div>
+      {/* Temporarily adding EnvDebug component to diagnose environment variable issues */}
+      {process.env.NODE_ENV !== 'production' && <EnvDebug />}
     </div>
   );
 };
