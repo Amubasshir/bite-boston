@@ -22,6 +22,86 @@ const RestaurantMap: React.FC<RestaurantMapProps> = ({ restaurants }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Custom map styles with white/grey/purple theme
+  const customMapStyles = [
+    {
+      "elementType": "geometry",
+      "stylers": [{ "color": "#f5f5f5" }]
+    },
+    {
+      "elementType": "labels.icon",
+      "stylers": [{ "visibility": "off" }]
+    },
+    {
+      "elementType": "labels.text.fill",
+      "stylers": [{ "color": "#616161" }]
+    },
+    {
+      "elementType": "labels.text.stroke",
+      "stylers": [{ "color": "#f5f5f5" }]
+    },
+    {
+      "featureType": "administrative.land_parcel",
+      "elementType": "labels.text.fill",
+      "stylers": [{ "color": "#bdbdbd" }]
+    },
+    {
+      "featureType": "poi",
+      "elementType": "geometry",
+      "stylers": [{ "color": "#eeeeee" }]
+    },
+    {
+      "featureType": "poi",
+      "elementType": "labels.text.fill",
+      "stylers": [{ "color": "#757575" }]
+    },
+    {
+      "featureType": "poi.park",
+      "elementType": "geometry",
+      "stylers": [{ "color": "#e5e5e5" }]
+    },
+    {
+      "featureType": "road",
+      "elementType": "geometry",
+      "stylers": [{ "color": "#ffffff" }]
+    },
+    {
+      "featureType": "road.arterial",
+      "elementType": "labels.text.fill",
+      "stylers": [{ "color": "#757575" }]
+    },
+    {
+      "featureType": "road.highway",
+      "elementType": "geometry",
+      "stylers": [{ "color": "#dadada" }]
+    },
+    {
+      "featureType": "road.highway",
+      "elementType": "labels.text.fill",
+      "stylers": [{ "color": "#616161" }]
+    },
+    {
+      "featureType": "transit.line",
+      "elementType": "geometry",
+      "stylers": [{ "color": "#e5e5e5" }]
+    },
+    {
+      "featureType": "transit.station",
+      "elementType": "geometry",
+      "stylers": [{ "color": "#eeeeee" }]
+    },
+    {
+      "featureType": "water",
+      "elementType": "geometry",
+      "stylers": [{ "color": "#c9c9c9" }]
+    },
+    {
+      "featureType": "water",
+      "elementType": "labels.text.fill",
+      "stylers": [{ "color": "#9e9e9e" }]
+    }
+  ];
+
   // This function will be called after the Google Maps script loads
   window.initMap = () => {
     if (mapRef.current && !map) {
@@ -32,13 +112,7 @@ const RestaurantMap: React.FC<RestaurantMapProps> = ({ restaurants }) => {
         const mapInstance = new window.google.maps.Map(mapRef.current, {
           center: bostonLatLng,
           zoom: 13,
-          styles: [
-            {
-              featureType: 'poi',
-              elementType: 'labels',
-              stylers: [{ visibility: 'off' }]
-            }
-          ],
+          styles: customMapStyles,
           mapTypeControl: false,
           streetViewControl: false,
           fullscreenControl: true,
@@ -154,7 +228,7 @@ const RestaurantMap: React.FC<RestaurantMapProps> = ({ restaurants }) => {
             icon: {
               path: window.google.maps.SymbolPath.CIRCLE,
               scale: 10,
-              fillColor: '#FF385C',
+              fillColor: '#9c88ff', // Purple to match site theme
               fillOpacity: 1,
               strokeWeight: 2,
               strokeColor: '#FFFFFF',
@@ -163,14 +237,14 @@ const RestaurantMap: React.FC<RestaurantMapProps> = ({ restaurants }) => {
           
           // Create info window content
           const contentString = `
-            <div class="p-3" style="max-width: 300px; font-family: Arial, sans-serif;">
+            <div class="p-3" style="max-width: 300px; font-family: Arial, sans-serif; border-radius: 8px; box-shadow: 0 2px 6px rgba(156, 136, 255, 0.2);">
               <div style="font-weight: bold; font-size: 16px; margin-bottom: 5px;">${restaurant.name}</div>
               <div style="font-size: 14px; color: #666; margin-bottom: 5px;">${restaurant.cuisine} · ${restaurant.priceRange}</div>
               <div style="font-size: 14px; margin-bottom: 8px;"><strong>Deal:</strong> ${restaurant.dealText}</div>
               <div style="font-size: 13px;">${restaurant.address}</div>
               <div style="margin-top: 10px;">
                 <button 
-                  style="background-color: #FF385C; color: white; border: none; padding: 8px 12px; 
+                  style="background-color: #9c88ff; color: white; border: none; padding: 8px 12px; 
                   border-radius: 20px; cursor: pointer; font-size: 14px;"
                   onclick="window.open('/restaurant/${restaurant.id}', '_self')"
                 >
