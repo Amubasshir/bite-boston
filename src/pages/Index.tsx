@@ -360,40 +360,64 @@ const Index = () => {
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent-purple">Unbeatable Food Deals</span> in Cambridge
             <div className="mt-4 text-3xl md:text-4xl">BOGO, Free Apps, and More</div>
           </h1>
-          <div className="space-y-4 max-w-3xl">
-            <p className="text-xl font-semibold">
+          <div className="max-w-3xl">
+            <p className="text-xl font-medium text-gray-800 mb-8 leading-relaxed">
               Harvard Business School ECs went door-to-door to secure exclusive
               deals for Harvard grad students.
             </p>
 
-            <ul className="space-y-2 text-lg">
-              <li className="flex items-center gap-2">
-                <span className="text-xl">🔍</span>
-                <span>
-                  Find an unbeatable offer (BOGO, free apps, and more)
-                </span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="text-xl">📝</span>
-                <span>Create an account in seconds</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="text-xl">🎟️</span>
-                <span>Redeem your offer</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="text-xl">🍽️</span>
-                <span>Savor a delicious meal at the restaurant</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="text-xl">🙏</span>
-                <span>
-                  for the love of god please try us out so we can upgrade this
-                  website
-                </span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="text-xl">❓</span>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-10">
+              <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300 flex items-start space-x-4">
+                <div className="h-12 w-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                  <span className="text-2xl">🔍</span>
+                </div>
+                <div>
+                  <h3 className="font-medium text-gray-900 mb-1">Find an unbeatable offer</h3>
+                  <p className="text-gray-600 text-sm">BOGO, free apps, and more</p>
+                </div>
+              </div>
+              
+              <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300 flex items-start space-x-4">
+                <div className="h-12 w-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                  <span className="text-2xl">📝</span>
+                </div>
+                <div>
+                  <h3 className="font-medium text-gray-900 mb-1">Create an account</h3>
+                  <p className="text-gray-600 text-sm">Sign up in seconds</p>
+                </div>
+              </div>
+              
+              <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300 flex items-start space-x-4">
+                <div className="h-12 w-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                  <span className="text-2xl">🎟️</span>
+                </div>
+                <div>
+                  <h3 className="font-medium text-gray-900 mb-1">Redeem your offer</h3>
+                  <p className="text-gray-600 text-sm">Quick and hassle-free</p>
+                </div>
+              </div>
+              
+              <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300 flex items-start space-x-4">
+                <div className="h-12 w-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                  <span className="text-2xl">🍽️</span>
+                </div>
+                <div>
+                  <h3 className="font-medium text-gray-900 mb-1">Savor a delicious meal</h3>
+                  <p className="text-gray-600 text-sm">At the restaurant</p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="flex flex-col items-center space-y-4 my-8 text-center">
+              <div className="inline-block bg-gradient-to-r from-primary/5 to-accent-purple/5 px-8 py-4 rounded-xl">
+                <p className="text-primary font-medium">
+                  <span className="text-xl mr-2">🙏</span>
+                  <span>For the love of god please try us out so we can upgrade this website</span>
+                </p>
+              </div>
+              
+              <div className="flex items-center text-gray-600 text-sm">
+                <span className="text-xl mr-2">❓</span>
                 <span>
                   Need help? Call our unpaid intern Alex Mazzaferro at{' '}
                   <a
@@ -403,8 +427,8 @@ const Index = () => {
                     (815) 404-1738
                   </a>
                 </span>
-              </li>
-            </ul>
+              </div>
+            </div>
           </div>
         </div>
         {/* <div className="flex gap-3 overflow-x-auto py-6 scrollbar-hide">
