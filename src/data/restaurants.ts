@@ -155,6 +155,61 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     ],
   },
   {
+    id: generateRestaurantId('SoBoL Acai Bowls'),
+    name: 'SoBoL Acai Bowls',
+    image: 'https://ibb.co/vv3Kh3DJ',
+    location: 'Cambridge',
+    rating: 4.8,
+    priceRange: '$',
+    cuisine: 'Acai',
+    dealText: 'Free Smoothie with Acai Bowl',
+    dealDescription:
+      'Buy any Acai bowl and get a free smoothie',
+    neighborhood: 'Harvard Square',
+    deals: [
+      {
+        dealTitle: 'Free smoothie with Acai bowl',
+        offerPerCustomerLimit: 1,
+        dealDescription:
+          'Buy any Acai bowl and get a free smoothie',
+        potentialSavings: {
+          average: '$12',
+          upTo: '$12',
+        },
+      },
+      {
+        dealTitle: 'Free Egg Bites with Smoothie',
+        offerPerCustomerLimit: 2,
+        dealDescription:
+          'Get a free Egg Bites when you order a smoothie',
+        potentialSavings: {
+          average: '$5',
+          upTo: '$5',
+        },
+      },
+    ],
+    fullDescription:
+      "SoBol is a cafe that specializes in acai bowls, green bowls, fruit smoothies & beyond.",
+    address: '5 JFK St, Cambridge, MA 02138', // Updated address
+    openingHours: {
+      'Everyday': '8:00 AM - 10:00 PM',
+    },
+    phoneNumber: '(857) 365-7979',
+    website: 'https://www.mysobol.com/',
+    menuHighlights: [
+      {
+        name: 'Acai Bowl',
+        description: 'Acai bowl with toppings of your choice',
+        price: '$8 - $22',
+      },
+      {
+        name: 'Smoothie',
+        description: 'Fruit smoothies!',
+        price: '$12',
+      }
+    ],
+  },
+  {
     id: generateRestaurantId("Mr Bartley's Burger Cottage"),
     name: "Mr Bartley's Burger Cottage",
     image: 'https://i.ibb.co.com/4w4XYFvR/Mr-Bartley-BOGO.webp',
