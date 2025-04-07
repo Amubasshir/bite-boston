@@ -455,7 +455,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
       },
     ],
   },
-  {
+  /*{
     id: generateRestaurantId('The Boiling Crab'),
     name: 'The Boiling Crab',
     image: 'https://i.ibb.co.com/2H8hFs1/Boiling-Crab-BOGO.jpg',
@@ -1143,7 +1143,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
   //       price: '$18',
   //     },
   //   ],
-  // },
+  // },*/
 ];
 
 // Export all restaurants for the homepage
