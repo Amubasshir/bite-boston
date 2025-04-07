@@ -157,7 +157,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
   {
     id: generateRestaurantId('SoBoL Acai Bowls'),
     name: 'SoBoL Acai Bowls',
-    image: 'https://ibb.co/vv3Kh3DJ',
+    image: 'https://i.ibb.co/h1BtcBCK/So-Bol-Perks-Image.png',
     location: 'Cambridge',
     rating: 4.8,
     priceRange: '$',
