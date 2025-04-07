@@ -52,7 +52,7 @@ export async function sendConfirmationEmail({
             
             <p>📍 Restaurant: ${restaurant_name}</p>
             <p>💳 Your Deal: ${dealTitle}</p>
-            <p>📅 Valid Until: ${new Date(expiry_date).toLocaleDateString()}</p>
+            <p>📅 Must be redeemed on: ${new Date(expiry_date).toLocaleDateString()}</p>
 
             <p>How to Redeem:</p>
             <p>✅ Check-in & Inform the restaurant staff that you're claiming a TasteTrail deal.</p>
