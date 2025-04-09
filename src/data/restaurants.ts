@@ -39,8 +39,8 @@ export interface Restaurant {
 
 export const RESTAURANTS_DATA: Restaurant[] = [
   {
-    id: generateRestaurantId("Source"),
-    name: "Source",
+    id: generateRestaurantId('Source'),
+    name: 'Source',
     image: 'https://i.ibb.co/21xYNC0V/pasta.jpg',
     location: 'Cambridge',
     rating: 4.3,
@@ -48,18 +48,16 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     cuisine: 'Italian',
 
     dealText: 'Free Margherita Pizza*',
-    dealDescription:
-      '*Buy any entree and get a free Margherita Pizza.',
+    dealDescription: '*Buy any entree and get a free Margherita Pizza.',
 
     neighborhood: 'Harvard Square',
     deals: [
       {
         dealTitle: 'Free Margherita Pizza*',
-        dealDescription:
-          '*Buy any entree and get a free Margherita Pizza.',
+        dealDescription: '*Buy any entree and get a free Margherita Pizza.',
         potentialSavings: {
-          average: '$18',
-          upTo: '$18',
+          average: '$9',
+          upTo: '$12',
         },
         offerPerCustomerLimit: 1,
       },
@@ -68,26 +66,26 @@ export const RESTAURANTS_DATA: Restaurant[] = [
         dealDescription:
           '*Get a free Brussel Sprouts appetizer when you order a Build Your Own Pizza, Pasta, or Entree',
         potentialSavings: {
-          average: '$14',
-          upTo: '$14',
+          average: '$9',
+          upTo: '$12',
         },
         offerPerCustomerLimit: 2,
       },
     ],
     fullDescription:
-      "Pizzas & light fare doled out in a redbrick venue that has an industrial-style dining room & a bar.",
+      'Pizzas & light fare doled out in a redbrick venue that has an industrial-style dining room & a bar.',
     address: '27 Church St, Cambridge, MA 02138',
     openingHours: {
       'Monday-Thursday': '12:00 PM - 9:00 PM',
-      'Friday': '12:00 PM - 10:00 PM',
-      'Saturday': '11:00 AM - 10:00 PM',
-      'Sunday': '11:00 AM - 9:00 PM',
+      Friday: '12:00 PM - 10:00 PM',
+      Saturday: '11:00 AM - 10:00 PM',
+      Sunday: '11:00 AM - 9:00 PM',
     },
     phoneNumber: '(857)856-6800',
     website: 'http://sourcerestaurants.com/',
     menuHighlights: [
       {
-        name: "Build Your Own Pizza",
+        name: 'Build Your Own Pizza',
         description: 'Customize your own pizza with your choice of toppings',
         price: '$20 - $22',
       },
@@ -113,7 +111,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
           'Buy any main dish and get another main dish for free. Applies to items under the "From the Sea" section. Main dish of equal or lesser value will be free',
         potentialSavings: {
           average: '$15',
-          upTo: '$25',
+          upTo: '$30',
         },
       },
       {
@@ -123,7 +121,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
           'Get a free appetizer of your choice when you order a main dish',
         potentialSavings: {
           average: '$15',
-          upTo: '$15',
+          upTo: '$30',
         },
       },
     ],
@@ -163,36 +161,33 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     priceRange: '$',
     cuisine: 'Acai',
     dealText: 'Free Smoothie with Acai Bowl',
-    dealDescription:
-      'Buy any Acai bowl and get a free smoothie',
+    dealDescription: 'Buy any Acai bowl and get a free smoothie',
     neighborhood: 'Harvard Square',
     deals: [
       {
         dealTitle: 'Free smoothie with Acai bowl',
         offerPerCustomerLimit: 1,
-        dealDescription:
-          'Buy any Acai bowl and get a free smoothie',
+        dealDescription: 'Buy any Acai bowl and get a free smoothie',
         potentialSavings: {
-          average: '$12',
-          upTo: '$12',
+          average: '$15',
+          upTo: '$30',
         },
       },
       {
         dealTitle: 'Free Egg Bites with Smoothie',
         offerPerCustomerLimit: 2,
-        dealDescription:
-          'Get a free Egg Bites when you order a smoothie',
+        dealDescription: 'Get a free Egg Bites when you order a smoothie',
         potentialSavings: {
-          average: '$5',
-          upTo: '$5',
+          average: '$15',
+          upTo: '$30',
         },
       },
     ],
     fullDescription:
-      "SoBol is a cafe that specializes in acai bowls, green bowls, fruit smoothies & beyond.",
+      'SoBol is a cafe that specializes in acai bowls, green bowls, fruit smoothies & beyond.',
     address: '5 JFK St, Cambridge, MA 02138', // Updated address
     openingHours: {
-      'Everyday': '8:00 AM - 10:00 PM',
+      Everyday: '8:00 AM - 10:00 PM',
     },
     phoneNumber: '(857) 365-7979',
     website: 'https://www.mysobol.com/',
@@ -206,7 +201,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
         name: 'Smoothie',
         description: 'Fruit smoothies!',
         price: '$12',
-      }
+      },
     ],
   },
   {
@@ -230,7 +225,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
         dealDescription:
           'Buy any burger, and enjoy a second one for free (applies to the burger of equal or lesser value)',
         potentialSavings: {
-          average: '$20',
+          average: '$7',
           upTo: '$20',
         },
       },
@@ -241,7 +236,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
           'Get a free slice of chocolate cake when you order a burger or another main dish',
         potentialSavings: {
           average: '$7',
-          upTo: '$7',
+          upTo: '$20',
         },
       },
     ],
@@ -292,7 +287,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
           'Buy any main dish and get another main dish for free. Applies to items in the main dish, sandwich, and salads section. Main dish of equal or lesser value will be free',
         potentialSavings: {
           average: '$12',
-          upTo: '$18',
+          upTo: '$25',
         },
         offerPerCustomerLimit: 2,
       },
@@ -302,7 +297,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
           'Get a free appetizer of your choice when you order a main dish',
         potentialSavings: {
           average: '$12',
-          upTo: '$12',
+          upTo: '$25',
         },
         offerPerCustomerLimit: 2,
       },
@@ -355,7 +350,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
           'Buy any pizza slice, and enjoy a second one for free (cheese slice only)',
         potentialSavings: {
           average: '$4',
-          upTo: '$4',
+          upTo: '$6',
         },
         offerPerCustomerLimit: 0,
       },
@@ -363,8 +358,8 @@ export const RESTAURANTS_DATA: Restaurant[] = [
         dealTitle: 'Free soda',
         dealDescription: 'Get a free soda when you order a slice of pizza',
         potentialSavings: {
-          average: '$3',
-          upTo: '$3',
+          average: '$4',
+          upTo: '$6',
         },
         offerPerCustomerLimit: 0,
       },
@@ -416,7 +411,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
           'Get a free macaron of your choice when you order a box of 6',
         potentialSavings: {
           average: '$3',
-          upTo: '$3',
+          upTo: '$5',
         },
         offerPerCustomerLimit: 0,
       },
@@ -425,7 +420,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
         dealDescription:
           'Get a free cold or hot drink when you order a box of 12 macaroons. Does not apply to Dubai chocolate latte drink and some other drinks',
         potentialSavings: {
-          average: '$5',
+          average: '$3',
           upTo: '$5',
         },
         offerPerCustomerLimit: 0,
