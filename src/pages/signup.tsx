@@ -36,14 +36,18 @@ export default function SignupPage() {
 
   const onSubmit = async (data: SignupFormValues) => {
     try {
-  const isRedirect:any=await signUp(data.email, data.password, data.fullName, data.phone);
-  // console.log(isRedirect)
+      const isRedirect: any = await signUp(
+        data.email,
+        data.password,
+        data.fullName,
+        data.phone
+      );
+      // console.log(isRedirect)
       // Redirect to Stripe payment page after successful signup
-      if(isRedirect){
-        window.location.href = 'https://buy.stripe.com/fZedSW1mo81h8iA3cc';
-        return
+      if (isRedirect) {
+        window.location.href = 'https://buy.stripe.com/14k16ae9aepFfL2145';
+        return;
       }
-    
     } catch (error) {
       console.error('Signup error:', error);
       toast.error('An unexpected error occurred during signup.');
@@ -72,7 +76,7 @@ export default function SignupPage() {
           <p className="text-gray-700">
             Get full access to{' '}
             <span className="font-bold">$250+ worth of deals</span> for just{' '}
-            <span className="text-primary font-bold">$6.99/month</span>{' '}
+            <span className="text-primary font-bold">$4.99/month</span>{' '}
             <span className="text-gray-500 line-through">
               ($11.99/month regular price)
             </span>

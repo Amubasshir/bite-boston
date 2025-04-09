@@ -2,6 +2,7 @@ import { generateRestaurantId } from '@/utils/restaurant';
 
 export interface Deal {
   dealTitle: string;
+  offerPerCustomerLimit: number;
   dealDescription: string;
   potentialSavings: {
     average: string;
@@ -38,6 +39,61 @@ export interface Restaurant {
 
 export const RESTAURANTS_DATA: Restaurant[] = [
   {
+    id: generateRestaurantId("Source"),
+    name: "Source",
+    image: 'https://i.ibb.co/21xYNC0V/pasta.jpg',
+    location: 'Cambridge',
+    rating: 4.3,
+    priceRange: '$$',
+    cuisine: 'Italian',
+
+    dealText: 'Free Margherita Pizza*',
+    dealDescription:
+      '*Buy any entree and get a free Margherita Pizza.',
+
+    neighborhood: 'Harvard Square',
+    deals: [
+      {
+        dealTitle: 'Free Margherita Pizza*',
+        dealDescription:
+          '*Buy any entree and get a free Margherita Pizza.',
+        potentialSavings: {
+          average: '$18',
+          upTo: '$18',
+        },
+        offerPerCustomerLimit: 1,
+      },
+      {
+        dealTitle: 'Free Brussel Sprouts*',
+        dealDescription:
+          '*Get a free Brussel Sprouts appetizer when you order a Build Your Own Pizza, Pasta, or Entree',
+        potentialSavings: {
+          average: '$14',
+          upTo: '$14',
+        },
+        offerPerCustomerLimit: 2,
+      },
+    ],
+    fullDescription:
+      "Pizzas & light fare doled out in a redbrick venue that has an industrial-style dining room & a bar.",
+    address: '27 Church St, Cambridge, MA 02138',
+    openingHours: {
+      'Monday-Thursday': '12:00 PM - 9:00 PM',
+      'Friday': '12:00 PM - 10:00 PM',
+      'Saturday': '11:00 AM - 10:00 PM',
+      'Sunday': '11:00 AM - 9:00 PM',
+    },
+    phoneNumber: '(857)856-6800',
+    website: 'http://sourcerestaurants.com/',
+    menuHighlights: [
+      {
+        name: "Build Your Own Pizza",
+        description: 'Customize your own pizza with your choice of toppings',
+        price: '$20 - $22',
+      },
+    ],
+  },
+  {
     id: generateRestaurantId('The Sea Hag Restaurant & Bar'),
     name: 'The Sea Hag Restaurant & Bar',
     image: 'https://i.ibb.co.com/ZpwtbQVw/seehag.jpg',
@@ -48,11 +104,11 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     dealText: 'Buy one get one main dish free',
     dealDescription:
       'Buy any main dish and get another main dish for free. Applies to items under the "From the Sea" section. Main dish of equal or lesser value will be free',
-
     neighborhood: 'Harvard Square',
     deals: [
       {
         dealTitle: 'Buy one get one main dish',
+        offerPerCustomerLimit: 1,
         dealDescription:
           'Buy any main dish and get another main dish for free. Applies to items under the "From the Sea" section. Main dish of equal or lesser value will be free',
         potentialSavings: {
@@ -62,6 +118,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
       },
       {
         dealTitle: 'Free appetizer',
+        offerPerCustomerLimit: 2,
         dealDescription:
           'Get a free appetizer of your choice when you order a main dish',
         potentialSavings: {
@@ -72,7 +129,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     ],
     fullDescription:
       "Serves great cocktails, serves vegan dishes, has a kids' menu.",
-    address: '49 Mt Auburn St, Cambridge, MA 02138',
+    address: '49 Mt Auburn St, Cambridge, MA 02138', // Updated address
     openingHours: {
       'Thursday-Sunday': '11:30 AM - 10:00 PM',
       'Monday-Wednesday': 'Closed',
@@ -98,6 +155,61 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     ],
   },
   {
+    id: generateRestaurantId('SoBoL Acai Bowls'),
+    name: 'SoBoL Acai Bowls',
+    image: 'https://i.ibb.co/h1BtcBCK/So-Bol-Perks-Image.png',
+    location: 'Cambridge',
+    rating: 4.8,
+    priceRange: '$',
+    cuisine: 'Acai',
+    dealText: 'Free Smoothie with Acai Bowl',
+    dealDescription:
+      'Buy any Acai bowl and get a free smoothie',
+    neighborhood: 'Harvard Square',
+    deals: [
+      {
+        dealTitle: 'Free smoothie with Acai bowl',
+        offerPerCustomerLimit: 1,
+        dealDescription:
+          'Buy any Acai bowl and get a free smoothie',
+        potentialSavings: {
+          average: '$12',
+          upTo: '$12',
+        },
+      },
+      {
+        dealTitle: 'Free Egg Bites with Smoothie',
+        offerPerCustomerLimit: 2,
+        dealDescription:
+          'Get a free Egg Bites when you order a smoothie',
+        potentialSavings: {
+          average: '$5',
+          upTo: '$5',
+        },
+      },
+    ],
+    fullDescription:
+      "SoBol is a cafe that specializes in acai bowls, green bowls, fruit smoothies & beyond.",
+    address: '5 JFK St, Cambridge, MA 02138', // Updated address
+    openingHours: {
+      'Everyday': '8:00 AM - 10:00 PM',
+    },
+    phoneNumber: '(857) 365-7979',
+    website: 'https://www.mysobol.com/',
+    menuHighlights: [
+      {
+        name: 'Acai Bowl',
+        description: 'Acai bowl with toppings of your choice',
+        price: '$8 - $22',
+      },
+      {
+        name: 'Smoothie',
+        description: 'Fruit smoothies!',
+        price: '$12',
+      }
+    ],
+  },
+  {
     id: generateRestaurantId("Mr Bartley's Burger Cottage"),
     name: "Mr Bartley's Burger Cottage",
     image: 'https://i.ibb.co.com/4w4XYFvR/Mr-Bartley-BOGO.webp',
@@ -105,6 +217,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     rating: 4.5,
     priceRange: '$',
     cuisine: 'Burger',
+
     dealText: 'Buy one get one burger free',
     dealDescription:
       'Buy any burger, and enjoy a second one for free (applies to the burger of equal or lesser value)',
@@ -113,6 +226,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     deals: [
       {
         dealTitle: 'Buy one get one burger',
+        offerPerCustomerLimit: 1,
         dealDescription:
           'Buy any burger, and enjoy a second one for free (applies to the burger of equal or lesser value)',
         potentialSavings: {
@@ -122,6 +236,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
       },
       {
         dealTitle: 'Free chocolate cake',
+        offerPerCustomerLimit: 3,
         dealDescription:
           'Get a free slice of chocolate cake when you order a burger or another main dish',
         potentialSavings: {
@@ -132,7 +247,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     ],
     fullDescription:
       'Quirky burger joint with a menu of creatively named burgers & frappes, plus sandwiches & salads.',
-    address: '1246 Massachusetts Ave, Cambridge, MA 02138',
+    address: '1246 Massachusetts Ave, Cambridge, MA 02138', // Updated address
     openingHours: {
       'Monday-Sunday': '11:00 AM - 9:00 PM',
     },
@@ -159,11 +274,12 @@ export const RESTAURANTS_DATA: Restaurant[] = [
   {
     id: generateRestaurantId("Grendel's Den Restaurant & Bar"),
     name: "Grendel's Den Restaurant & Bar",
-    image: 'https://i.ibb.co.com/rGJ1gcc9/Grendels-BOGO.jpg',
+    image: 'https://i.ibb.co/WvsrDpYh/Screenshot-2025-03-30-at-2-43-12-PM.png',
     location: 'Cambridge',
     rating: 4.2,
     priceRange: '$$',
     cuisine: 'American',
+
     dealText: 'Buy one get one main dish free',
     dealDescription:
       'Buy any main dish and get another main dish for free. Applies to items in the main dish, sandwich, and salads section. Main dish of equal or lesser value will be free',
@@ -178,6 +294,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
           average: '$12',
           upTo: '$18',
         },
+        offerPerCustomerLimit: 2,
       },
       {
         dealTitle: 'Free appetizer',
@@ -187,6 +304,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
           average: '$12',
           upTo: '$12',
         },
+        offerPerCustomerLimit: 2,
       },
     ],
     fullDescription:
@@ -219,25 +337,27 @@ export const RESTAURANTS_DATA: Restaurant[] = [
   {
     id: generateRestaurantId("Joe's Pizza"),
     name: "Joe's Pizza",
-    image: 'https://i.ibb.co.com/SDS2zBLc/Joes-BOGO.jpg',
+    image: 'https://i.ibb.co/npTT6m4/Screenshot-2025-03-30-at-2-59-10-PM.png',
     location: 'Boston',
     rating: 4.2,
     priceRange: '$',
+
     cuisine: 'Pizza',
-    dealText: 'Buy one get one pizza slice free',
+    dealText: 'Buy one get one Cheese Slice',
     dealDescription:
-      'Buy any pizza slice, and enjoy a second one for free (applies to the slice of equal or lesser value)',
+      'Buy any pizza slice, and enjoy a second one for free (cheese slice only)',
 
     neighborhood: 'Allston',
     deals: [
       {
-        dealTitle: 'Buy one get one pizza',
+        dealTitle: 'Buy one get one cheese slice',
         dealDescription:
-          'Buy any pizza slice, and enjoy a second one for free (applies to the slice of equal or lesser value)',
+          'Buy any pizza slice, and enjoy a second one for free (cheese slice only)',
         potentialSavings: {
           average: '$4',
           upTo: '$4',
         },
+        offerPerCustomerLimit: 0,
       },
       {
         dealTitle: 'Free soda',
@@ -246,11 +366,12 @@ export const RESTAURANTS_DATA: Restaurant[] = [
           average: '$3',
           upTo: '$3',
         },
+        offerPerCustomerLimit: 0,
       },
     ],
     fullDescription:
       'Casual spot for pizza, pasta & subs, plus beer & wine in a simple space with TVs.',
-    address: '33 N Beacon St, Boston, MA 02134',
+    address: '3 Brattle St, Cambridge, MA 02138', // Updated address
     openingHours: {
       'Monday-Sunday': '11:00 AM - 10:00 PM',
     },
@@ -277,11 +398,12 @@ export const RESTAURANTS_DATA: Restaurant[] = [
   {
     id: generateRestaurantId('Le Macaron French Pastries Cambridge'),
     name: 'Le Macaron French Pastries Cambridge',
-    image: 'https://i.ibb.co.com/Psx5zxkD/Le-Macaron-BOGO.jpg',
+    image: 'https://i.ibb.co/j9bYydX2/macarons.jpg',
     location: 'Cambridge',
     rating: 3.6,
     priceRange: '$',
     cuisine: 'Dessert',
+
     dealText: 'Free macaron with box of 6',
     dealDescription:
       'Get a free macaron of your choice when you order a box of 6',
@@ -296,6 +418,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
           average: '$3',
           upTo: '$3',
         },
+        offerPerCustomerLimit: 0,
       },
       {
         dealTitle: 'Free latte',
@@ -305,6 +428,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
           average: '$5',
           upTo: '$5',
         },
+        offerPerCustomerLimit: 0,
       },
     ],
     fullDescription:
@@ -337,11 +461,12 @@ export const RESTAURANTS_DATA: Restaurant[] = [
   {
     id: generateRestaurantId("Zinneken's Belgian waffles"),
     name: "Zinneken's Belgian waffles",
-    image: 'https://i.ibb.co.com/Tq0qpM1H/Zinnekens-FREE.webp',
+    image: 'https://i.ibb.co.com/q3gmWdjK/im.jpg',
     location: 'Cambridge',
     rating: 4.4,
     priceRange: '$',
     cuisine: 'Dessert',
+
     dealText: 'Free drink with waffle order',
     dealDescription:
       'Get a free hot or cold beverage with the order of any pre-designed waffle. Not applicable to any matcha-based drinks or smoothies. If you choose to build your own waffle, a minimum of 2 toppings is required to redeem the deal',
@@ -356,6 +481,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
           average: '$5',
           upTo: '$5',
         },
+        offerPerCustomerLimit: 0,
       },
     ],
     fullDescription:
@@ -384,7 +510,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
       },
     ],
   },
-  {
+  /*{
     id: generateRestaurantId('The Boiling Crab'),
     name: 'The Boiling Crab',
     image: 'https://i.ibb.co.com/2H8hFs1/Boiling-Crab-BOGO.jpg',
@@ -392,6 +518,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     rating: 4.6,
     priceRange: '$$',
     cuisine: 'Seafood',
+
     dealText: 'Buy one get one half off on shrimp',
     dealDescription:
       'Order any shrimp item—boiled (head-on or EZ-Peel), fried shrimp baskets, or Sha-Bang Bang shrimp—and get the second (equal or lower-priced) for half off. Mix and match!',
@@ -406,6 +533,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
           average: '$7',
           upTo: '$10',
         },
+        offerPerCustomerLimit: 0,
       },
       {
         dealTitle: 'Free fries and soda',
@@ -415,6 +543,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
           average: '$7',
           upTo: '$7',
         },
+        offerPerCustomerLimit: 0,
       },
     ],
     fullDescription:
@@ -444,58 +573,59 @@ export const RESTAURANTS_DATA: Restaurant[] = [
       },
     ],
   },
-  // {
-  //   id: generateRestaurantId('Hokkaido Ramen Santouka Harvard Square'),
-  //   name: 'Hokkaido Ramen Santouka Harvard Square',
-  //   image: 'https://images.unsplash.com/photo-1598233847491-f16487adee2f',
-  //   location: 'Cambridge',
-  //   rating: 4.5,
-  //   priceRange: '$',
-  //   cuisine: 'Ramen',
-  //   dealText: 'Free size upgrade',
-  //   dealDescription: 'Upgrade to a large ramen bowl for free!',
+  {
+    id: generateRestaurantId('Hokkaido Ramen Santouka Harvard Square'),
+    name: 'Hokkaido Ramen Santouka Harvard Square',
+    image: 'https://images.unsplash.com/photo-1598233847491-f16487adee2f',
+    location: 'Cambridge',
+    rating: 4.5,
+    priceRange: '$',
+    cuisine: 'Ramen',
+    dealText: 'Free size upgrade',
+    dealDescription: 'Upgrade to a large ramen bowl for free!',
 
-  //   neighborhood: 'Harvard Square',
-  //   deals: [
-  //     {
-  //       dealTitle: 'Free size upgrade',
-  //       dealDescription: 'Upgrade to a large ramen bowl for free!',
-  //       potentialSavings: {
-  //         average: '$3',
-  //         upTo: '$3',
-  //       },
-  //     },
-  //   ],
-  //   fullDescription:
-  //     'Japanese chain offering ramen in various broths with a modern twist.',
-  //   address: '1 Bow St, Cambridge, MA 02138',
-  //   openingHours: {
-  //     'Monday-Sunday': '11:00 AM - 10:00 PM',
-  //   },
-  //   phoneNumber: '(617) 945-1460',
-  //   website: 'N/A',
-  //   menuHighlights: [
-  //     {
-  //       name: 'Tonkotsu Ramen',
-  //       description: 'Pork bone broth with chashu, bamboo shoots, and egg',
-  //       price: '$15',
-  //     },
-  //     {
-  //       name: 'Shio Ramen',
-  //       description: 'Salt-based broth with pork and vegetables',
-  //       price: '$14',
-  //     },
-  //     {
-  //       name: 'Gyoza',
-  //       description: 'Pan-fried pork dumplings',
-  //       price: '$7',
-  //     },
-  //   ],
-  // },
+    neighborhood: 'Harvard Square',
+    deals: [
+      {
+        dealTitle: 'Free size upgrade',
+        dealDescription: 'Upgrade to a large ramen bowl for free!',
+        potentialSavings: {
+          average: '$3',
+          upTo: '$3',
+        },
+        offerPerCustomerLimit: 0,
+      },
+    ],
+    fullDescription:
+      'Japanese chain offering ramen in various broths with a modern twist.',
+    address: '1 Bow St, Cambridge, MA 02138', // Updated address
+    openingHours: {
+      'Monday-Sunday': '11:00 AM - 10:00 PM',
+    },
+    phoneNumber: '(617) 945-1460',
+    website: 'N/A',
+    menuHighlights: [
+      {
+        name: 'Tonkotsu Ramen',
+        description: 'Pork bone broth with chashu, bamboo shoots, and egg',
+        price: '$15',
+      },
+      {
+        name: 'Shio Ramen',
+        description: 'Salt-based broth with pork and vegetables',
+        price: '$14',
+      },
+      {
+        name: 'Gyoza',
+        description: 'Pan-fried pork dumplings',
+        price: '$7',
+      },
+    ],
+  },
   {
     id: generateRestaurantId('Falafel Corner'),
     name: 'Falafel Corner',
-    image: 'https://i.ibb.co.com/1fSWN4fp/Falafel-Corner-Free-Soup.jpg',
+    image: 'https://i.ibb.co/vfg4BQS/falafel.jpg',
     location: 'Cambridge',
     rating: 3.9,
     priceRange: '$$',
@@ -514,6 +644,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
           average: '$6',
           upTo: '$8',
         },
+        offerPerCustomerLimit: 0,
       },
       {
         dealTitle: 'Free soup',
@@ -523,11 +654,12 @@ export const RESTAURANTS_DATA: Restaurant[] = [
           average: '$6',
           upTo: '$6',
         },
+        offerPerCustomerLimit: 0,
       },
     ],
     fullDescription:
       'Miniature counter-serve late-night option doling out falafel, shawarma & other Middle Eastern eats.',
-    address: '8 Eliot St, Cambridge, MA 02138',
+    address: '8 Eliot St, Cambridge, MA 02138', // Updated address
     openingHours: {
       'Monday-Sunday': '11:00 AM - 3:00 AM',
     },
@@ -559,6 +691,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     location: 'Cambridge',
     rating: 4.4,
     priceRange: '$',
+
     cuisine: 'Fast Food',
     dealText: 'Free beer with burger and fries',
     dealDescription:
@@ -574,6 +707,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
           average: '$5',
           upTo: '$7',
         },
+        offerPerCustomerLimit: 0,
       },
     ],
     fullDescription:
@@ -607,10 +741,11 @@ export const RESTAURANTS_DATA: Restaurant[] = [
   {
     id: generateRestaurantId('Bon Me'),
     name: 'Bon Me',
-    image: 'https://images.unsplash.com/photo-1557872943-16a5ac26437e',
+    image: 'https://i.ibb.co/V0n0jf3y/bonme.jpg',
     location: 'Boston',
     rating: 4.4,
     priceRange: '$',
+
     cuisine: 'Asian Fusion',
     dealText: '15% off',
     dealDescription: 'Get 15% off your bill. You must show your student ID.',
@@ -625,11 +760,12 @@ export const RESTAURANTS_DATA: Restaurant[] = [
           average: '$5',
           upTo: 'unlimited',
         },
+        offerPerCustomerLimit: 0,
       },
     ],
     fullDescription:
       'Asian-inspired sandwiches, rice bowls, and salads with a modern twist.',
-    address: '313 Congress St, Boston, MA 02210',
+    address: '1 Bow St, Cambridge, MA 02138',
     openingHours: {
       Thursday: 'Opens 11:00 AM',
     },
@@ -665,6 +801,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     rating: 4.4,
     priceRange: '$$',
     cuisine: 'Greek',
+
     dealText: 'Free Greek Fries for students',
     dealDescription:
       'Free order of Greek Fries with any lunch or dinner purchase (sandwich, plate, or salad). Valid for students only!',
@@ -679,11 +816,12 @@ export const RESTAURANTS_DATA: Restaurant[] = [
           average: '$4',
           upTo: '$4',
         },
+        offerPerCustomerLimit: 0,
       },
     ],
     fullDescription:
       'Greek restaurant with a modern twist serving gyros, salads, and other Greek specialties.',
-    address: '181 Massachusetts Ave, Boston, MA 02115',
+    address: '24 Dunster St, Cambridge, MA 02138', // Updated address
     openingHours: {
       'Monday-Sunday': '11:00 AM - 9:00 PM',
     },
@@ -717,6 +855,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     rating: 4.5,
     priceRange: '$',
     cuisine: 'Ramen',
+
     dealText: 'Free size upgrade',
     dealDescription: 'Upgrade to a large ramen bowl for free!',
 
@@ -729,6 +868,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
           average: '$3',
           upTo: '$3',
         },
+        offerPerCustomerLimit: 0,
       },
     ],
     fullDescription:
@@ -757,6 +897,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
       },
     ],
   },
+  /*
   {
     id: generateRestaurantId('Da Long Yi'),
     name: 'Da Long Yi',
@@ -777,6 +918,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
           average: 'Varies',
           upTo: 'Varies',
         },
+        offerPerCustomerLimit: 0,
       },
     ],
     fullDescription:
@@ -805,7 +947,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
         price: '$15',
       },
     ],
-  },
+  }, */
   // {
   //   id: generateRestaurantId('Taiyaki NYC x The Dough Club - Cambridge'),
   //   name: 'Taiyaki NYC x The Dough Club - Cambridge',
@@ -1056,7 +1198,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
   //       price: '$18',
   //     },
   //   ],
-  // },
+  // },*/
 ];
 
 // Export all restaurants for the homepage

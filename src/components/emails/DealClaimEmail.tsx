@@ -59,7 +59,7 @@ export const DealClaimEmail = ({
               Confirmation ID: <strong>{confirmationId}</strong>
             </Text>
             <Text style={expiryText}>
-              Valid until: {new Date(expiryDate).toLocaleDateString()}
+              Must be redeemed on: {new Date(expiryDate).toLocaleDateString()}
             </Text>
           </Section>
           <Hr style={hr} />

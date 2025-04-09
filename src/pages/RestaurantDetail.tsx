@@ -6,8 +6,8 @@ import { MenuHighlights } from '@/components/restaurant/MenuHighlights';
 import { RestaurantHero } from '@/components/restaurant/RestaurantHero';
 import { Button } from '@/components/ui/button';
 import { RESTAURANTS_DATA } from '@/data/restaurants';
-import { Link, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
 
 // Restaurant data is now imported from data/restaurants.ts
 
@@ -43,10 +43,13 @@ const RestaurantDetail = () => {
         <div className="absolute z-10 top-4 left-4">
           <Button
             variant="outline"
-            className="px-6 py-2 rounded-lg text-base font-medium border-2 border-primary hover:bg-primary hover:text-white transition-colors bg-white"
+            className="px-6 py-2 rounded-full text-base font-medium border border-primary hover:bg-primary hover:text-white transition-all duration-300 shadow-md hover:shadow-lg bg-white/90 backdrop-blur-sm flex items-center gap-2"
             onClick={() => window.location.href = '/'}
           >
-            Go Home
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            Back to Deals
           </Button>
         </div>
         <RestaurantHero
@@ -57,13 +60,14 @@ const RestaurantDetail = () => {
           priceRange={restaurant.priceRange}
         />
       </div>
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="container mx-auto px-4 py-8 max-w-7xl">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 relative">
+          <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-accent-purple/5 rounded-2xl -z-10 blur-xl opacity-30"></div>
           <div className="lg:col-span-2">
             <DealSection
-            restaurant={restaurant}
+              restaurant={restaurant}
               deals={restaurant.deals}
-              duration={restaurant.duration}
+              duration="1 week" /* Using a default value for duration */
             />
             <AboutSection description={restaurant.fullDescription} />
             <MenuHighlights items={restaurant.menuHighlights} />

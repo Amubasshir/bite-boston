@@ -13,9 +13,11 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
+import { useSuccessModal } from '../SuccessModal';
 
 interface Deal {
   dealTitle: string;
+  offerPerCustomerLimit?: number;
   dealDescription: string;
   potentialSavings: {
     average: string;
@@ -51,7 +53,7 @@ export function DealSection({ deals, duration, restaurant }: DealSectionProps) {
   const { user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-
+  const { showSuccessModal, hideSuccessModal } = useSuccessModal();
   const currentDeal = deals[currentDealIndex];
   const totalDeals = deals.length;
   const data = {
@@ -65,33 +67,54 @@ export function DealSection({ deals, duration, restaurant }: DealSectionProps) {
     },
   };
 
-  const handleDealClaim = async (restaurantData: ClaimData) => {
+  const handleDealClaim = async (restaurantData: {
+    name: string;
+    id: string;
+    dealData: {
+      offerPerCustomerLimit?: number;
+      dealTitle: string;
+      description: string;
+      confirmationId: string;
+      expiry_date: Date;
+    };
+    offerPerCustomerLimit?: number;
+  }) => {
     try {
       if (!user) {
         toast.error('Please login to claim deals');
         navigate('/login');
         return;
       }
+      // Check if user has reached the claim limit for this restaurant
+      const { data: claimedDealsCount, error: countError } = await supabase
+        .from('claimed_deals')
+        .select('*', { count: 'exact' })
+        .eq('user_id', user.id)
+        .eq('restaurant_id', restaurantData.id);
 
-      console.log(restaurantData, 'restaurantData');
-      // setDialogOpen(false)
-      // return
+      if (countError) throw countError;
+
+      if (claimedDealsCount && claimedDealsCount.length >= restaurantData.dealData?.offerPerCustomerLimit && restaurantData.dealData.offerPerCustomerLimit) {
+        toast.error(`You have reached the maximum limit of ${restaurantData.dealData.offerPerCustomerLimit} claims for this restaurant's deals`);
+        setDialogOpen(false)
+        hideSuccessModal()
+        return;
+      }
+
+      // First save to database
       const { error: dbError } = await supabase.from('claimed_deals').insert({
         user_id: user.id,
         email: user.email,
-        restaurant_name: restaurantData.restaurant_name,
-        restaurant_id: restaurantData.restaurant_id,
-        deal_title: restaurantData.deal_title,
-        deal_description: restaurantData.deal_description,
-        confirmation_id: restaurantData.confirmationId,
-        expiry_date: restaurantData.expiry_date,
-        claimed_at: restaurantData.claimed_at,
+        restaurant_name: restaurantData.name,
+        restaurant_id: restaurantData.id,
+        deal_title: restaurantData.dealData.dealTitle,
+        deal_description: restaurantData.dealData.description,
+        confirmation_id: restaurantData.dealData.confirmationId,
+        expiry_date: restaurantData.dealData.expiry_date,
+        claimed_at: new Date(),
       });
 
-      if (dbError) {
-        setDialogOpen(false);
-        throw dbError;
-      }
+      if (dbError) throw dbError;
 
       // Replace the Resend email sending with API call
       try {
@@ -100,11 +123,11 @@ export function DealSection({ deals, duration, restaurant }: DealSectionProps) {
             body: {
               userEmail: user.email,
               userName: user.user_metadata?.full_name || 'Valued Customer',
-              restaurantName: restaurantData.restaurant_name,
-              dealTitle: restaurantData.deal_title,
-              confirmationId: restaurantData.confirmationId,
-              expiryDate: restaurantData.expiry_date,
-              dealDescription: restaurantData.deal_description,
+              restaurantName: restaurantData.name,
+              dealTitle: restaurantData.dealData.dealTitle,
+              confirmationId: restaurantData.dealData.confirmationId,
+              expiryDate: restaurantData.dealData.expiry_date,
+              dealDescription: restaurantData.dealData.description,
             },
           });
 
@@ -112,18 +135,32 @@ export function DealSection({ deals, duration, restaurant }: DealSectionProps) {
           throw emailError;
         }
 
+        // Show success modal with the deal data
+        showSuccessModal({
+          selectedDate: new Date(),
+          confirmationId: restaurantData.dealData.confirmationId,
+          user_id: user.id,
+          email: user.email,
+          restaurant_name: restaurantData.name,
+          restaurant_id: restaurantData.id,
+          deal_title: restaurantData.dealData.dealTitle,
+          deal_description: restaurantData.dealData.description,
+          expiry_date: restaurantData.dealData.expiry_date,
+          claimed_at: new Date(),
+        });
+        setDialogOpen(false)
         toast.success(`Deal claimed! Confirmation sent to ${user.email}`);
       } catch (emailError) {
+        setDialogOpen(false)
         console.error('Email sending failed:', emailError);
         toast.warning(
           'Deal claimed but email delivery failed. Please check your account.'
         );
       }
     } catch (error) {
+      setDialogOpen(false)
       console.error('Error claiming deal:', error);
       toast.error('Failed to claim deal. Please try again.');
-    } finally {
-      setDialogOpen(false);
     }
   };
 
@@ -183,19 +220,23 @@ export function DealSection({ deals, duration, restaurant }: DealSectionProps) {
 
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-bold text-primary">Special Deal</h2>
-          <Badge className="bg-primary text-white font-bold px-3 py-1 rounded-full shadow-md">
+          {/* //! Mubasshir */}
+          {/* <Badge className="bg-primary text-white font-bold px-3 py-1 rounded-full shadow-md">
             Savings: {currentDeal.potentialSavings.average} -{' '}
             {currentDeal.potentialSavings.upTo}
-          </Badge>
+          </Badge> */}
         </div>
 
         <div className="relative">
           <div
-            className={`px-4 transition-opacity duration-200 ${
-              isTransitioning ? 'opacity-0' : 'opacity-100'
-            }`}
+            className={`px-4 transition-opacity duration-200 ${isTransitioning ? 'opacity-0' : 'opacity-100'
+              }`}
           >
-            <h3 className="font-semibold mb-4">{currentDeal.dealTitle}</h3>
+            <h3 className="font-semibold mb-2">{currentDeal.dealTitle}</h3>
+            <Badge className="bg-primary text-white font-bold px-3 py-1 rounded-full shadow-md mb-2">
+            Savings: {currentDeal.potentialSavings.average} -{' '}
+            {currentDeal.potentialSavings.upTo}
+          </Badge>
             <p className="text-gray-700 mb-6">{currentDeal.dealDescription}</p>
 
             <Button
@@ -228,7 +269,18 @@ export function DealSection({ deals, duration, restaurant }: DealSectionProps) {
               <DialogTitle>Select a date for your deal</DialogTitle>
             </DialogHeader>
             <ClaimDealForm
-              onSuccess={handleDealClaim}
+              offerPerCustomerLimit={Number(currentDeal?.offerPerCustomerLimit)}
+              onSuccess={(claimData) => handleDealClaim({
+                name: claimData.restaurant_name,
+                id: claimData.restaurant_id,
+                dealData: {
+                  offerPerCustomerLimit: Number(currentDeal?.offerPerCustomerLimit),
+                  dealTitle: claimData.deal_title,
+                  description: claimData.deal_description,
+                  confirmationId: claimData.confirmationId,
+                  expiry_date: claimData.expiry_date
+                },
+              })}
               dealTitle={data.dealData.dealTitle}
               restaurantName={data.name}
               restaurantId={data.id}
