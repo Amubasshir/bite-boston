@@ -220,10 +220,11 @@ export function DealSection({ deals, duration, restaurant }: DealSectionProps) {
 
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-bold text-primary">Special Deal</h2>
-          <Badge className="bg-primary text-white font-bold px-3 py-1 rounded-full shadow-md">
+          {/* //! Mubasshir */}
+          {/* <Badge className="bg-primary text-white font-bold px-3 py-1 rounded-full shadow-md">
             Savings: {currentDeal.potentialSavings.average} -{' '}
             {currentDeal.potentialSavings.upTo}
-          </Badge>
+          </Badge> */}
         </div>
 
         <div className="relative">
@@ -231,7 +232,11 @@ export function DealSection({ deals, duration, restaurant }: DealSectionProps) {
             className={`px-4 transition-opacity duration-200 ${isTransitioning ? 'opacity-0' : 'opacity-100'
               }`}
           >
-            <h3 className="font-semibold mb-4">{currentDeal.dealTitle}</h3>
+            <h3 className="font-semibold mb-2">{currentDeal.dealTitle}</h3>
+            <Badge className="bg-primary text-white font-bold px-3 py-1 rounded-full shadow-md mb-2">
+            Savings: {currentDeal.potentialSavings.average} -{' '}
+            {currentDeal.potentialSavings.upTo}
+          </Badge>
             <p className="text-gray-700 mb-6">{currentDeal.dealDescription}</p>
 
             <Button
