@@ -220,11 +220,7 @@ export function DealSection({ deals, duration, restaurant }: DealSectionProps) {
 
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-bold text-primary">Special Deal</h2>
-          <Badge className="bg-primary/70 text-white font-bold px-3 py-1 rounded-full shadow-md">
-            {currentDeal.offerPerCustomerLimit === 0
-              ? "Unlimited"
-              : `${currentDeal.offerPerCustomerLimit}x every 90 days`}
-          </Badge>
+
         </div>
 
         <div className="relative">
@@ -233,10 +229,16 @@ export function DealSection({ deals, duration, restaurant }: DealSectionProps) {
               }`}
           >
             <h3 className="font-semibold mb-2">{currentDeal.dealTitle}</h3>
-            <Badge className="bg-primary text-white font-bold px-3 py-1 rounded-full shadow-md mb-2">
-            Savings: {currentDeal.potentialSavings.average} -{' '}
-            {currentDeal.potentialSavings.upTo}
-          </Badge>
+            <div className="flex gap-2 mb-1">
+              <Badge className="bg-primary/70 text-white font-bold px-3 py-1 rounded-full shadow-md">
+                Savings: 100
+              </Badge>
+              <Badge className="bg-primary/70 text-white font-bold px-3 py-1 rounded-full shadow-md">
+                {currentDeal.offerPerCustomerLimit === 0
+                  ? "Unlimited"
+                  : `${currentDeal.offerPerCustomerLimit}x every 90 days`}
+              </Badge>
+            </div>
             <p className="text-gray-700 mb-6">{currentDeal.dealDescription}</p>
 
             <Button

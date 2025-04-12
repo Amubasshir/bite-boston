@@ -58,7 +58,7 @@ export default function SignupPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-accent-purple/10 flex items-center justify-center py-8">
       <div className="bg-white p-8 rounded-2xl shadow-lg max-w-xl w-full mx-4">
- 
+
         {/* Form Section */}
         <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
           <div className="space-y-4">
@@ -154,10 +154,10 @@ export default function SignupPage() {
 
             <div>
               <label className="text-sm font-medium" htmlFor="is_harvard_grad">
-                🎓 Are you a Harvard graduate?
+                🎓 Are you a Harvard grad?
               </label>
 
-              // Update the select options to use boolean values
+
               <select
                 id="is_harvard_grad"
                 className="w-full p-3 border-2 border-primary/20 rounded-lg focus:border-primary transition-colors mt-1"
