@@ -178,6 +178,26 @@ export default function SignupPage() {
                 </p>
               )}
             </div>
+
+            <div>
+              <label className="text-sm font-medium" htmlFor="isHarvardGrad">
+                🎓 Are you a Harvard graduate?
+              </label>
+              <select
+                id="isHarvardGrad"
+                className="w-full p-3 border-2 border-primary/20 rounded-lg focus:border-primary transition-colors mt-1"
+                {...register('isHarvardGrad')}
+              >
+                <option value="">Select an option</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+              {errors.isHarvardGrad && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.isHarvardGrad.message}
+                </p>
+              )}
+            </div>
           </div>
 
           {/* Payment Notice */}
