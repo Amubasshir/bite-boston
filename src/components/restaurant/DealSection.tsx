@@ -17,7 +17,7 @@ import { useSuccessModal } from '../SuccessModal';
 
 interface Deal {
   dealTitle: string;
-  offerPerCustomerLimit?: number;
+  offerPerCustomerLimit: number;
   dealDescription: string;
   potentialSavings: {
     average: string;
@@ -220,11 +220,11 @@ export function DealSection({ deals, duration, restaurant }: DealSectionProps) {
 
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-bold text-primary">Special Deal</h2>
-          {/* //! Mubasshir */}
-          {/* <Badge className="bg-primary text-white font-bold px-3 py-1 rounded-full shadow-md">
-            Savings: {currentDeal.potentialSavings.average} -{' '}
-            {currentDeal.potentialSavings.upTo}
-          </Badge> */}
+          <Badge className="bg-primary/70 text-white font-bold px-3 py-1 rounded-full shadow-md">
+            {currentDeal.offerPerCustomerLimit === 0
+              ? "Unlimited"
+              : `${currentDeal.offerPerCustomerLimit}x every 90 days`}
+          </Badge>
         </div>
 
         <div className="relative">
