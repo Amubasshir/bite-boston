@@ -12,6 +12,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { set } from 'date-fns';
 
 interface Deal {
   dealTitle: string;
@@ -87,6 +88,7 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
   const [dialogOpen, setDialogOpen] = useState(false);
   const { user } = useAuth();
   const navigate = useNavigate();
+  const [isSubscriptionModalOpen, setIsSubscriptionModalOpen] = useState(false);
 
   // Get the current deal to display if deals array exists
   const currentDeal =
@@ -147,6 +149,14 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
     } catch (error) {
       console.error('Error in handleSuccess:', error);
     }
+  };
+  const handleSubscribe = () => {
+    const isHarvardGrad = user?.user_metadata?.is_harvard_grad;
+    const stripeUrl = isHarvardGrad
+      ? 'https://buy.stripe.com/eVa16a9SUdlB42kfZ0'
+      : 'https://buy.stripe.com/14k16ae9aepFfL2145';
+    
+    window.location.href = stripeUrl;
   };
 
   return (
@@ -240,7 +250,11 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
                 type='button'
                 className="w-full group relative overflow-hidden transition-all duration-300 bg-primary hover:bg-primary/90 flex items-center justify-center gap-2"
                 size="lg"
-                onClick={() => handleClaimButtonClick()}
+                onClick={() => {
+
+                 setIsSubscriptionModalOpen(true)
+                  // handleClaimButtonClick()
+                }}
               >
                 Claim this Deal
                 <svg className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -251,6 +265,46 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
           </div>
         </Card>
       </div>
+      {/* Subscription Modal */}
+      <Dialog open={isSubscriptionModalOpen} onOpenChange={setIsSubscriptionModalOpen}>
+        <DialogContent className="sm:max-w-xl">
+          <div className="text-center mb-8">
+            <h1 className="text-3xl font-bold mb-4">
+              🎉 You've Almost Unlocked the Best Dining Deals! 🍽️
+            </h1>
+            <p className="text-lg text-gray-600 mb-4">
+              You're nearly there! 🚀 Explore and rediscover the best restaurants
+              in Cambridge with exclusive dining deals just for you.
+            </p>
+          </div>
+
+          <div className="bg-accent-purple/20 p-6 rounded-xl mb-8">
+            <h2 className="text-xl font-bold text-primary mb-2">
+              🔥 Limited-Time Early Access Offer:
+            </h2>
+            <p className="text-gray-700">
+              Get full access to{' '}
+              <span className="font-bold">$250+ worth of deals</span> for just{' '}
+              <span className="text-primary font-bold">
+                {user?.user_metadata?.is_harvard_grad ? '$8.99' : '$4.99'} One-Time
+              </span>{' '}
+              <span className="text-gray-500 line-through">
+                ($11.99 One-Time regular price)
+              </span>
+            </p>
+            <p className="text-gray-700 mt-2">
+              The deals are only growing, so don't miss out!
+            </p>
+          </div>
+
+          <Button
+            onClick={handleSubscribe}
+            className="w-full bg-primary hover:bg-primary/90 text-white"
+          >
+            Pay Now
+          </Button>
+        </DialogContent>
+      </Dialog>
 
       {/* Claim Deal Dialog - Only shown for authenticated users */}
       {user && (

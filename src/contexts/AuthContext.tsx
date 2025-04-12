@@ -12,9 +12,10 @@ type AuthContextType = {
     email: string,
     password: string,
     fullName: string,
-    phone: string
-  ) => Promise<void>;
-  signIn: (email: string, password: string) => Promise<void>;
+    phone: string,
+    is_harvard_grad?: boolean
+  ) => Promise<boolean>;  // Updated parameter list and return type
+  signIn: (email: string, password: string) => Promise<boolean>;
   signOut: () => Promise<void>;
 };
 
@@ -61,23 +62,25 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     email: string,
     password: string,
     fullName: string,
-    phone: string
+    phone: string,
+    is_harvard_grad: boolean
   ) => {
     setIsLoading(true);
-
+  
     try {
-
+      // First, create the auth user
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
           data: {
             full_name: fullName,
+            is_harvard_grad: Boolean(is_harvard_grad), // Ensure boolean conversion
             phone: phone,
           },
         },
       });
-
+  
       if (error) {
         // Check for specific error messages
         if (error.message.includes('email')) {
@@ -90,7 +93,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         }
         return false;
       }
-
+  
       // Check if email is already registered
       if (
         data.user &&
@@ -101,29 +104,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
        
         return false;
       }
-
-      // Rest of the function remains the same
-      if (data.user) {
-        toast.success('Account created successfully!');
-
-        // Sign in the user immediately after signup
-        const { error: signInError } = await supabase.auth.signInWithPassword({
-          email,
-          password,
-        });
-
-        if (signInError) {
-          toast.error(
-            'Account created but could not log in automatically. Please log in manually.'
-          );
-         
-       
-        }
-        toast.success('Signup successfully!');
-        return true;
-       
-      
-      }
+  
+  
     } catch (error) {
    
       console.error('Signup error:', error);

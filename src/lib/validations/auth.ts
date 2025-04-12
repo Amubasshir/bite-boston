@@ -38,7 +38,9 @@ export const signupSchema = z
     confirmPassword: z
       .string()
       .min(1, { message: 'Please confirm your password' }),
-    isHarvardGrad: z.string().min(1, 'Please select an option'),
+    is_harvard_grad: z.boolean({
+      required_error: "Please select whether you're a Harvard graduate",
+    }),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",

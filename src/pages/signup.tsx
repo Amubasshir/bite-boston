@@ -24,6 +24,7 @@ export default function SignupPage() {
       phone: '',
       password: '',
       confirmPassword: '',
+      is_harvard_grad: false
     },
   });
 
@@ -36,16 +37,16 @@ export default function SignupPage() {
 
   const onSubmit = async (data: SignupFormValues) => {
     try {
-      const isRedirect: any = await signUp(
+      const isRedirect = await signUp(
         data.email,
         data.password,
         data.fullName,
-        data.phone
+        data.phone,
+        data.is_harvard_grad // Ensure boolean conversion
       );
-      // console.log(isRedirect)
       // Redirect to Stripe payment page after successful signup
       if (isRedirect) {
-        window.location.href = 'https://buy.stripe.com/14k16ae9aepFfL2145';
+        window.location.href = '/login';
         return;
       }
     } catch (error) {
@@ -57,35 +58,7 @@ export default function SignupPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-accent-purple/10 flex items-center justify-center py-8">
       <div className="bg-white p-8 rounded-2xl shadow-lg max-w-xl w-full mx-4">
-        {/* Header Section */}
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold mb-4">
-            🎉 You've Almost Unlocked the Best Dining Deals! 🍽️
-          </h1>
-          <p className="text-lg text-gray-600 mb-4">
-            You're nearly there! 🚀 Explore and rediscover the best restaurants
-            in Cambridge with exclusive dining deals just for you.
-          </p>
-        </div>
-
-        {/* Offer Section */}
-        <div className="bg-accent-purple/20 p-6 rounded-xl mb-8">
-          <h2 className="text-xl font-bold text-primary mb-2">
-            🔥 Limited-Time Early Access Offer:
-          </h2>
-          <p className="text-gray-700">
-            Get full access to{' '}
-            <span className="font-bold">$250+ worth of deals</span> for just{' '}
-            <span className="text-primary font-bold">$4.99/month</span>{' '}
-            <span className="text-gray-500 line-through">
-              ($11.99/month regular price)
-            </span>
-          </p>
-          <p className="text-gray-700 mt-2">
-            The deals are only growing, so don't miss out!
-          </p>
-        </div>
-
+ 
         {/* Form Section */}
         <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
           <div className="space-y-4">
@@ -180,28 +153,32 @@ export default function SignupPage() {
             </div>
 
             <div>
-              <label className="text-sm font-medium" htmlFor="isHarvardGrad">
+              <label className="text-sm font-medium" htmlFor="is_harvard_grad">
                 🎓 Are you a Harvard graduate?
               </label>
+
+              // Update the select options to use boolean values
               <select
-                id="isHarvardGrad"
+                id="is_harvard_grad"
                 className="w-full p-3 border-2 border-primary/20 rounded-lg focus:border-primary transition-colors mt-1"
-                {...register('isHarvardGrad')}
+                {...register('is_harvard_grad', {
+                  setValueAs: (value) => value === 'true'  // Convert string to boolean
+                })}
               >
                 <option value="">Select an option</option>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
               </select>
-              {errors.isHarvardGrad && (
+              {errors.is_harvard_grad && (
                 <p className="text-red-500 text-sm mt-1">
-                  {errors.isHarvardGrad.message}
+                  {errors.is_harvard_grad.message}
                 </p>
               )}
             </div>
           </div>
 
           {/* Payment Notice */}
-          <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+          {/* <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
             <p className="text-sm text-gray-600 mb-2">
               💳 Complete Your Payment via Stripe: Only paid accounts will
               receive access to TasteTrail deals.
@@ -210,7 +187,7 @@ export default function SignupPage() {
               ✅ Cancel anytime. No hidden fees. Just great food at great
               prices.
             </p>
-          </div>
+          </div> */}
 
           <Button
             type="submit"
@@ -219,7 +196,7 @@ export default function SignupPage() {
           >
             {isLoading
               ? 'Creating Account...'
-              : 'Sign Up & Continue to Payment'}
+              : 'Sign Up'}
           </Button>
         </form>
 
