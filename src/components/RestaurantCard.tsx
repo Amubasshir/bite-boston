@@ -124,6 +124,12 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
   };
 
   const handleClaimButtonClick = () => {
+    // TEMPORARY: Disable deal redemption for Source restaurant
+    if (name === "Source") {
+      // Deal temporarily unavailable for Source
+      alert("This deal will be available on Tuesday");
+      return;
+    }
 
     if (user) {
       // User is logged in, show the claim dialog
@@ -210,7 +216,8 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
                 <div className="bg-gradient-to-r from-accent-purple/30 to-primary/5 rounded-xl p-4 shadow-sm min-h-[120px] flex flex-col justify-between">
                   {dealsCount > 1 && (
                     <div className="absolute right-4 top-0 -translate-y-1/2 bg-primary text-white font-bold px-3 py-1 rounded-full shadow-md animate-pulse">
-                      {dealsCount} deals
+                      {/* TEMPORARY: Change deals text for Source restaurant */}
+                      {name === "Source" ? "Coming Tues." : `${dealsCount} deals`}
                     </div>
                   )}
 
