@@ -37,14 +37,14 @@ export default function SignupPage() {
 
   const onSubmit = async (data: SignupFormValues) => {
     try {
-      const isRedirect = await signUp(
-        data.email,
-        data.password,
-        data.fullName,
-        data.phone,
-        data.is_harvard_grad // Ensure boolean conversion
-      );
-      console.log(isRedirect);
+      // const isRedirect = await signUp(
+      //   data.email,
+      //   data.password,
+      //   data.fullName,
+      //   data.phone,
+      //   data.is_harvard_grad // Ensure boolean conversion
+      // );
+      // console.log(isRedirect);
       // Redirect to Stripe payment page after successful signup
       if (!hasChooseUV) {
         window.location.replace("https://buy.stripe.com/eVa16a9SUdlB42kfZ0");

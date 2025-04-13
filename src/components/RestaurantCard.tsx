@@ -252,8 +252,8 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
                 size="lg"
                 onClick={() => {
 
-                 setIsSubscriptionModalOpen(true)
-                  // handleClaimButtonClick()
+                //  setIsSubscriptionModalOpen(true)
+                  handleClaimButtonClick()
                 }}
               >
                 Claim this Deal
