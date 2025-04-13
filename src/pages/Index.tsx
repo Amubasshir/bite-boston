@@ -54,6 +54,7 @@ const Index = () => {
   const { showSuccessModal, hideSuccessModal } = useSuccessModal();
   const [currentDealIndex, setCurrentDealIndex] = useState(0);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [openSignupSelection, setOpenSignupSelection] = useState(false);
   const [activeView, setActiveView] = useState<'list' | 'map'>('list');
 
   useEffect(() => {
@@ -242,6 +243,11 @@ const Index = () => {
     setShowWelcomeModal(false);
   };
 
+  const handleCloseSignupYesNoModal = () => {
+    // localStorage.setItem('hasSeenWelcome', 'true');
+    setOpenSignupSelection(false);
+  };
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -321,6 +327,53 @@ const Index = () => {
           </div>
         </DialogContent>
       </Dialog>
+      <Dialog open={openSignupSelection} onOpenChange={handleCloseSignupYesNoModal}>
+        <DialogContent className="min-w-[100%] w-full mx-auto mt-0 mb-0 h-full rounded-none p-0 overflow-hidden bg-white">
+          {/* Close button - accessible on all devices */}
+          <button 
+            onClick={handleCloseSignupYesNoModal}
+            className="absolute top-3 right-3 z-50 h-8 w-8 flex items-center justify-center rounded-full bg-white/90 text-gray-500 hover:text-gray-800 shadow-sm border border-gray-100 transition-colors"
+            aria-label="Close"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
+
+          {/* Header with gradient background */}
+          <div className="p-5 pb-4"></div>
+          
+          {/* Body content - more compact */}
+          <div className="px-5 pt-1 pb-5 space-y-8 max-h-[70vh] overflow-y-auto">
+            <div className="text-2xl sm:text-3xl font-bold text-center mb-2 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent-purple leading-snug">
+            Are you a Harvard, MIT, or BU Graduate Student?
+            </div>
+            
+            <div className="flex justify-center gap-5">
+              <button 
+                onClick={() => {
+                    localStorage.setItem('hasChooseUV', 'true')
+                    handleCloseSignupYesNoModal();
+                    navigate('/signup');
+                }}
+                className="px-8 py-2.5 font-medium text-white rounded-full bg-gradient-to-r from-primary to-accent-purple hover:shadow-md transition-all duration-300"
+              >
+                Yes
+              </button>
+              <button 
+                onClick={() => {
+                    localStorage.setItem('hasChooseUV', 'false')
+                    handleCloseSignupYesNoModal();
+                    navigate('/signup');
+                }}
+                className="px-8 py-2.5 font-medium text-white rounded-full bg-gradient-to-r from-primary to-accent-purple hover:shadow-md transition-all duration-300"
+              >
+                No
+              </button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
       <div
         className={`container mx-auto px-4 py-8 transition-all duration-300 ${showWelcomeModal ? 'blur-sm' : ''}`}
       >
@@ -360,7 +413,8 @@ const Index = () => {
                     <Button
                       variant="default"
                       className="px-6 py-2 rounded-full text-base font-medium bg-primary text-white hover:bg-primary/90 transition-all duration-300 shadow-sm hover:shadow-md"
-                      onClick={() => navigate('/signup')}
+                    //   onClick={() => navigate('/signup')}
+                        onClick={()=> setOpenSignupSelection(true)}
                     >
                       Sign Up
                     </Button>

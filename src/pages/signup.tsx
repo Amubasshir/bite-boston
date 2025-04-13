@@ -1,15 +1,15 @@
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { useAuth } from '@/contexts/AuthContext';
-import { SignupFormValues, signupSchema } from '@/lib/validations/auth';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
-import { toast } from 'sonner';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useAuth } from "@/contexts/AuthContext";
+import { SignupFormValues, signupSchema } from "@/lib/validations/auth";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 export default function SignupPage() {
-  const { signUp, user, isLoading } = useAuth();
+  const { signUp, user, isLoading, hasChooseUV } = useAuth();
   const navigate = useNavigate();
 
   const {
@@ -19,21 +19,21 @@ export default function SignupPage() {
   } = useForm<SignupFormValues>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
-      fullName: '',
-      email: '',
-      phone: '',
-      password: '',
-      confirmPassword: '',
-      is_harvard_grad: false
+      fullName: "",
+      email: "",
+      phone: "",
+      password: "",
+      confirmPassword: "",
+      is_harvard_grad: false,
     },
   });
 
   // Redirect if already logged in
-  useEffect(() => {
-    if (user) {
-      navigate('/');
-    }
-  }, [user, navigate]);
+  //   useEffect(() => {
+  //     if (user) {
+  //       navigate('/');
+  //     }
+  //   }, [user, navigate]);
 
   const onSubmit = async (data: SignupFormValues) => {
     try {
@@ -44,20 +44,55 @@ export default function SignupPage() {
         data.phone,
         data.is_harvard_grad // Ensure boolean conversion
       );
+      console.log(isRedirect);
       // Redirect to Stripe payment page after successful signup
-      if (isRedirect) {
-        window.location.href = '/login';
-        return;
+      if (!hasChooseUV) {
+        window.location.replace("https://buy.stripe.com/eVa16a9SUdlB42kfZ0");
+      } else {
+        window.location.replace("https://buy.stripe.com/14k16ae9aepFfL2145");
       }
+      localStorage.setItem("hasChooseUV", JSON.stringify(false));
+      return;
+      
     } catch (error) {
-      console.error('Signup error:', error);
-      toast.error('An unexpected error occurred during signup.');
+      console.error("Signup error:", error);
+      toast.error("An unexpected error occurred during signup.");
     }
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-accent-purple/10 flex items-center justify-center py-8">
       <div className="bg-white p-8 rounded-2xl shadow-lg max-w-xl w-full mx-4">
+        {/* Header Section */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold mb-4">
+            🎉 You've Almost Unlocked the Best Dining Deals! 🍽️
+          </h1>
+          <p className="text-lg text-gray-600 mb-4">
+            You're nearly there! 🚀 Explore and rediscover the best restaurants
+            in Cambridge with exclusive dining deals just for you.
+          </p>
+        </div>
+
+        {/* Offer Section */}
+        {!hasChooseUV && (
+          <div className="bg-accent-purple/20 p-6 rounded-xl mb-8">
+            <h2 className="text-xl font-bold text-primary mb-2">
+              🔥 Limited-Time Early Access Offer:
+            </h2>
+            <p className="text-gray-700">
+              Get full access to{" "}
+              <span className="font-bold">$250+ worth of deals</span> for just{" "}
+              <span className="text-primary font-bold">$4.99/month</span>{" "}
+              <span className="text-gray-500 line-through">
+                ($11.99/month regular price)
+              </span>
+            </p>
+            <p className="text-gray-700 mt-2">
+              The deals are only growing, so don't miss out!
+            </p>
+          </div>
+        )}
 
         {/* Form Section */}
         <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
@@ -71,7 +106,7 @@ export default function SignupPage() {
                 type="text"
                 placeholder="Enter your full name"
                 className="w-full p-3 border-2 border-primary/20 rounded-lg focus:border-primary transition-colors mt-1"
-                {...register('fullName')}
+                {...register("fullName")}
               />
               {errors.fullName && (
                 <p className="text-red-500 text-sm mt-1">
@@ -89,7 +124,7 @@ export default function SignupPage() {
                 type="email"
                 placeholder="Enter your email"
                 className="w-full p-3 border-2 border-primary/20 rounded-lg focus:border-primary transition-colors mt-1"
-                {...register('email')}
+                {...register("email")}
               />
               {errors.email && (
                 <p className="text-red-500 text-sm mt-1">
@@ -107,7 +142,7 @@ export default function SignupPage() {
                 type="tel"
                 placeholder="Enter your phone number"
                 className="w-full p-3 border-2 border-primary/20 rounded-lg focus:border-primary transition-colors mt-1"
-                {...register('phone')}
+                {...register("phone")}
               />
               {errors.phone && (
                 <p className="text-red-500 text-sm mt-1">
@@ -125,7 +160,7 @@ export default function SignupPage() {
                 type="password"
                 placeholder="Create a password"
                 className="w-full p-3 border-2 border-primary/20 rounded-lg focus:border-primary transition-colors mt-1"
-                {...register('password')}
+                {...register("password")}
               />
               {errors.password && (
                 <p className="text-red-500 text-sm mt-1">
@@ -143,7 +178,7 @@ export default function SignupPage() {
                 type="password"
                 placeholder="Confirm your password"
                 className="w-full p-3 border-2 border-primary/20 rounded-lg focus:border-primary transition-colors mt-1"
-                {...register('confirmPassword')}
+                {...register("confirmPassword")}
               />
               {errors.confirmPassword && (
                 <p className="text-red-500 text-sm mt-1">
@@ -157,12 +192,11 @@ export default function SignupPage() {
                 🎓 Are you a Harvard grad?
               </label>
 
-
               <select
                 id="is_harvard_grad"
                 className="w-full p-3 border-2 border-primary/20 rounded-lg focus:border-primary transition-colors mt-1"
-                {...register('is_harvard_grad', {
-                  setValueAs: (value) => value === 'true'  // Convert string to boolean
+                {...register("is_harvard_grad", {
+                  setValueAs: (value) => value === "true", // Convert string to boolean
                 })}
               >
                 <option value="">Select an option</option>
@@ -194,14 +228,12 @@ export default function SignupPage() {
             className="w-full bg-primary hover:bg-primary/90 text-white py-3 rounded-lg transition-colors text-lg font-semibold"
             disabled={isLoading}
           >
-            {isLoading
-              ? 'Creating Account...'
-              : 'Sign Up'}
+            {isLoading ? "Creating Account..." : "Sign Up"}
           </Button>
         </form>
 
         <p className="text-center mt-6 text-gray-600">
-          Already have an account?{' '}
+          Already have an account?{" "}
           <Link
             to="/login"
             className="text-primary hover:underline font-medium"

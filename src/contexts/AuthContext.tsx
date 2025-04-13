@@ -17,6 +17,8 @@ type AuthContextType = {
   ) => Promise<boolean>;  // Updated parameter list and return type
   signIn: (email: string, password: string) => Promise<boolean>;
   signOut: () => Promise<void>;
+  hasChooseUV: boolean;
+  setHasChooseUV: (value: boolean) => void;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -24,6 +26,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
+  const [hasChooseUV, setHasChooseUV] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -53,11 +56,19 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       }
     );
 
+    const hasChooseUVResult = JSON.parse(localStorage.getItem('hasChooseUV'));
+    if(hasChooseUVResult) {
+        setHasChooseUV(true);
+    }else{
+        setHasChooseUV(false);
+    }
+
     return () => {
       authListener.subscription.unsubscribe();
     };
   }, []);
 
+  
   const signUp = async (
     email: string,
     password: string,
@@ -80,7 +91,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           },
         },
       });
-  
+
       if (error) {
         // Check for specific error messages
         if (error.message.includes('email')) {
@@ -179,6 +190,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         signUp,
         signIn,
         signOut,
+        hasChooseUV,
+        setHasChooseUV,
       }}
     >
       {children}
