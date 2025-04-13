@@ -19,10 +19,7 @@ interface Deal {
   dealTitle: string;
   offerPerCustomerLimit: number;
   dealDescription: string;
-  potentialSavings: {
-    average: string;
-    upTo: string;
-  };
+  potentialSavings: string;
 }
 
 interface DealSectionProps {
@@ -231,7 +228,7 @@ export function DealSection({ deals, duration, restaurant }: DealSectionProps) {
             <h3 className="font-semibold mb-2">{currentDeal.dealTitle}</h3>
             <div className="flex gap-2 mb-1">
               <Badge className="bg-primary/70 text-white font-bold px-3 py-1 rounded-full shadow-md">
-                Savings: 100
+                Savings: ${currentDeal.potentialSavings}
               </Badge>
               <Badge className="bg-primary/70 text-white font-bold px-3 py-1 rounded-full shadow-md">
                 {currentDeal.offerPerCustomerLimit === 0
