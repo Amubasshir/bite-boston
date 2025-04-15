@@ -80,7 +80,7 @@ export default function SignupPage() {
             </h2>
 
             <p className="text-gray-700 mt-2">
-              Only until the 14th of April, get full access to $200+ worth of deals for a one-time payment of just <span className="text-primary font-bold">$8.99/month</span>{" "} <span className="text-gray-500 line-through">
+              Only until the 14th of April, get full access to $200+ worth of deals for a one-time payment of just <span className="text-primary font-bold">$8.99</span>{" "} <span className="text-gray-500 line-through">
                 ($14.99/month original price)
               </span>. <br /> Try new places and enjoy meals out with friends during this last month of school!
 The deals are only growing - don't miss out!
