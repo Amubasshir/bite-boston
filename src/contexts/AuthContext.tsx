@@ -92,6 +92,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         },
       });
 
+
+      if(data?.user?.email){
+        return true;
+      }
+
       if (error) {
         // Check for specific error messages
         if (error.message.includes('email')) {

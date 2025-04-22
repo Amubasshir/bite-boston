@@ -44,13 +44,13 @@ export default function SignupPage() {
         data.phone,
         data.is_harvard_grad // Ensure boolean conversion
       );
-      console.log(isRedirect);
-      // Redirect to Stripe payment page after successful signup
-      if (!hasChooseUV) {
-        window.location.replace("https://buy.stripe.com/eVa16a9SUdlB42kfZ0");
-      } else {
-        window.location.replace("https://buy.stripe.com/14k16ae9aepFfL2145");
-      }
+        if (isRedirect) {
+            if (!hasChooseUV) {
+              window.location.replace("https://buy.stripe.com/eVa16a9SUdlB42kfZ0");
+            } else {
+              window.location.replace("https://buy.stripe.com/14k16ae9aepFfL2145");
+            }
+        }
       localStorage.setItem("hasChooseUV", JSON.stringify(false));
       return;
       
