@@ -9,8 +9,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 export default function SignupPage() {
-  const { signUp, user, isLoading, hasChooseUV } = useAuth();
+  const { signUp, user, isLoading, hasChooseUV, setHasChooseUV } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const storedValue = localStorage.getItem("hasChooseUV");
+    if (storedValue !== null) {
+      setHasChooseUV(JSON.parse(storedValue));
+    }
+  }, [setHasChooseUV]);
 
   const {
     register,
@@ -37,23 +44,14 @@ export default function SignupPage() {
 
   const onSubmit = async (data: SignupFormValues) => {
     try {
-      // const isRedirect = await signUp(
-      //   data.email,
-      //   data.password,
-      //   data.fullName,
-      //   data.phone,
-      //   data.is_harvard_grad // Ensure boolean conversion
-      // );
-      // console.log(isRedirect);
-      // Redirect to Stripe payment page after successful signup
       if (!hasChooseUV) {
-        window.location.replace("https://buy.stripe.com/eVa16a9SUdlB42kfZ0");
-      } else {
         window.location.replace("https://buy.stripe.com/14k16ae9aepFfL2145");
+        localStorage.setItem("hasChooseUV", JSON.stringify(false));
+      } else {
+        window.location.replace("https://buy.stripe.com/eVa16a9SUdlB42kfZ0");
+        localStorage.setItem("hasChooseUV", JSON.stringify(true));
       }
-      localStorage.setItem("hasChooseUV", JSON.stringify(false));
       return;
-      
     } catch (error) {
       console.error("Signup error:", error);
       toast.error("An unexpected error occurred during signup.");
@@ -75,8 +73,22 @@ export default function SignupPage() {
         </div>
 
         {/* Offer Section */}
-        {!hasChooseUV && (
+        {hasChooseUV? (
           <div className="bg-accent-purple/20 p-6 rounded-xl mb-8">
+            <h2 className="text-xl font-bold text-primary mb-2">
+              🔥 Limited-Time Early Access Offer:
+            </h2>
+
+            <p className="text-gray-700 mt-2">
+              Only until the 14th of April, get full access to $200+ worth of deals for a one-time payment of just <span className="text-primary font-bold">$8.99</span>{" "} <span className="text-gray-500 line-through">
+                ($14.99/month original price)
+              </span>. <br /> Try new places and enjoy meals out with friends during this last month of school!
+The deals are only growing - don't miss out!
+
+            </p>
+          </div>
+        ):(
+            <div className="bg-accent-purple/20 p-6 rounded-xl mb-8">
             <h2 className="text-xl font-bold text-primary mb-2">
               🔥 Limited-Time Early Access Offer:
             </h2>
@@ -187,7 +199,7 @@ export default function SignupPage() {
               )}
             </div>
 
-            <div>
+            {/* <div>
               <label className="text-sm font-medium" htmlFor="is_harvard_grad">
                 🎓 Are you a Harvard grad?
               </label>
@@ -208,7 +220,7 @@ export default function SignupPage() {
                   {errors.is_harvard_grad.message}
                 </p>
               )}
-            </div>
+            </div> */}
           </div>
 
           {/* Payment Notice */}

@@ -457,6 +457,56 @@ export const RESTAURANTS_DATA: Restaurant[] = [
       },
     ],
   },
+  {
+    id: generateRestaurantId('Saloniki'),
+    name: 'Saloniki',
+    image: 'https://i.ibb.co.com/yBRn9P7S/Saloniki-BOGO.webp',
+    location: 'Boston',
+    rating: 4.4,
+    priceRange: '$$',
+    cuisine: 'Greek',
+
+    dealText: 'Free donuts',
+    dealDescription:
+      'Free order of Greek Donuts with the purchase of pita sandwhich, plate, or salad. Cannot be combined with any other existing offers.',
+
+    neighborhood: 'Back Bay',
+    deals: [
+      {
+        dealTitle: 'Free donuts',
+        dealDescription:
+          'Free order of Greek Donuts with the purchase of pita sandwhich, plate, or salad. Cannot be combined with any other existing offers.',
+        potentialSavings: '5',
+        offerPerCustomerLimit: 0,
+      },
+    ],
+    fullDescription:
+      'Greek restaurant with a modern twist serving gyros, salads, and other Greek specialties.',
+    address: '24 Dunster St, Cambridge, MA 02138', // Updated address
+    openingHours: {
+      'Monday-Sunday': '11:00 AM - 9:00 PM',
+    },
+    phoneNumber: '(617) 585-6588',
+    website: 'N/A',
+    menuHighlights: [
+      {
+        name: 'Classic Gyro',
+        description:
+          'Pork shoulder, tomatoes, onions, and tzatziki in a warm pita',
+        price: '$10',
+      },
+      {
+        name: 'Greek Salad',
+        description: 'Tomatoes, cucumbers, peppers, onions, feta, and olives',
+        price: '$9',
+      },
+      {
+        name: 'Greek Fries',
+        description: 'Hand-cut fries with herbs and feta',
+        price: '$4',
+      },
+    ],
+  },
   /*{
     id: generateRestaurantId('The Boiling Crab'),
     name: 'The Boiling Crab',
@@ -740,56 +790,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     ],
   },
 
-  {
-    id: generateRestaurantId('Saloniki'),
-    name: 'Saloniki',
-    image: 'https://i.ibb.co.com/yBRn9P7S/Saloniki-BOGO.webp',
-    location: 'Boston',
-    rating: 4.4,
-    priceRange: '$$',
-    cuisine: 'Greek',
 
-    dealText: 'Free Greek Fries for students',
-    dealDescription:
-      'Free order of Greek Fries with any lunch or dinner purchase (sandwich, plate, or salad). Valid for students only!',
-
-    neighborhood: 'Back Bay',
-    deals: [
-      {
-        dealTitle: 'Free fries',
-        dealDescription:
-          'Free order of Greek Fries with any lunch or dinner purchase (sandwich, plate, or salad). Valid for students only!',
-        potentialSavings: '4',
-        offerPerCustomerLimit: 0,
-      },
-    ],
-    fullDescription:
-      'Greek restaurant with a modern twist serving gyros, salads, and other Greek specialties.',
-    address: '24 Dunster St, Cambridge, MA 02138', // Updated address
-    openingHours: {
-      'Monday-Sunday': '11:00 AM - 9:00 PM',
-    },
-    phoneNumber: '(617) 585-6588',
-    website: 'N/A',
-    menuHighlights: [
-      {
-        name: 'Classic Gyro',
-        description:
-          'Pork shoulder, tomatoes, onions, and tzatziki in a warm pita',
-        price: '$10',
-      },
-      {
-        name: 'Greek Salad',
-        description: 'Tomatoes, cucumbers, peppers, onions, feta, and olives',
-        price: '$9',
-      },
-      {
-        name: 'Greek Fries',
-        description: 'Hand-cut fries with herbs and feta',
-        price: '$4',
-      },
-    ],
-  },
 
   {
     id: generateRestaurantId('Hokkaido Ramen Santouka Harvard Square'),
