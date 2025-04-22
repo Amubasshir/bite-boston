@@ -4,10 +4,7 @@ export interface Deal {
   dealTitle: string;
   offerPerCustomerLimit: number;
   dealDescription: string;
-  potentialSavings: {
-    average: string;
-    upTo: string;
-  };
+  potentialSavings: string;
 }
 
 export interface MenuItem {
@@ -55,20 +52,14 @@ export const RESTAURANTS_DATA: Restaurant[] = [
       {
         dealTitle: 'Free Margherita Pizza*',
         dealDescription: '*Buy any entree and get a free Margherita Pizza.',
-        potentialSavings: {
-          average: '$9',
-          upTo: '$12',
-        },
+        potentialSavings: '12',
         offerPerCustomerLimit: 1,
       },
       {
         dealTitle: 'Free Brussel Sprouts*',
         dealDescription:
           '*Get a free Brussel Sprouts appetizer when you order a Build Your Own Pizza, Pasta, or Entree',
-        potentialSavings: {
-          average: '$9',
-          upTo: '$12',
-        },
+        potentialSavings: '12',
         offerPerCustomerLimit: 2,
       },
     ],
@@ -109,20 +100,14 @@ export const RESTAURANTS_DATA: Restaurant[] = [
         offerPerCustomerLimit: 1,
         dealDescription:
           'Buy any main dish and get another main dish for free. Applies to items under the "From the Sea" section. Main dish of equal or lesser value will be free',
-        potentialSavings: {
-          average: '$15',
-          upTo: '$30',
-        },
+        potentialSavings: '30',
       },
       {
         dealTitle: 'Free appetizer',
         offerPerCustomerLimit: 2,
         dealDescription:
           'Get a free appetizer of your choice when you order a main dish',
-        potentialSavings: {
-          average: '$15',
-          upTo: '$30',
-        },
+        potentialSavings: '15',
       },
     ],
     fullDescription:
@@ -168,19 +153,13 @@ export const RESTAURANTS_DATA: Restaurant[] = [
         dealTitle: 'Free smoothie with Acai bowl',
         offerPerCustomerLimit: 1,
         dealDescription: 'Buy any Acai bowl and get a free smoothie',
-        potentialSavings: {
-          average: '$15',
-          upTo: '$30',
-        },
+        potentialSavings: '30',
       },
       {
         dealTitle: 'Free Egg Bites with Smoothie',
         offerPerCustomerLimit: 2,
         dealDescription: 'Get a free Egg Bites when you order a smoothie',
-        potentialSavings: {
-          average: '$15',
-          upTo: '$30',
-        },
+        potentialSavings: '15',
       },
     ],
     fullDescription:
@@ -224,20 +203,14 @@ export const RESTAURANTS_DATA: Restaurant[] = [
         offerPerCustomerLimit: 1,
         dealDescription:
           'Buy any burger, and enjoy a second one for free (applies to the burger of equal or lesser value)',
-        potentialSavings: {
-          average: '$7',
-          upTo: '$20',
-        },
+        potentialSavings: '20',
       },
       {
         dealTitle: 'Free chocolate cake',
         offerPerCustomerLimit: 3,
         dealDescription:
           'Get a free slice of chocolate cake when you order a burger or another main dish',
-        potentialSavings: {
-          average: '$7',
-          upTo: '$20',
-        },
+        potentialSavings: '7',
       },
     ],
     fullDescription:
@@ -285,20 +258,14 @@ export const RESTAURANTS_DATA: Restaurant[] = [
         dealTitle: 'Buy one get one main dish',
         dealDescription:
           'Buy any main dish and get another main dish for free. Applies to items in the main dish, sandwich, and salads section. Main dish of equal or lesser value will be free',
-        potentialSavings: {
-          average: '$12',
-          upTo: '$25',
-        },
+        potentialSavings: '25',
         offerPerCustomerLimit: 2,
       },
       {
         dealTitle: 'Free appetizer',
         dealDescription:
           'Get a free appetizer of your choice when you order a main dish',
-        potentialSavings: {
-          average: '$12',
-          upTo: '$25',
-        },
+        potentialSavings: '12',
         offerPerCustomerLimit: 2,
       },
     ],
@@ -348,19 +315,13 @@ export const RESTAURANTS_DATA: Restaurant[] = [
         dealTitle: 'Buy one get one cheese slice',
         dealDescription:
           'Buy any pizza slice, and enjoy a second one for free (cheese slice only)',
-        potentialSavings: {
-          average: '$4',
-          upTo: '$6',
-        },
+        potentialSavings: '4-6',
         offerPerCustomerLimit: 0,
       },
       {
         dealTitle: 'Free soda',
         dealDescription: 'Get a free soda when you order a slice of pizza',
-        potentialSavings: {
-          average: '$4',
-          upTo: '$6',
-        },
+        potentialSavings: '3',
         offerPerCustomerLimit: 0,
       },
     ],
@@ -409,20 +370,14 @@ export const RESTAURANTS_DATA: Restaurant[] = [
         dealTitle: 'Free macaron',
         dealDescription:
           'Get a free macaron of your choice when you order a box of 6',
-        potentialSavings: {
-          average: '$3',
-          upTo: '$5',
-        },
+        potentialSavings: '3',
         offerPerCustomerLimit: 0,
       },
       {
         dealTitle: 'Free latte',
         dealDescription:
           'Get a free cold or hot drink when you order a box of 12 macaroons. Does not apply to Dubai chocolate latte drink and some other drinks',
-        potentialSavings: {
-          average: '$3',
-          upTo: '$5',
-        },
+        potentialSavings: '5',
         offerPerCustomerLimit: 0,
       },
     ],
@@ -472,10 +427,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
         dealTitle: 'Free drink',
         dealDescription:
           'Get a free hot or cold beverage with the order of any pre-designed waffle. Not applicable to any matcha-based drinks or smoothies. If you choose to build your own waffle, a minimum of 2 toppings is required to redeem the deal. Only redeemable on weekdays (up to 2PM on Friday)',
-        potentialSavings: {
-          average: '$5',
-          upTo: '$5',
-        },
+        potentialSavings: '5',
         offerPerCustomerLimit: 0,
       },
     ],
@@ -502,6 +454,56 @@ export const RESTAURANTS_DATA: Restaurant[] = [
         name: 'Nutella & Banana Waffle',
         description: 'Waffle topped with Nutella and fresh banana slices',
         price: '$10',
+      },
+    ],
+  },
+  {
+    id: generateRestaurantId('Saloniki'),
+    name: 'Saloniki',
+    image: 'https://i.ibb.co.com/yBRn9P7S/Saloniki-BOGO.webp',
+    location: 'Boston',
+    rating: 4.4,
+    priceRange: '$$',
+    cuisine: 'Greek',
+
+    dealText: 'Free donuts',
+    dealDescription:
+      'Free order of Greek Donuts with the purchase of pita sandwhich, plate, or salad. Cannot be combined with any other existing offers.',
+
+    neighborhood: 'Back Bay',
+    deals: [
+      {
+        dealTitle: 'Free donuts',
+        dealDescription:
+          'Free order of Greek Donuts with the purchase of pita sandwhich, plate, or salad. Cannot be combined with any other existing offers.',
+        potentialSavings: '5',
+        offerPerCustomerLimit: 0,
+      },
+    ],
+    fullDescription:
+      'Greek restaurant with a modern twist serving gyros, salads, and other Greek specialties.',
+    address: '24 Dunster St, Cambridge, MA 02138', // Updated address
+    openingHours: {
+      'Monday-Sunday': '11:00 AM - 9:00 PM',
+    },
+    phoneNumber: '(617) 585-6588',
+    website: 'N/A',
+    menuHighlights: [
+      {
+        name: 'Classic Gyro',
+        description:
+          'Pork shoulder, tomatoes, onions, and tzatziki in a warm pita',
+        price: '$10',
+      },
+      {
+        name: 'Greek Salad',
+        description: 'Tomatoes, cucumbers, peppers, onions, feta, and olives',
+        price: '$9',
+      },
+      {
+        name: 'Greek Fries',
+        description: 'Hand-cut fries with herbs and feta',
+        price: '$4',
       },
     ],
   },
@@ -788,59 +790,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
     ],
   },
 
-  {
-    id: generateRestaurantId('Saloniki'),
-    name: 'Saloniki',
-    image: 'https://i.ibb.co.com/yBRn9P7S/Saloniki-BOGO.webp',
-    location: 'Boston',
-    rating: 4.4,
-    priceRange: '$$',
-    cuisine: 'Greek',
 
-    dealText: 'Free Greek Fries for students',
-    dealDescription:
-      'Free order of Greek Fries with any lunch or dinner purchase (sandwich, plate, or salad). Valid for students only!',
-
-    neighborhood: 'Back Bay',
-    deals: [
-      {
-        dealTitle: 'Free fries',
-        dealDescription:
-          'Free order of Greek Fries with any lunch or dinner purchase (sandwich, plate, or salad). Valid for students only!',
-        potentialSavings: {
-          average: '$4',
-          upTo: '$4',
-        },
-        offerPerCustomerLimit: 0,
-      },
-    ],
-    fullDescription:
-      'Greek restaurant with a modern twist serving gyros, salads, and other Greek specialties.',
-    address: '24 Dunster St, Cambridge, MA 02138', // Updated address
-    openingHours: {
-      'Monday-Sunday': '11:00 AM - 9:00 PM',
-    },
-    phoneNumber: '(617) 585-6588',
-    website: 'N/A',
-    menuHighlights: [
-      {
-        name: 'Classic Gyro',
-        description:
-          'Pork shoulder, tomatoes, onions, and tzatziki in a warm pita',
-        price: '$10',
-      },
-      {
-        name: 'Greek Salad',
-        description: 'Tomatoes, cucumbers, peppers, onions, feta, and olives',
-        price: '$9',
-      },
-      {
-        name: 'Greek Fries',
-        description: 'Hand-cut fries with herbs and feta',
-        price: '$4',
-      },
-    ],
-  },
 
   {
     id: generateRestaurantId('Hokkaido Ramen Santouka Harvard Square'),
@@ -859,10 +809,7 @@ export const RESTAURANTS_DATA: Restaurant[] = [
       {
         dealTitle: 'Free size upgrade',
         dealDescription: 'Upgrade to a large ramen bowl for free!',
-        potentialSavings: {
-          average: '$3',
-          upTo: '$3',
-        },
+        potentialSavings: '3',
         offerPerCustomerLimit: 0,
       },
     ],

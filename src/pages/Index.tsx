@@ -1,16 +1,13 @@
 // import { NewsletterForm } from '@/components/NewsletterForm';
+import EnvDebug from '@/components/EnvDebug';
 import { RestaurantCard } from '@/components/RestaurantCard';
 import RestaurantMap from '@/components/RestaurantMap';
-import ViewToggle from '@/components/ViewToggle';
-import EnvDebug from '@/components/EnvDebug';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
+  DialogContent
 } from '@/components/ui/dialog';
+import ViewToggle from '@/components/ViewToggle';
 import { useAuth } from '@/contexts/AuthContext';
 import { FEATURED_RESTAURANTS } from '@/data/restaurants';
 import { useEffect, useMemo, useState } from 'react';
@@ -19,6 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSuccessModal } from '@/components/SuccessModal';
 import { supabase } from '@/lib/supabase';
 import { toast } from 'sonner';
+import { addDays } from 'date-fns';
 
 // const NEIGHBORHOODS = [
 //   'Back Bay',
@@ -142,7 +140,7 @@ const Index = () => {
         navigate('/login');
         return;
       }
-      // Check if user has reached the claim limit for this restaurant 
+      // Check if user has reached the claim limit for this restaurant
       const { data: claimedDealsCount, error: countError } = await supabase
         .from('claimed_deals')
         .select('*', { count: 'exact' })
@@ -165,6 +163,8 @@ const Index = () => {
       }
 
       // First save to database
+      // Adjust the expiry date to ensure the correct date is selected
+      const adjustedExpiryDate = addDays(new Date(restaurantData.dealData.expiry_date), 1);
       const { error: dbError } = await supabase.from('claimed_deals').insert({
         user_id: user.id,
         email: user.email,
@@ -173,12 +173,12 @@ const Index = () => {
         deal_title: restaurantData.dealData.dealTitle,
         deal_description: restaurantData.dealData.description,
         confirmation_id: restaurantData.dealData.confirmationId,
-        expiry_date: restaurantData.dealData.expiry_date,
+        expiry_date:adjustedExpiryDate,
         claimed_at: new Date(),
       });
 
       if (dbError) throw dbError;
-
+// console.log(adjustedExpiryDate,"restaurantData.dealData")
       // Replace the Resend email sending with API call
       try {
         const { data: emailData, error: emailError } =
@@ -189,7 +189,7 @@ const Index = () => {
               restaurantName: restaurantData.name,
               dealTitle: restaurantData.dealData.dealTitle,
               confirmationId: restaurantData.dealData.confirmationId,
-              expiryDate: restaurantData.dealData.expiry_date,
+              expiryDate: adjustedExpiryDate,
               dealDescription: restaurantData.dealData.description,
             },
           });
@@ -208,7 +208,7 @@ const Index = () => {
           restaurant_id: restaurantData.id,
           deal_title: restaurantData.dealData.dealTitle,
           deal_description: restaurantData.dealData.description,
-          expiry_date: restaurantData.dealData.expiry_date,
+          expiry_date: adjustedExpiryDate,
           claimed_at: new Date(),
         });
 
@@ -258,8 +258,8 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-accent-purple/10 relative">
       {/* Floating scroll-to-top button */}
-      <button 
-        onClick={scrollToTop} 
+      <button
+        onClick={scrollToTop}
         className={`fixed bottom-6 right-6 bg-primary text-white p-3 rounded-full shadow-lg z-50 transition-all duration-300 ${showScrollTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}`}
         aria-label="Scroll to top"
       >
@@ -270,7 +270,7 @@ const Index = () => {
       <Dialog open={showWelcomeModal} onOpenChange={handleCloseWelcomeModal}>
         <DialogContent className="sm:max-w-md max-w-[90vw] mx-auto rounded-2xl p-0 overflow-hidden bg-white border-0 shadow-lg">
           {/* Close button - accessible on all devices */}
-          <button 
+          <button
             onClick={handleCloseWelcomeModal}
             className="absolute top-3 right-3 z-50 h-8 w-8 flex items-center justify-center rounded-full bg-white/90 text-gray-500 hover:text-gray-800 shadow-sm border border-gray-100 transition-colors"
             aria-label="Close"
@@ -286,14 +286,14 @@ const Index = () => {
               🍽️ Discover Cambridge Restaurants for Up To Half the Price!
             </div>
           </div>
-          
+
           {/* Body content - more compact */}
           <div className="px-5 pt-1 pb-5 space-y-4 max-h-[70vh] overflow-y-auto">
             <p className="text-center text-gray-800">
               We went door-to-door and negotiated exclusive 2-for-1 deals, free appetizers, desserts, and more at some
               of the best restaurants in Cambridge. Take a friend out to lunch or dinner!
             </p>
-            
+
             <div className="space-y-1.5 bg-gray-50 rounded-xl p-4">
               <div className="flex items-center">
                 <span className="text-green-500 mr-2.5">✅</span>
@@ -301,26 +301,26 @@ const Index = () => {
                   10+ unique restaurants and counting – with new spots added weekly!
                 </span>
               </div>
-              
+
               <div className="flex items-center">
                 <span className="text-green-500 mr-2.5">✅</span>
                 <span className="text-sm text-gray-800">
-                  Over $200 worth of restaurant deals for just $4.99/month
+                  Over $200 worth of restaurant deals for just $4.99/month. If you are a Harvard, MIT, or BU graduate student, you get a special deal - access all our deals for a one-time payment of $8.99!
                 </span>
               </div>
-              
+
               <div className="flex items-center">
                 <span className="text-green-500 mr-2.5">✅</span>
                 <span className="text-sm text-gray-800">Exclusive offers you won't find anywhere else!</span>
               </div>
             </div>
-            
+
             <p className="text-center font-medium text-sm pt-1">
               What are you waiting for? Start exploring now!
             </p>
-            
+
             <div className="flex justify-center mt-2">
-              <button 
+              <button
                 onClick={handleCloseWelcomeModal}
                 className="px-8 py-2.5 font-medium text-white rounded-full bg-gradient-to-r from-primary to-accent-purple hover:shadow-md transition-all duration-300"
               >
@@ -448,7 +448,7 @@ const Index = () => {
                   <p className="text-gray-600 text-sm">BOGO, free apps, and more</p>
                 </div>
               </div>
-              
+
               <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300 flex items-start space-x-4">
                 <div className="h-12 w-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
                   <span className="text-2xl">📝</span>
@@ -458,7 +458,7 @@ const Index = () => {
                   <p className="text-gray-600 text-sm">Sign up in seconds</p>
                 </div>
               </div>
-              
+
               <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300 flex items-start space-x-4">
                 <div className="h-12 w-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
                   <span className="text-2xl">🎟️</span>
@@ -468,7 +468,7 @@ const Index = () => {
                   <p className="text-gray-600 text-sm">Quick and hassle-free</p>
                 </div>
               </div>
-              
+
               <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300 flex items-start space-x-4">
                 <div className="h-12 w-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
                   <span className="text-2xl">🍽️</span>
@@ -479,7 +479,7 @@ const Index = () => {
                 </div>
               </div>
             </div>
-            
+
             <div className="flex flex-col items-center space-y-4 my-8 text-center">
               <div className="inline-block bg-gradient-to-r from-primary/5 to-accent-purple/5 px-8 py-4 rounded-xl">
                 <p className="text-primary font-medium">
@@ -487,7 +487,7 @@ const Index = () => {
                   <span>For the love of god please try us out so we can upgrade this website</span>
                 </p>
               </div>
-              
+
               <div className="flex items-center text-gray-600 text-sm">
                 <span className="text-xl mr-2">❓</span>
                 <span>
@@ -533,10 +533,10 @@ const Index = () => {
         </div> */}
         {/* Newsletter Section - Temporarily hidden */}
         {/* <NewsletterForm /> */}
-        
+
         {/* View Toggle Tabs */}
         <ViewToggle activeView={activeView} onViewChange={setActiveView} />
-        
+
         {/* Restaurant Deals Grid or Map */}
         <div className="relative py-8">
           <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-accent-purple/10 to-transparent -z-10"></div>
@@ -544,7 +544,7 @@ const Index = () => {
             <span className="text-primary">🍽️</span> Available Restaurant Deals
             <span className="ml-2 text-sm bg-primary/10 text-primary px-3 py-1 rounded-full">{filteredRestaurants.length} restaurants</span>
           </h2>
-          
+
           {activeView === 'list' ? (
             <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
             {filteredRestaurants.length > 0 ? (
@@ -558,24 +558,25 @@ const Index = () => {
                 currentDealIndex={currentDealIndex}
                 setCurrentDealIndex={setCurrentDealIndex}
                 duration="1 week" /* Adding the required duration prop */
-                onClaimDeal={() =>
+                onClaimDeal={(data) =>{
                   handleDealClaim({
                     name: restaurant.name,
                     id: restaurant.id,
                     dealData: {
                       dealTitle: restaurant.deals[currentDealIndex].dealTitle,
+                      expiry_date: data?.selectedDate,
                       offerPerCustomerLimit: Number(
                         restaurant?.deals[currentDealIndex]
-                          ?.offerPerCustomerLimit
+                          ?.offerPerCustomerLimit,
+
                       ),
-                      description:
-                        restaurant.deals[currentDealIndex].dealDescription,
+                      description:restaurant.deals[currentDealIndex].dealDescription,
                       confirmationId: `${restaurant.name.substring(0, 5).toUpperCase()}-${Date.now()}-${Math.random().toString(36).substring(2, 10).toUpperCase()}`,
-                      expiry_date: new Date(
-                        Date.now() + 7 * 24 * 60 * 60 * 1000
-                      ),
+                     
                     },
                   })
+                }
+                
                 }
               />
             ))

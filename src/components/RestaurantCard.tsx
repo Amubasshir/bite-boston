@@ -1,4 +1,3 @@
-import React from 'react';
 import { ClaimDealForm } from '@/components/ClaimDealForm';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -10,9 +9,8 @@ import {
 } from '@/components/ui/dialog';
 import { useAuth } from '@/contexts/AuthContext';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { set } from 'date-fns';
 
 interface Deal {
   dealTitle: string;
@@ -127,11 +125,11 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
 
   const handleClaimButtonClick = () => {
     // TEMPORARY: Disable deal redemption for Source restaurant
-    if (name === "Source") {
-      // Deal temporarily unavailable for Source
-      alert("This deal will be available on Tuesday");
-      return;
-    }
+    // if (name === "Source") {
+    //   // Deal temporarily unavailable for Source
+    //   alert("This deal will be available on Tuesday");
+    //   return;
+    // }
 
     if (user) {
       // User is logged in, show the claim dialog
@@ -155,7 +153,7 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
     const stripeUrl = isHarvardGrad
       ? 'https://buy.stripe.com/eVa16a9SUdlB42kfZ0'
       : 'https://buy.stripe.com/14k16ae9aepFfL2145';
-    
+
     window.location.href = stripeUrl;
   };
 
@@ -227,7 +225,7 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
                   {dealsCount > 1 && (
                     <div className="absolute right-4 top-0 -translate-y-1/2 bg-primary text-white font-bold px-3 py-1 rounded-full shadow-md animate-pulse">
                       {/* TEMPORARY: Change deals text for Source restaurant */}
-                      {name === "Source" ? "Coming Tues." : `${dealsCount} deals`}
+                      {`${dealsCount} deals`}
                     </div>
                   )}
 
@@ -252,8 +250,8 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
                 size="lg"
                 onClick={() => {
 
-                 setIsSubscriptionModalOpen(true)
-                  // handleClaimButtonClick()
+                //  setIsSubscriptionModalOpen(true)
+                  handleClaimButtonClick()
                 }}
               >
                 Claim this Deal

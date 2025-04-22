@@ -14,15 +14,13 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { useSuccessModal } from '../SuccessModal';
+import { addDays } from 'date-fns';
 
 interface Deal {
   dealTitle: string;
   offerPerCustomerLimit: number;
   dealDescription: string;
-  potentialSavings: {
-    average: string;
-    upTo: string;
-  };
+  potentialSavings: string;
 }
 
 interface DealSectionProps {
@@ -100,6 +98,7 @@ export function DealSection({ deals, duration, restaurant }: DealSectionProps) {
         hideSuccessModal()
         return;
       }
+      const adjustedExpiryDate = addDays(new Date(restaurantData.dealData.expiry_date), 1);
 
       // First save to database
       const { error: dbError } = await supabase.from('claimed_deals').insert({
@@ -110,7 +109,7 @@ export function DealSection({ deals, duration, restaurant }: DealSectionProps) {
         deal_title: restaurantData.dealData.dealTitle,
         deal_description: restaurantData.dealData.description,
         confirmation_id: restaurantData.dealData.confirmationId,
-        expiry_date: restaurantData.dealData.expiry_date,
+        expiry_date:adjustedExpiryDate,
         claimed_at: new Date(),
       });
 
@@ -126,7 +125,7 @@ export function DealSection({ deals, duration, restaurant }: DealSectionProps) {
               restaurantName: restaurantData.name,
               dealTitle: restaurantData.dealData.dealTitle,
               confirmationId: restaurantData.dealData.confirmationId,
-              expiryDate: restaurantData.dealData.expiry_date,
+              expiryDate: adjustedExpiryDate,
               dealDescription: restaurantData.dealData.description,
             },
           });
@@ -145,7 +144,7 @@ export function DealSection({ deals, duration, restaurant }: DealSectionProps) {
           restaurant_id: restaurantData.id,
           deal_title: restaurantData.dealData.dealTitle,
           deal_description: restaurantData.dealData.description,
-          expiry_date: restaurantData.dealData.expiry_date,
+          expiry_date:adjustedExpiryDate,
           claimed_at: new Date(),
         });
         setDialogOpen(false)
@@ -231,7 +230,7 @@ export function DealSection({ deals, duration, restaurant }: DealSectionProps) {
             <h3 className="font-semibold mb-2">{currentDeal.dealTitle}</h3>
             <div className="flex gap-2 mb-1">
               <Badge className="bg-primary/70 text-white font-bold px-3 py-1 rounded-full shadow-md">
-                Savings: 100
+                Savings: ${currentDeal.potentialSavings}
               </Badge>
               <Badge className="bg-primary/70 text-white font-bold px-3 py-1 rounded-full shadow-md">
                 {currentDeal.offerPerCustomerLimit === 0
