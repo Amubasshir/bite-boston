@@ -16,6 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSuccessModal } from '@/components/SuccessModal';
 import { supabase } from '@/lib/supabase';
 import { toast } from 'sonner';
+import { addDays } from 'date-fns';
 
 // const NEIGHBORHOODS = [
 //   'Back Bay',
@@ -162,6 +163,8 @@ const Index = () => {
       }
 
       // First save to database
+      // Adjust the expiry date to ensure the correct date is selected
+      const adjustedExpiryDate = addDays(new Date(restaurantData.dealData.expiry_date), 1);
       const { error: dbError } = await supabase.from('claimed_deals').insert({
         user_id: user.id,
         email: user.email,
@@ -170,12 +173,12 @@ const Index = () => {
         deal_title: restaurantData.dealData.dealTitle,
         deal_description: restaurantData.dealData.description,
         confirmation_id: restaurantData.dealData.confirmationId,
-        expiry_date: restaurantData.dealData.expiry_date,
+        expiry_date:adjustedExpiryDate,
         claimed_at: new Date(),
       });
 
       if (dbError) throw dbError;
-
+// console.log(adjustedExpiryDate,"restaurantData.dealData")
       // Replace the Resend email sending with API call
       try {
         const { data: emailData, error: emailError } =
@@ -186,7 +189,7 @@ const Index = () => {
               restaurantName: restaurantData.name,
               dealTitle: restaurantData.dealData.dealTitle,
               confirmationId: restaurantData.dealData.confirmationId,
-              expiryDate: restaurantData.dealData.expiry_date,
+              expiryDate: adjustedExpiryDate,
               dealDescription: restaurantData.dealData.description,
             },
           });
@@ -205,7 +208,7 @@ const Index = () => {
           restaurant_id: restaurantData.id,
           deal_title: restaurantData.dealData.dealTitle,
           deal_description: restaurantData.dealData.description,
-          expiry_date: restaurantData.dealData.expiry_date,
+          expiry_date: adjustedExpiryDate,
           claimed_at: new Date(),
         });
 
@@ -555,24 +558,25 @@ const Index = () => {
                 currentDealIndex={currentDealIndex}
                 setCurrentDealIndex={setCurrentDealIndex}
                 duration="1 week" /* Adding the required duration prop */
-                onClaimDeal={() =>
+                onClaimDeal={(data) =>{
                   handleDealClaim({
                     name: restaurant.name,
                     id: restaurant.id,
                     dealData: {
                       dealTitle: restaurant.deals[currentDealIndex].dealTitle,
+                      expiry_date: data?.selectedDate,
                       offerPerCustomerLimit: Number(
                         restaurant?.deals[currentDealIndex]
-                          ?.offerPerCustomerLimit
+                          ?.offerPerCustomerLimit,
+
                       ),
-                      description:
-                        restaurant.deals[currentDealIndex].dealDescription,
+                      description:restaurant.deals[currentDealIndex].dealDescription,
                       confirmationId: `${restaurant.name.substring(0, 5).toUpperCase()}-${Date.now()}-${Math.random().toString(36).substring(2, 10).toUpperCase()}`,
-                      expiry_date: new Date(
-                        Date.now() + 7 * 24 * 60 * 60 * 1000
-                      ),
+                     
                     },
                   })
+                }
+                
                 }
               />
             ))
