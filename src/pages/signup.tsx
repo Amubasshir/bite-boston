@@ -1,19 +1,19 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useAuth } from "@/contexts/AuthContext";
-import { SignupFormValues, signupSchema } from "@/lib/validations/auth";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
-import { toast } from "sonner";
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { useAuth } from '@/contexts/AuthContext';
+import { SignupFormValues, signupSchema } from '@/lib/validations/auth';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 
 export default function SignupPage() {
   const { signUp, user, isLoading, hasChooseUV, setHasChooseUV } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedValue = localStorage.getItem("hasChooseUV");
+    const storedValue = localStorage.getItem('hasChooseUV');
     if (storedValue !== null) {
       setHasChooseUV(JSON.parse(storedValue));
     }
@@ -26,11 +26,11 @@ export default function SignupPage() {
   } = useForm<SignupFormValues>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
-      fullName: "",
-      email: "",
-      phone: "",
-      password: "",
-      confirmPassword: "",
+      fullName: '',
+      email: '',
+      phone: '',
+      password: '',
+      confirmPassword: '',
       is_harvard_grad: false,
     },
   });
@@ -45,16 +45,16 @@ export default function SignupPage() {
   const onSubmit = async (data: SignupFormValues) => {
     try {
       if (!hasChooseUV) {
-        window.location.replace("https://buy.stripe.com/14k16ae9aepFfL2145");
-        localStorage.setItem("hasChooseUV", JSON.stringify(false));
+        window.location.replace('https://buy.stripe.com/eVa16a9SUdlB42kfZ0 ');
+        localStorage.setItem('hasChooseUV', JSON.stringify(false));
       } else {
-        window.location.replace("https://buy.stripe.com/eVa16a9SUdlB42kfZ0");
-        localStorage.setItem("hasChooseUV", JSON.stringify(true));
+        window.location.replace(' https://buy.stripe.com/14k16ae9aepFfL2145');
+        localStorage.setItem('hasChooseUV', JSON.stringify(true));
       }
       return;
     } catch (error) {
-      console.error("Signup error:", error);
-      toast.error("An unexpected error occurred during signup.");
+      console.error('Signup error:', error);
+      toast.error('An unexpected error occurred during signup.');
     }
   };
 
@@ -73,29 +73,33 @@ export default function SignupPage() {
         </div>
 
         {/* Offer Section */}
-        {hasChooseUV? (
+        {hasChooseUV ? (
           <div className="bg-accent-purple/20 p-6 rounded-xl mb-8">
             <h2 className="text-xl font-bold text-primary mb-2">
               🔥 Limited-Time Early Access Offer:
             </h2>
 
             <p className="text-gray-700 mt-2">
-              Only until the 14th of April, get full access to $200+ worth of deals for a one-time payment of just <span className="text-primary font-bold">$8.99</span>{" "} <span className="text-gray-500 line-through">
+              Only until the 14th of April, get full access to $200+ worth of
+              deals for a one-time payment of just{' '}
+              <span className="text-primary font-bold">$8.99</span>{' '}
+              <span className="text-gray-500 line-through">
                 ($14.99/month original price)
-              </span>. <br /> Try new places and enjoy meals out with friends during this last month of school!
-The deals are only growing - don't miss out!
-
+              </span>
+              . <br /> Try new places and enjoy meals out with friends during
+              this last month of school! The deals are only growing - don't miss
+              out!
             </p>
           </div>
-        ):(
-            <div className="bg-accent-purple/20 p-6 rounded-xl mb-8">
+        ) : (
+          <div className="bg-accent-purple/20 p-6 rounded-xl mb-8">
             <h2 className="text-xl font-bold text-primary mb-2">
               🔥 Limited-Time Early Access Offer:
             </h2>
             <p className="text-gray-700">
-              Get full access to{" "}
-              <span className="font-bold">$250+ worth of deals</span> for just{" "}
-              <span className="text-primary font-bold">$4.99/month</span>{" "}
+              Get full access to{' '}
+              <span className="font-bold">$250+ worth of deals</span> for just{' '}
+              <span className="text-primary font-bold">$4.99/month</span>{' '}
               <span className="text-gray-500 line-through">
                 ($11.99/month regular price)
               </span>
@@ -118,7 +122,7 @@ The deals are only growing - don't miss out!
                 type="text"
                 placeholder="Enter your full name"
                 className="w-full p-3 border-2 border-primary/20 rounded-lg focus:border-primary transition-colors mt-1"
-                {...register("fullName")}
+                {...register('fullName')}
               />
               {errors.fullName && (
                 <p className="text-red-500 text-sm mt-1">
@@ -136,7 +140,7 @@ The deals are only growing - don't miss out!
                 type="email"
                 placeholder="Enter your email"
                 className="w-full p-3 border-2 border-primary/20 rounded-lg focus:border-primary transition-colors mt-1"
-                {...register("email")}
+                {...register('email')}
               />
               {errors.email && (
                 <p className="text-red-500 text-sm mt-1">
@@ -154,7 +158,7 @@ The deals are only growing - don't miss out!
                 type="tel"
                 placeholder="Enter your phone number"
                 className="w-full p-3 border-2 border-primary/20 rounded-lg focus:border-primary transition-colors mt-1"
-                {...register("phone")}
+                {...register('phone')}
               />
               {errors.phone && (
                 <p className="text-red-500 text-sm mt-1">
@@ -172,7 +176,7 @@ The deals are only growing - don't miss out!
                 type="password"
                 placeholder="Create a password"
                 className="w-full p-3 border-2 border-primary/20 rounded-lg focus:border-primary transition-colors mt-1"
-                {...register("password")}
+                {...register('password')}
               />
               {errors.password && (
                 <p className="text-red-500 text-sm mt-1">
@@ -190,7 +194,7 @@ The deals are only growing - don't miss out!
                 type="password"
                 placeholder="Confirm your password"
                 className="w-full p-3 border-2 border-primary/20 rounded-lg focus:border-primary transition-colors mt-1"
-                {...register("confirmPassword")}
+                {...register('confirmPassword')}
               />
               {errors.confirmPassword && (
                 <p className="text-red-500 text-sm mt-1">
@@ -240,12 +244,12 @@ The deals are only growing - don't miss out!
             className="w-full bg-primary hover:bg-primary/90 text-white py-3 rounded-lg transition-colors text-lg font-semibold"
             disabled={isLoading}
           >
-            {isLoading ? "Creating Account..." : "Sign Up"}
+            {isLoading ? 'Creating Account...' : 'Sign Up'}
           </Button>
         </form>
 
         <p className="text-center mt-6 text-gray-600">
-          Already have an account?{" "}
+          Already have an account?{' '}
           <Link
             to="/login"
             className="text-primary hover:underline font-medium"

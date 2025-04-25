@@ -31,15 +31,15 @@ interface RestaurantCardProps {
   cuisine: string;
   dealText: string;
   dealDescription: string;
-  offerPerCustomerLimit: number,
+  offerPerCustomerLimit: number;
   neighborhood: string;
-  currentDealIndex: number,
-  setCurrentDealIndex: any,
+  currentDealIndex: number;
+  setCurrentDealIndex: any;
   duration: string;
   deals: Array<{
     dealTitle: string;
-    currentDealIndex?: number,
-    setCurrentDealIndex?: any,
+    currentDealIndex?: number;
+    setCurrentDealIndex?: any;
     offerPerCustomerLimit: number;
     dealDescription: string;
     potentialSavings: {
@@ -54,7 +54,7 @@ interface RestaurantCardProps {
     confirmationId: string;
     user_id: string;
     email: string;
-    offerPerCustomerLimit: number,
+    offerPerCustomerLimit: number;
     restaurant_name: string;
     restaurant_id: string;
     deal_title: string;
@@ -151,8 +151,8 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
   const handleSubscribe = () => {
     const isHarvardGrad = user?.user_metadata?.is_harvard_grad;
     const stripeUrl = isHarvardGrad
-      ? 'https://buy.stripe.com/eVa16a9SUdlB42kfZ0'
-      : 'https://buy.stripe.com/14k16ae9aepFfL2145';
+      ? 'https://buy.stripe.com/14k16ae9aepFfL2145 '
+      : '    https://buy.stripe.com/eVa16a9SUdlB42kfZ0';
 
     window.location.href = stripeUrl;
   };
@@ -162,11 +162,16 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
       <div className="block h-full w-full">
         <Card className="overflow-hidden h-full transition-all duration-300 hover:scale-[1.03] hover:shadow-xl rounded-xl border-0 shadow-md bg-white">
           <div className="absolute top-2 right-2 z-10">
-            <div className="bg-white/80 backdrop-blur-sm shadow-sm font-medium inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs">{priceRange}</div>
+            <div className="bg-white/80 backdrop-blur-sm shadow-sm font-medium inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs">
+              {priceRange}
+            </div>
           </div>
-          <div className="relative aspect-[4/3] overflow-hidden group cursor-pointer" onClick={() => {
-            navigate(`/restaurant/${id}`);
-          }}>
+          <div
+            className="relative aspect-[4/3] overflow-hidden group cursor-pointer"
+            onClick={() => {
+              navigate(`/restaurant/${id}`);
+            }}
+          >
             <img
               src={image}
               alt={name}
@@ -175,9 +180,12 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </div>
           <div className="p-5">
-            <div className="flex items-start justify-between mb-4 cursor-pointer" onClick={() => {
-              navigate(`/restaurant/${id}`);
-            }}>
+            <div
+              className="flex items-start justify-between mb-4 cursor-pointer"
+              onClick={() => {
+                navigate(`/restaurant/${id}`);
+              }}
+            >
               <div>
                 <h3 className="font-bold text-xl mb-1 line-clamp-1">{name}</h3>
                 <div className="flex items-center gap-2">
@@ -186,13 +194,15 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
                     <span className="text-amber-400">★</span>
                     <span className="text-sm font-medium">{rating}</span>
                   </div>
-                  <span className="text-xs px-2 py-0.5 bg-primary/10 text-primary font-medium rounded-full">{cuisine}</span>
+                  <span className="text-xs px-2 py-0.5 bg-primary/10 text-primary font-medium rounded-full">
+                    {cuisine}
+                  </span>
                 </div>
               </div>
             </div>
 
             <div className="space-y-4">
-              <div className="relative" >
+              <div className="relative">
                 {/* Left arrow - positioned to match the screenshot */}
                 {dealsCount > 1 && (
                   <div className="absolute -left-6 top-1/2 -translate-y-1/2 z-50">
@@ -230,8 +240,11 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
                   )}
 
                   <div
-                    className={`transition-all duration-300 ${isTransitioning ? 'opacity-0 translate-y-2' : 'opacity-100 translate-y-0'
-                      }`}
+                    className={`transition-all duration-300 ${
+                      isTransitioning
+                        ? 'opacity-0 translate-y-2'
+                        : 'opacity-100 translate-y-0'
+                    }`}
                   >
                     <h4 className="font-semibold text-lg text-primary mb-2">
                       {displayDealTitle}
@@ -245,18 +258,28 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
 
               {/* Claim Deal Button - Now with onClick handler to open dialog */}
               <Button
-                type='button'
+                type="button"
                 className="w-full group relative overflow-hidden transition-all duration-300 bg-primary hover:bg-primary/90 flex items-center justify-center gap-2"
                 size="lg"
                 onClick={() => {
-
-                //  setIsSubscriptionModalOpen(true)
-                  handleClaimButtonClick()
+                  //  setIsSubscriptionModalOpen(true)
+                  handleClaimButtonClick();
                 }}
               >
                 Claim this Deal
-                <svg className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M13.5 4.5L21 12L13.5 19.5M3 12H20.25" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <svg
+                  className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M13.5 4.5L21 12L13.5 19.5M3 12H20.25"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </Button>
             </div>
@@ -264,15 +287,18 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
         </Card>
       </div>
       {/* Subscription Modal */}
-      <Dialog open={isSubscriptionModalOpen} onOpenChange={setIsSubscriptionModalOpen}>
+      <Dialog
+        open={isSubscriptionModalOpen}
+        onOpenChange={setIsSubscriptionModalOpen}
+      >
         <DialogContent className="sm:max-w-xl">
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold mb-4">
               🎉 You've Almost Unlocked the Best Dining Deals! 🍽️
             </h1>
             <p className="text-lg text-gray-600 mb-4">
-              You're nearly there! 🚀 Explore and rediscover the best restaurants
-              in Cambridge with exclusive dining deals just for you.
+              You're nearly there! 🚀 Explore and rediscover the best
+              restaurants in Cambridge with exclusive dining deals just for you.
             </p>
           </div>
 
@@ -284,7 +310,8 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
               Get full access to{' '}
               <span className="font-bold">$250+ worth of deals</span> for just{' '}
               <span className="text-primary font-bold">
-                {user?.user_metadata?.is_harvard_grad ? '$8.99' : '$4.99'} One-Time
+                {user?.user_metadata?.is_harvard_grad ? '$8.99' : '$4.99'}{' '}
+                One-Time
               </span>{' '}
               <span className="text-gray-500 line-through">
                 ($11.99 One-Time regular price)
