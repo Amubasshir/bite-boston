@@ -53,9 +53,9 @@ export default function SignupPage() {
       );
         if (isRedirect) {
             if (!hasChooseUV) {
-              window.location.replace("https://buy.stripe.com/eVa16a9SUdlB42kfZ0");
+                window.location.replace("https://buy.stripe.com/14k16ae9aepFfL2145");
             } else {
-              window.location.replace("https://buy.stripe.com/14k16ae9aepFfL2145");
+                window.location.replace("https://buy.stripe.com/eVa16a9SUdlB42kfZ0");
             }
         }
       localStorage.setItem("hasChooseUV", JSON.stringify(false));
