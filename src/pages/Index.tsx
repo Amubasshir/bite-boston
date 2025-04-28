@@ -3,10 +3,7 @@ import EnvDebug from '@/components/EnvDebug';
 import { RestaurantCard } from '@/components/RestaurantCard';
 import RestaurantMap from '@/components/RestaurantMap';
 import { Button } from '@/components/ui/button';
-import {
-  Dialog,
-  DialogContent
-} from '@/components/ui/dialog';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
 import ViewToggle from '@/components/ViewToggle';
 import { useAuth } from '@/contexts/AuthContext';
 import { FEATURED_RESTAURANTS } from '@/data/restaurants';
@@ -15,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 // Add these imports at the top
 import { useSuccessModal } from '@/components/SuccessModal';
 import { supabase } from '@/lib/supabase';
+import { addDays } from 'date-fns';
 import { toast } from 'sonner';
 
 // const NEIGHBORHOODS = [
@@ -162,6 +160,11 @@ const Index = () => {
       }
 
       // First save to database
+      // Adjust the expiry date to ensure the correct date is selected
+      const adjustedExpiryDate = addDays(
+        new Date(restaurantData.dealData.expiry_date),
+        0
+      );
       const { error: dbError } = await supabase.from('claimed_deals').insert({
         user_id: user.id,
         email: user.email,
@@ -170,12 +173,12 @@ const Index = () => {
         deal_title: restaurantData.dealData.dealTitle,
         deal_description: restaurantData.dealData.description,
         confirmation_id: restaurantData.dealData.confirmationId,
-        expiry_date: restaurantData.dealData.expiry_date,
+        expiry_date: adjustedExpiryDate,
         claimed_at: new Date(),
       });
 
       if (dbError) throw dbError;
-
+      // console.log(adjustedExpiryDate,"restaurantData.dealData")
       // Replace the Resend email sending with API call
       try {
         const { data: emailData, error: emailError } =
@@ -186,7 +189,7 @@ const Index = () => {
               restaurantName: restaurantData.name,
               dealTitle: restaurantData.dealData.dealTitle,
               confirmationId: restaurantData.dealData.confirmationId,
-              expiryDate: restaurantData.dealData.expiry_date,
+              expiryDate: adjustedExpiryDate,
               dealDescription: restaurantData.dealData.description,
             },
           });
@@ -205,7 +208,7 @@ const Index = () => {
           restaurant_id: restaurantData.id,
           deal_title: restaurantData.dealData.dealTitle,
           deal_description: restaurantData.dealData.description,
-          expiry_date: restaurantData.dealData.expiry_date,
+          expiry_date: adjustedExpiryDate,
           claimed_at: new Date(),
         });
 
@@ -260,8 +263,20 @@ const Index = () => {
         className={`fixed bottom-6 right-6 bg-primary text-white p-3 rounded-full shadow-lg z-50 transition-all duration-300 ${showScrollTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}`}
         aria-label="Scroll to top"
       >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 19V5M12 5L5 12M12 5L19 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M12 19V5M12 5L5 12M12 5L19 12"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </svg>
       </button>
       <Dialog open={showWelcomeModal} onOpenChange={handleCloseWelcomeModal}>
@@ -272,8 +287,20 @@ const Index = () => {
             className="absolute top-3 right-3 z-50 h-8 w-8 flex items-center justify-center rounded-full bg-white/90 text-gray-500 hover:text-gray-800 shadow-sm border border-gray-100 transition-colors"
             aria-label="Close"
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M18 6L6 18M6 6L18 18"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
           </button>
 
@@ -287,28 +314,35 @@ const Index = () => {
           {/* Body content - more compact */}
           <div className="px-5 pt-1 pb-5 space-y-4 max-h-[70vh] overflow-y-auto">
             <p className="text-center text-gray-800">
-              We went door-to-door and negotiated exclusive 2-for-1 deals, free appetizers, desserts, and more at some
-              of the best restaurants in Cambridge. Take a friend out to lunch or dinner!
+              We went door-to-door and negotiated exclusive 2-for-1 deals, free
+              appetizers, desserts, and more at some of the best restaurants in
+              Cambridge. Take a friend out to lunch or dinner!
             </p>
 
             <div className="space-y-1.5 bg-gray-50 rounded-xl p-4">
               <div className="flex items-center">
                 <span className="text-green-500 mr-2.5">✅</span>
                 <span className="text-sm text-gray-800">
-                  10+ unique restaurants and counting – with new spots added weekly!
+                  10+ unique restaurants and counting – with new spots added
+                  weekly!
                 </span>
               </div>
 
               <div className="flex items-center">
                 <span className="text-green-500 mr-2.5">✅</span>
                 <span className="text-sm text-gray-800">
-                  Over $200 worth of restaurant deals for just $4.99/month. If you are a Harvard, MIT, or BU graduate student, you get a special deal - access all our deals for a one-time payment of $8.99!
+                  Over $200 worth of restaurant deals for just $4.99/month. If
+                  you are a Harvard, MIT, or BU graduate student, you get a
+                  special deal - access all our deals for a one-time
+                  payment of $8.99!
                 </span>
               </div>
 
               <div className="flex items-center">
                 <span className="text-green-500 mr-2.5">✅</span>
-                <span className="text-sm text-gray-800">Exclusive offers you won't find anywhere else!</span>
+                <span className="text-sm text-gray-800">
+                  Exclusive offers you won't find anywhere else!
+                </span>
               </div>
             </div>
 
@@ -327,44 +361,59 @@ const Index = () => {
           </div>
         </DialogContent>
       </Dialog>
-      <Dialog open={openSignupSelection} onOpenChange={handleCloseSignupYesNoModal}>
+      <Dialog
+        open={openSignupSelection}
+        onOpenChange={handleCloseSignupYesNoModal}
+      >
         <DialogContent className="min-w-[100%] w-full mx-auto mt-0 mb-0 h-full rounded-none p-0 overflow-hidden bg-white">
           {/* Close button - accessible on all devices */}
-          <button 
+          <button
             onClick={handleCloseSignupYesNoModal}
             className="absolute top-3 right-3 z-50 h-8 w-8 flex items-center justify-center rounded-full bg-white/90 text-gray-500 hover:text-gray-800 shadow-sm border border-gray-100 transition-colors"
             aria-label="Close"
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M18 6L6 18M6 6L18 18"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
           </button>
 
           {/* Header with gradient background */}
           <div className="p-5 pb-4"></div>
-          
+
           {/* Body content - more compact */}
           <div className="px-5 pt-1 pb-5 space-y-8 max-h-[70vh] overflow-y-auto">
             <div className="text-2xl sm:text-3xl font-bold text-center mb-2 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent-purple leading-snug">
-            Are you a Harvard, MIT, or BU Graduate Student?
+              Are you a Harvard, MIT, or BU Graduate Student?
             </div>
-            
+
             <div className="flex justify-center gap-5">
-              <button 
+              <button
                 onClick={() => {
-                    localStorage.setItem('hasChooseUV', 'true')
-                    handleCloseSignupYesNoModal();
-                    navigate('/signup');
+                  localStorage.setItem('hasChooseUV', 'true');
+                  handleCloseSignupYesNoModal();
+                  navigate('/signup');
                 }}
                 className="px-8 py-2.5 font-medium text-white rounded-full bg-gradient-to-r from-primary to-accent-purple hover:shadow-md transition-all duration-300"
               >
                 Yes
               </button>
-              <button 
+              <button
                 onClick={() => {
-                    localStorage.setItem('hasChooseUV', 'false')
-                    handleCloseSignupYesNoModal();
-                    navigate('/signup');
+                  localStorage.setItem('hasChooseUV', 'false');
+                  handleCloseSignupYesNoModal();
+                  navigate('/signup');
                 }}
                 className="px-8 py-2.5 font-medium text-white rounded-full bg-gradient-to-r from-primary to-accent-purple hover:shadow-md transition-all duration-300"
               >
@@ -413,8 +462,8 @@ const Index = () => {
                     <Button
                       variant="default"
                       className="px-6 py-2 rounded-full text-base font-medium bg-primary text-white hover:bg-primary/90 transition-all duration-300 shadow-sm hover:shadow-md"
-                    //   onClick={() => navigate('/signup')}
-                        onClick={()=> setOpenSignupSelection(true)}
+                      //   onClick={() => navigate('/signup')}
+                      onClick={() => setOpenSignupSelection(true)}
                     >
                       Sign Up
                     </Button>
@@ -426,8 +475,13 @@ const Index = () => {
         </div>
         <div className="mt-8">
           <h1 className="text-4xl md:text-5xl font-bold mb-8">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent-purple">Unbeatable Food Deals</span> in Cambridge
-            <div className="mt-4 text-3xl md:text-4xl">BOGO, Free Apps, and More</div>
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent-purple">
+              Unbeatable Food Deals
+            </span>{' '}
+            in Cambridge
+            <div className="mt-4 text-3xl md:text-4xl">
+              BOGO, Free Apps, and More
+            </div>
           </h1>
           <div className="max-w-3xl">
             <p className="text-xl font-medium text-gray-800 mb-8 leading-relaxed">
@@ -441,8 +495,12 @@ const Index = () => {
                   <span className="text-2xl">🔍</span>
                 </div>
                 <div>
-                  <h3 className="font-medium text-gray-900 mb-1">Find an unbeatable offer</h3>
-                  <p className="text-gray-600 text-sm">BOGO, free apps, and more</p>
+                  <h3 className="font-medium text-gray-900 mb-1">
+                    Find an unbeatable offer
+                  </h3>
+                  <p className="text-gray-600 text-sm">
+                    BOGO, free apps, and more
+                  </p>
                 </div>
               </div>
 
@@ -451,7 +509,9 @@ const Index = () => {
                   <span className="text-2xl">📝</span>
                 </div>
                 <div>
-                  <h3 className="font-medium text-gray-900 mb-1">Create an account</h3>
+                  <h3 className="font-medium text-gray-900 mb-1">
+                    Create an account
+                  </h3>
                   <p className="text-gray-600 text-sm">Sign up in seconds</p>
                 </div>
               </div>
@@ -461,7 +521,9 @@ const Index = () => {
                   <span className="text-2xl">🎟️</span>
                 </div>
                 <div>
-                  <h3 className="font-medium text-gray-900 mb-1">Redeem your offer</h3>
+                  <h3 className="font-medium text-gray-900 mb-1">
+                    Redeem your offer
+                  </h3>
                   <p className="text-gray-600 text-sm">Quick and hassle-free</p>
                 </div>
               </div>
@@ -471,7 +533,9 @@ const Index = () => {
                   <span className="text-2xl">🍽️</span>
                 </div>
                 <div>
-                  <h3 className="font-medium text-gray-900 mb-1">Savor a delicious meal</h3>
+                  <h3 className="font-medium text-gray-900 mb-1">
+                    Savor a delicious meal
+                  </h3>
                   <p className="text-gray-600 text-sm">At the restaurant</p>
                 </div>
               </div>
@@ -481,7 +545,10 @@ const Index = () => {
               <div className="inline-block bg-gradient-to-r from-primary/5 to-accent-purple/5 px-8 py-4 rounded-xl">
                 <p className="text-primary font-medium">
                   <span className="text-xl mr-2">🙏</span>
-                  <span>For the love of god please try us out so we can upgrade this website</span>
+                  <span>
+                    For the love of god please try us out so we can upgrade this
+                    website
+                  </span>
                 </p>
               </div>
 
@@ -539,53 +606,67 @@ const Index = () => {
           <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-accent-purple/10 to-transparent -z-10"></div>
           <h2 className="text-2xl font-bold mb-8 flex items-center gap-2">
             <span className="text-primary">🍽️</span> Available Restaurant Deals
-            <span className="ml-2 text-sm bg-primary/10 text-primary px-3 py-1 rounded-full">{filteredRestaurants.length} restaurants</span>
+            <span className="ml-2 text-sm bg-primary/10 text-primary px-3 py-1 rounded-full">
+              {filteredRestaurants.length} restaurants
+            </span>
           </h2>
 
           {activeView === 'list' ? (
             <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
-            {filteredRestaurants.length > 0 ? (
-              filteredRestaurants.map((restaurant, i) => (
-              <RestaurantCard
-                offerPerCustomerLimit={Number(
-                  restaurant?.deals[currentDealIndex]?.offerPerCustomerLimit
-                )}
-                key={i}
-                {...restaurant}
-                currentDealIndex={currentDealIndex}
-                setCurrentDealIndex={setCurrentDealIndex}
-                duration="1 week" /* Adding the required duration prop */
-                onClaimDeal={() =>
-                  handleDealClaim({
-                    name: restaurant.name,
-                    id: restaurant.id,
-                    dealData: {
-                      dealTitle: restaurant.deals[currentDealIndex].dealTitle,
-                      offerPerCustomerLimit: Number(
-                        restaurant?.deals[currentDealIndex]
-                          ?.offerPerCustomerLimit
-                      ),
-                      description:
-                        restaurant.deals[currentDealIndex].dealDescription,
-                      confirmationId: `${restaurant.name.substring(0, 5).toUpperCase()}-${Date.now()}-${Math.random().toString(36).substring(2, 10).toUpperCase()}`,
-                      expiry_date: new Date(
-                        Date.now() + 7 * 24 * 60 * 60 * 1000
-                      ),
-                    },
-                  })
-                }
-              />
-            ))
-            ) : (
-              <div className="col-span-full flex flex-col items-center justify-center py-16 text-gray-500 bg-white/50 rounded-xl shadow-sm">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 text-gray-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-                </svg>
-                <div className="text-xl font-medium mb-2">No restaurants found</div>
-                <p>No restaurants found matching your search criteria.</p>
-              </div>
-            )}
-          </div>
+              {filteredRestaurants.length > 0 ? (
+                filteredRestaurants.map((restaurant, i) => (
+                  <RestaurantCard
+                    offerPerCustomerLimit={Number(
+                      restaurant?.deals[currentDealIndex]?.offerPerCustomerLimit
+                    )}
+                    key={i}
+                    {...restaurant}
+                    currentDealIndex={currentDealIndex}
+                    setCurrentDealIndex={setCurrentDealIndex}
+                    duration="1 week" /* Adding the required duration prop */
+                    onClaimDeal={(data) => {
+                      handleDealClaim({
+                        name: restaurant.name,
+                        id: restaurant.id,
+                        dealData: {
+                          dealTitle:
+                            restaurant.deals[currentDealIndex].dealTitle,
+                          expiry_date: data?.selectedDate,
+                          offerPerCustomerLimit: Number(
+                            restaurant?.deals[currentDealIndex]
+                              ?.offerPerCustomerLimit
+                          ),
+                          description:
+                            restaurant.deals[currentDealIndex].dealDescription,
+                          confirmationId: `${restaurant.name.substring(0, 5).toUpperCase()}-${Date.now()}-${Math.random().toString(36).substring(2, 10).toUpperCase()}`,
+                        },
+                      });
+                    }}
+                  />
+                ))
+              ) : (
+                <div className="col-span-full flex flex-col items-center justify-center py-16 text-gray-500 bg-white/50 rounded-xl shadow-sm">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-16 w-16 text-gray-300 mb-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"
+                    />
+                  </svg>
+                  <div className="text-xl font-medium mb-2">
+                    No restaurants found
+                  </div>
+                  <p>No restaurants found matching your search criteria.</p>
+                </div>
+              )}
+            </div>
           ) : (
             <div className="rounded-xl overflow-hidden shadow-lg border border-gray-100">
               <RestaurantMap restaurants={filteredRestaurants} />

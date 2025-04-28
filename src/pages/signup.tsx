@@ -44,13 +44,21 @@ export default function SignupPage() {
 
   const onSubmit = async (data: SignupFormValues) => {
     try {
-      if (!hasChooseUV) {
-        window.location.replace('https://buy.stripe.com/eVa16a9SUdlB42kfZ0 ');
-        localStorage.setItem('hasChooseUV', JSON.stringify(false));
-      } else {
-        window.location.replace(' https://buy.stripe.com/14k16ae9aepFfL2145');
-        localStorage.setItem('hasChooseUV', JSON.stringify(true));
+      const isRedirect = await signUp(
+        data.email,
+        data.password,
+        data.fullName,
+        data.phone,
+        data.is_harvard_grad // Ensure boolean conversion
+      );
+      if (isRedirect) {
+        if (!hasChooseUV) {
+          window.location.replace('https://buy.stripe.com/eVa16a9SUdlB42kfZ0');
+        } else {
+          window.location.replace('https://buy.stripe.com/14k16ae9aepFfL2145');
+        }
       }
+      localStorage.setItem('hasChooseUV', JSON.stringify(false));
       return;
     } catch (error) {
       console.error('Signup error:', error);

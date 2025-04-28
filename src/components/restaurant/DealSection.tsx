@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/dialog';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/lib/supabase';
+import { addDays } from 'date-fns';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -91,12 +92,23 @@ export function DealSection({ deals, duration, restaurant }: DealSectionProps) {
 
       if (countError) throw countError;
 
-      if (claimedDealsCount && claimedDealsCount.length >= restaurantData.dealData?.offerPerCustomerLimit && restaurantData.dealData.offerPerCustomerLimit) {
-        toast.error(`You have reached the maximum limit of ${restaurantData.dealData.offerPerCustomerLimit} claims for this restaurant's deals`);
-        setDialogOpen(false)
-        hideSuccessModal()
+      if (
+        claimedDealsCount &&
+        claimedDealsCount.length >=
+          restaurantData.dealData?.offerPerCustomerLimit &&
+        restaurantData.dealData.offerPerCustomerLimit
+      ) {
+        toast.error(
+          `You have reached the maximum limit of ${restaurantData.dealData.offerPerCustomerLimit} claims for this restaurant's deals`
+        );
+        setDialogOpen(false);
+        hideSuccessModal();
         return;
       }
+      const adjustedExpiryDate = addDays(
+        new Date(restaurantData.dealData.expiry_date),
+        0
+      );
 
       // First save to database
       const { error: dbError } = await supabase.from('claimed_deals').insert({
@@ -107,7 +119,7 @@ export function DealSection({ deals, duration, restaurant }: DealSectionProps) {
         deal_title: restaurantData.dealData.dealTitle,
         deal_description: restaurantData.dealData.description,
         confirmation_id: restaurantData.dealData.confirmationId,
-        expiry_date: restaurantData.dealData.expiry_date,
+        expiry_date: adjustedExpiryDate,
         claimed_at: new Date(),
       });
 
@@ -123,7 +135,7 @@ export function DealSection({ deals, duration, restaurant }: DealSectionProps) {
               restaurantName: restaurantData.name,
               dealTitle: restaurantData.dealData.dealTitle,
               confirmationId: restaurantData.dealData.confirmationId,
-              expiryDate: restaurantData.dealData.expiry_date,
+              expiryDate: adjustedExpiryDate,
               dealDescription: restaurantData.dealData.description,
             },
           });
@@ -142,20 +154,20 @@ export function DealSection({ deals, duration, restaurant }: DealSectionProps) {
           restaurant_id: restaurantData.id,
           deal_title: restaurantData.dealData.dealTitle,
           deal_description: restaurantData.dealData.description,
-          expiry_date: restaurantData.dealData.expiry_date,
+          expiry_date: adjustedExpiryDate,
           claimed_at: new Date(),
         });
-        setDialogOpen(false)
+        setDialogOpen(false);
         toast.success(`Deal claimed! Confirmation sent to ${user.email}`);
       } catch (emailError) {
-        setDialogOpen(false)
+        setDialogOpen(false);
         console.error('Email sending failed:', emailError);
         toast.warning(
           'Deal claimed but email delivery failed. Please check your account.'
         );
       }
     } catch (error) {
-      setDialogOpen(false)
+      setDialogOpen(false);
       console.error('Error claiming deal:', error);
       toast.error('Failed to claim deal. Please try again.');
     }
@@ -217,13 +229,13 @@ export function DealSection({ deals, duration, restaurant }: DealSectionProps) {
 
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-bold text-primary">Special Deal</h2>
-
         </div>
 
         <div className="relative">
           <div
-            className={`px-4 transition-opacity duration-200 ${isTransitioning ? 'opacity-0' : 'opacity-100'
-              }`}
+            className={`px-4 transition-opacity duration-200 ${
+              isTransitioning ? 'opacity-0' : 'opacity-100'
+            }`}
           >
             <h3 className="font-semibold mb-2">{currentDeal.dealTitle}</h3>
             <div className="flex gap-2 mb-1">
@@ -232,7 +244,7 @@ export function DealSection({ deals, duration, restaurant }: DealSectionProps) {
               </Badge>
               <Badge className="bg-primary/70 text-white font-bold px-3 py-1 rounded-full shadow-md">
                 {currentDeal.offerPerCustomerLimit === 0
-                  ? "Unlimited"
+                  ? 'Unlimited'
                   : `${currentDeal.offerPerCustomerLimit}x every 90 days`}
               </Badge>
             </div>
@@ -269,17 +281,21 @@ export function DealSection({ deals, duration, restaurant }: DealSectionProps) {
             </DialogHeader>
             <ClaimDealForm
               offerPerCustomerLimit={Number(currentDeal?.offerPerCustomerLimit)}
-              onSuccess={(claimData) => handleDealClaim({
-                name: claimData.restaurant_name,
-                id: claimData.restaurant_id,
-                dealData: {
-                  offerPerCustomerLimit: Number(currentDeal?.offerPerCustomerLimit),
-                  dealTitle: claimData.deal_title,
-                  description: claimData.deal_description,
-                  confirmationId: claimData.confirmationId,
-                  expiry_date: claimData.expiry_date
-                },
-              })}
+              onSuccess={(claimData) =>
+                handleDealClaim({
+                  name: claimData.restaurant_name,
+                  id: claimData.restaurant_id,
+                  dealData: {
+                    offerPerCustomerLimit: Number(
+                      currentDeal?.offerPerCustomerLimit
+                    ),
+                    dealTitle: claimData.deal_title,
+                    description: claimData.deal_description,
+                    confirmationId: claimData.confirmationId,
+                    expiry_date: claimData.expiry_date,
+                  },
+                })
+              }
               dealTitle={data.dealData.dealTitle}
               restaurantName={data.name}
               restaurantId={data.id}
