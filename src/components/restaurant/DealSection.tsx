@@ -98,7 +98,7 @@ export function DealSection({ deals, duration, restaurant }: DealSectionProps) {
         hideSuccessModal()
         return;
       }
-      const adjustedExpiryDate = addDays(new Date(restaurantData.dealData.expiry_date), 1);
+      const adjustedExpiryDate = addDays(new Date(restaurantData.dealData.expiry_date), 0);
 
       // First save to database
       const { error: dbError } = await supabase.from('claimed_deals').insert({

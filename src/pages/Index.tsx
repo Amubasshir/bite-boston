@@ -164,7 +164,7 @@ const Index = () => {
 
       // First save to database
       // Adjust the expiry date to ensure the correct date is selected
-      const adjustedExpiryDate = addDays(new Date(restaurantData.dealData.expiry_date), 1);
+      const adjustedExpiryDate = addDays(new Date(restaurantData.dealData.expiry_date), 0);
       const { error: dbError } = await supabase.from('claimed_deals').insert({
         user_id: user.id,
         email: user.email,
