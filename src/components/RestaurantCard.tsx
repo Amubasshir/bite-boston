@@ -151,8 +151,8 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
   const handleSubscribe = () => {
     const isHarvardGrad = user?.user_metadata?.is_harvard_grad;
     const stripeUrl = isHarvardGrad
-      ? 'https://buy.stripe.com/14k16ae9aepFfL2145 '
-      : '    https://buy.stripe.com/eVa16a9SUdlB42kfZ0';
+      ? 'https://buy.stripe.com/14k16ae9aepFfL2145'
+      : 'https://buy.stripe.com/eVa16a9SUdlB42kfZ0';
 
     window.location.href = stripeUrl;
   };
